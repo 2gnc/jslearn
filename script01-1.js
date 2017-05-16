@@ -1,10 +1,33 @@
 "use strict";
 // Задать температуру в градусах по Цельсию. Вывести в alert соответствующую температуру в градусах по Фаренгейту. Подсказка: расчёт идёт по формуле: Tf = (9 / 5) * Tc + 32, где Tf – температура по Фаренгейту, Tc – температура по Цельсию
+
 var celcium = prompt('введите градусы по цельсию (число)', '');
-var celciumnum = +celcium;
-(celciumnum == celcium)? 
-	(
-		console.log("это число"), 
-		console.log("действие 2")
-	): 
-	console.log("вы ввели не число");
+var totalsymbols = celcium.length; //сколько всего символов
+var dot = celcium.indexOf(","); //поиск запятой (исходя из того, что запятая может быть только одна, если человек хочет ввести дробное число)
+var celciumnum;
+var tfahrenheit;
+
+(dot != -1)? //если запятая найдена и ее нужно менять на точку
+(
+intnum = celcium.substr(0,dot), //целое число
+fraction = celcium.substring(dot+1,totalsymbols+1), //дробь
+fractionalnumber = intnum + "." + fraction, // заменили запятую на точку, получили корректное дробное число
+celciumnum = +fractionalnumber //привели к типу данных "число"
+)
+:
+(
+celciumnum = +celcium //если запятой нет, то введенное число или целое или дробное, но в любом случае пригодное к смене типа переменной
+)
+;
+(isNaN(celciumnum))? // проверяем, не ввел ли пользователь буквы вместо чисел и получилось ли преобразовать то, что он ввел в число
+(console.log("вы ввели не число, попробуйте еще раз")) 
+: 
+(
+tfahrenheit = ( 9/5 ) * celciumnum +32
+)
+;
+(isNaN(celciumnum))?
+console.log("обновите страницу")
+:
+console.log( celciumnum + " гр. по Цельсию = " + tfahrenheit + " гр. по Фаренгейту" )
+;
