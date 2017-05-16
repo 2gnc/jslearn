@@ -1,14 +1,14 @@
 "use strict";
 // Задать температуру в градусах по Цельсию. Вывести в alert соответствующую температуру в градусах по Фаренгейту. Подсказка: расчёт идёт по формуле: Tf = (9 / 5) * Tc + 32, где Tf – температура по Фаренгейту, Tc – температура по Цельсию
 
-var celcium = prompt('введите градусы по цельсию (число)', '');
-var totalsymbols = celcium.length; //сколько всего символов
-var dot = celcium.indexOf(","); //поиск запятой (исходя из того, что запятая может быть только одна, если человек хочет ввести дробное число)
 var celciumnum;
 var tfahrenheit;
 var intnum;
 var fraction;
 var fractionalnumber;
+var celcium = prompt('введите градусы по цельсию (число)', '');
+var totalsymbols = celcium.length; //сколько всего символов
+var dot = celcium.indexOf(","); //поиск запятой (исходя из того, что запятая может быть только одна, если человек хочет ввести дробное число)
 
 (dot != -1)? //если запятая найдена и ее нужно менять на точку
 (
@@ -32,7 +32,7 @@ tfahrenheit = ( 9/5 ) * celciumnum +32
 (isNaN(celciumnum))?
 console.log("обновите страницу")
 :
-console.log( celciumnum + " гр. по Цельсию = " + tfahrenheit + " гр. по Фаренгейту" )
+console.log( celciumnum + " гр. по Цельсию = " + tfahrenheit.toFixed(2) + " гр. по Фаренгейту" )
 ;
 
 // Работа с переменными.
