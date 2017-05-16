@@ -1,6 +1,6 @@
 # jslearn
-for java script homework on Geekbrains courses lvl1-2
-В скобках напротив заданий указано, где и как сделоно решение.
+Java script Geekbrains lvl1-2
+В скобках напротив заданий указано, где и как сделано решение.
 
 ### Урок 1-1
 
