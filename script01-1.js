@@ -6,6 +6,9 @@ var totalsymbols = celcium.length; //сколько всего символов
 var dot = celcium.indexOf(","); //поиск запятой (исходя из того, что запятая может быть только одна, если человек хочет ввести дробное число)
 var celciumnum;
 var tfahrenheit;
+var intnum;
+var fraction;
+var fractionalnumber;
 
 (dot != -1)? //если запятая найдена и ее нужно менять на точку
 (
