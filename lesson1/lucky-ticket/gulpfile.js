@@ -5,7 +5,7 @@ var gulp = require('gulp'),
 
 gulp.task('sassToCss', function() {
 	function run() {
-		return gulp.src('assets/*.scss', 'assets/!_*.scss') // return заставляет команды запускаться параллельно?
+		return gulp.src(['assets/*.scss', '!_*.scss']) 
 		.pipe(sass())
 		.pipe(gulp.dest('lucky-ticket/style'))
 	}
