@@ -2,7 +2,6 @@
 
 
 function getnumber() { 
-	return
 	var userNumber = document.getElementById('number').value.toString(); //получили число, преобразовали в строку
 	var first = userNumber[0],
 		second = userNumber[1],
