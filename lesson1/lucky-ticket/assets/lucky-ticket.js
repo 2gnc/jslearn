@@ -3,12 +3,12 @@
 
 function getnumber() { 
 	var userNumber = document.getElementById('number').value.toString(); //получили число, преобразовали в строку
-	var first = userNumber[0],
-		second = userNumber[1],
-		third = userNumber[2],
-		fourth = userNumber[3],
-		fifth = userNumber[4],
-		sixsth = userNumber[5],
+	var first = +userNumber[0],
+		second = +userNumber[1],
+		third = +userNumber[2],
+		fourth = +userNumber[3],
+		fifth = +userNumber[4],
+		sixsth = +userNumber[5],
 		leftPart = +(first + second + third),
 		rightPart = +(fourth + fifth + sixsth),
 		isLucky = leftPart === rightPart;
