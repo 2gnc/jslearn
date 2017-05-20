@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	sass = require('gulp-sass'),
-	pug = require('gulp-pug')
+	pug = require('gulp-pug'),
+	uglify = require('gulp-uglify'),
 	watch = require('gulp-watch');
 
 gulp.task('sassToCss', function() {
@@ -23,5 +24,15 @@ gulp.task('pugToHTML', function() {
 	return run();
 });
 
+gulp.task('uglifyJs', function() {
+	function run() {
+		return gulp.src('assets/*.js')
+			.pipe(uglify())
+			.pipe(gulp.dest('lucky-ticket/scripts'))
+	}
+	watch('assets/*.js', run);
+	return run();
+});
 
-gulp.task('default', ['sassToCss', 'pugToHTML']);
+
+gulp.task('default', ['sassToCss', 'pugToHTML', 'uglifyJs']);
