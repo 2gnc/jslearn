@@ -6,10 +6,13 @@ html(lang="ru")
 		link(rel="stylesheet" href="style/lucky-ticket.css")
 	body
 		div.lucky
+			div.logo
+				p.logo__name Проверятор
+				p.logo__name2 билетов
 			h1.lucky__heading Введите номер билетика
-			p.lucky__instruction В номере билета может быть только четное количество символов
+			p.lucky__instruction В номере билета может быть только шесть символов
 			form.form(action="#")
-				input.form__input#number(type="number" placeholder="например: 111111")
-				button.form__button Проверить
-
+				input.form__input#number(type="number" placeholder="например: 111111" max="999999")
+				button.form__button(onclick="getnumber();") Проверить
+			div.lucky__result.result#isitlucky
 		script(src="scripts/lucky-ticket.js")
