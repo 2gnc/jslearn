@@ -1,12 +1,13 @@
 $formtxt: 16px;
 $elheight: 40px;
+$btnwidth: 105px;
 
 .form {
 //
 }
 
 .form__input {
-	width: 250px;
+	width: 150px;
 	height: $elheight;
 	text-align: center;
 	font-size: $formtxt;
@@ -20,6 +21,7 @@ $elheight: 40px;
 .form__button {
 	position: relative;
 	height: $elheight;
+	width: $btnwidth;
 	margin-left: 20px;
 	padding: 0 10px;
 	font-size: $formtxt;
@@ -30,8 +32,17 @@ $elheight: 40px;
 	border-radius: 10px;
 }
 
+.form__button--more {
+	//background-color: complement($headingcolor);
+	background-color: change-color($headingcolor, $blue: 0, $red:255)
+}
+
 .form__button:hover {
 	background-color: $headingcolor+15%;
+}
+
+.form__button--more:hover {
+	background-color: change-color($headingcolor+15%, $blue: 0, $red:255)
 }
 
 .form__button:active {
