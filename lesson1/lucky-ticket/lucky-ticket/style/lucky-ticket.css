@@ -60,14 +60,8 @@
   color: white;
   border-radius: 10px; }
 
-.form__button--more {
-  background-color: #ff6900; }
-
 .form__button:hover {
   background-color: #5078f0; }
-
-.form__button--more:hover {
-  background-color: #ff7800; }
 
 .form__button:active {
   transform: translate(2px, 2px); }
