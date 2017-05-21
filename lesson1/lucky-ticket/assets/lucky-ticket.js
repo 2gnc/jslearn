@@ -12,18 +12,11 @@ function getnumber() {
 		leftPart = +(first + second + third),
 		rightPart = +(fourth + fifth + sixsth),
 		isLucky = leftPart === rightPart;
-	console.log( isLucky );
-
-	//document.getElementById('isitlucky').innerHTML = '<span>' + isLucky ;
 function showResult() {
 (isLucky == true)? 
 document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты <span class="result--yes">счастливчик!</span> </p>': 
 document.getElementById('isitlucky').innerHTML = '<p class="result__text">Тебе <span class="result--no">не повезло</span> </p>';
 };
-
-
-
-
 	(userNumber.length != 6)? 
 	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
 
