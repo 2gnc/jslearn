@@ -1,12 +1,51 @@
-var gulp = require( 'gulp' ),
-	pug = require( 'gulp-pug' );
+var gulp 		= require( 'gulp' ),
+	pug 		= require( 'gulp-pug' ),
+	sass 		= require( 'gulp-sass' ),
+	csso 		= require( 'gulp-csso' ),
+	concat 		= require( 'gulp-concat' ),
+	rename 		= require( 'gulp-rename' ),
+	browserSync = require('browser-sync');
 
-gulp.task('pug', function() {
-	return gulp.src('src/**.pug')
+gulp.task( 'pug', function() {
+	return gulp.src( 'src/**.pug' )
 	.pipe(pug())
-	.pipe(gulp.dest('app/'));
+	.pipe(gulp.dest( 'app/' ))
+	.pipe(browserSync.reload({stream:true}))
 });
 
-gulp.task( 'watch', function() {
-	gulp.watch( 'src/**.pug', ['pug'] );
+gulp.task( 'sass', function() {
+	return gulp.src( 'src/**/**.sass' )
+	.pipe(sass())
+	.pipe(csso())
+	.pipe(rename({suffix: '.min'}))
+	.pipe(gulp.dest( 'app/css/' ))
+	.pipe(browserSync.reload({stream:true}))
 });
+
+gulp.task( 'cssForCheck', function() {
+	return gulp.src( 'src/**/**.sass' )
+	.pipe(sass())
+	.pipe(gulp.dest( 'tmp/' ))
+	.pipe(browserSync.reload({stream:true}))
+});
+
+gulp.task ( 'jsconcat', function() {
+	return gulp.src( 'src/**/**.js' )
+	.pipe(concat('scripts.js'))
+	.pipe(gulp.dest( 'app/js/' ))
+	.pipe(browserSync.reload({stream:true}))
+});
+
+gulp.task( 'browserSync', function() {
+	browserSync({
+		server: {
+			baseDir: 'app'
+		},
+		notify: false
+	});
+});
+
+gulp.task( 'watch', ['browserSync', 'sass', 'pug', 'jsconcat', 'cssForCheck'], function() {
+	gulp.watch( 'src/**/**.**', ['pug', 'sass'] );
+});
+
