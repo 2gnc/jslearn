@@ -1,0 +1,33 @@
+.average
+	@include sec-common(#ff4500, #ffd700)
+
+	&__inputs
+		width: 500px
+		margin: 0 auto
+		display: flex
+		justify-content: space-around
+		align-items: center
+
+	&__value
+		border-radius: 50%
+		width: 50px
+		height: 50px
+		text-align: center
+		border: none
+		box-shadow: 0 0 15px 0 #212121
+		font-size: 1em
+		font-weight: bold
+
+		&:focus
+			outline: none
+
+	&__button
+		background-color: gold
+		color: #212121
+		width: 75px
+		height: 40px
+		border: none
+
+	&__button:hover
+		background-color: yellow
+		color: #212121

@@ -19,9 +19,10 @@ html(lang="ru")
 		section.apples
 			div.logo
 				p.logo__name Разборки из-за яблок
-			h1.task-info__heading Введите исходное количество
-			p.task-info__instruction Укажите сколько было яблок у Фрая и Лилы и посмотите, что получилось
-			hr.task-info__line
+			div.task-info
+				h1.task-info__heading Введите исходное количество
+				p.task-info__instruction Укажите сколько было яблок у Фрая и Лилы и посмотите, что получилось
+				hr.task-info__line
 			div.apples__inputs
 				label.apples__owner.apples__owner--fry
 					input.apples__value#petya(type='number')
@@ -31,5 +32,17 @@ html(lang="ru")
 					input.apples__value#dima(type='number' value='8' disabled)
 				button.cartoon-button.cartoon-button__layout(onclick="countApples();") ? 
 			div.apples__results#result-box
+		section.average
+			div.logo
+				p.logo__name Поиск среднего числа
+			div.task-info
+				h1.task-info__heading Введите три числа
+				p.task-info__instruction Нажмите на кнопку и узнаете, какое из них среднее
+				hr.task-info__line
+			div.average__inputs
+				input.average__value#firstNum
+				input.average__value#secondNum
+				input.average__value#thirdNum
+				button.average__button(onclick="average();") Узнать
 		script(src="js/scripts.js")
 
