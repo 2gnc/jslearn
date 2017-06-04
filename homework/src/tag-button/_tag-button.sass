@@ -1,0 +1,30 @@
+.tag-button
+	position: relative
+	height: 40px
+	width: 105px
+	margin-left: 20px
+	padding: 0 10px
+	font-size: 16px
+	font-family: 'Roboto', sans-serif
+	border-width: 0
+	background-color: rgba(65, 105, 225, 1)
+	color: $txtcolor
+	border-radius: 10px
+	&:hover
+		background-color: rgba(65, 105, 225, 1)+15%
+	&:active 
+		transform: translate(2px, 2px)
+	&:focus
+		outline: none
+	&:before
+		position: absolute
+		z-index: -1
+		content: ''
+		width: 80px
+		height: 20px
+		bottom: 19px
+		left: 17px
+		box-shadow: 0 21px 10px rgba(0, 0, 0, 0.7)
+		transform: rotate(7deg)
+	&:active:before
+		box-shadow: 0 21px 10px rgba(0, 0, 0, 0)
