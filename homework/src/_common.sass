@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&subset=cyrillic')
 
 $fontfamily: 'Roboto', sans-serif
-$sectionwidth: 1170px
-$sectionpadding: 20px
-$txtcolor: white
 $hcolor: #212121
 
 *
@@ -12,3 +9,12 @@ $hcolor: #212121
 
 body
 	font-family: $fontfamily
+
+@mixin sec-common($gradcolor1, $gradcolor2)
+	width: 1170px
+	margin: 0 auto
+	padding: 20px
+	background-image: linear-gradient(to top, $gradcolor1 40%, $gradcolor2 100%)
+	font-family: 'Roboto', sans-serif
+	color: $hcolor
+	text-align: center

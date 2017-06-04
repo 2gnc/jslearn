@@ -1,0 +1,78 @@
+.apples
+	@include sec-common(#7FFFD4, #3CB371)
+
+	&__inputs
+		background-color: white
+		background-image: linear-gradient(90deg, rgba(33, 27, 25, 0.4) 0%, rgba(78, 52, 39, 0.4) 100%), url(../img/apples-01.jpg)
+		background-origin: content-box
+		background-size: contain
+		background-repeat: no-repeat
+		width: 500px
+		margin: 0 auto
+		height: 283px
+		padding: 3px
+		position: relative
+
+	&__value
+		width: 75px
+		height: 40px
+		border-radius: 10px
+		border: none
+		text-align: center
+		font-size: 1em
+		font-weight: bold
+		box-shadow: 0 0 10px 3px #212121
+
+		&:focus
+			outline: none
+			background-color: #fffcb9
+
+	&__owner
+		color: #212121
+		position: absolute
+		top: 15px
+
+		&--fry
+			right: 40px
+
+		&--lila
+			left: 100px
+
+		&--bender
+			left: 260px
+
+	&__results
+		width: 100%
+		height: 250px
+		margin-top: 10px
+		display: flex
+		justify-content: space-around
+
+	&__log
+		background-repeat: no-repeat
+		width: 290px
+		padding-top: 170px
+		padding-bottom: 10px
+		border: 3px solid white
+		background-color: white
+		
+		&--caseone
+			background-image: url(../img/apples-02.jpg)
+
+		&--casetwo
+			background-image: url(../img/apples-03.jpg)
+
+		&--casethree
+			background-image: url(../img/apples-04.jpg)
+
+		&--casefour
+			background-image: url(../img/apples-05.jpg)
+
+		&--casefive
+			background-image: url(../img/apples-06.jpg)
+
+		&--casesix
+			background-image: url(../img/apples-07.jpg)
+
+		&--caseseven
+			background-image: url(../img/apples-08.jpg)

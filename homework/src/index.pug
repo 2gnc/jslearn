@@ -8,12 +8,28 @@ html(lang="ru")
 		section.lucky
 			div.logo
 				p.logo__name Проверятор билетиков
-			h1.lucky__heading Введите номер билетика
-			p.lucky__instruction В номере билета может быть только шесть символов
+			div.task-info
+				h1.task-info__heading Введите номер билетика
+				p.task-info__instruction В номере билета может быть только шесть символов
+				hr.task-info__line
 			div.lucky__check
 				input.form__input#number(type="number" max="999999")
 				button.tag-button(onclick="getnumber();") Проверить
 				div.lucky__result#isitlucky
 		section.apples
+			div.logo
+				p.logo__name Разборки из-за яблок
+			h1.task-info__heading Введите исходное количество
+			p.task-info__instruction Укажите сколько было яблок у Фрая и Лилы и посмотите, что получилось
+			hr.task-info__line
+			div.apples__inputs
+				label.apples__owner.apples__owner--fry
+					input.apples__value#petya(type='number')
+				label.apples__owner.apples__owner--lila
+					input.apples__value#masha(type='number')
+				label.apples__owner.apples__owner--bender
+					input.apples__value#dima(type='number' value='8' disabled)
+				button.cartoon-button.cartoon-button__layout(onclick="countApples();") ? 
+			div.apples__results#result-box
 		script(src="js/scripts.js")
 

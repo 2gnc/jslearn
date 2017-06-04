@@ -22,7 +22,7 @@ gulp.task( 'sass', function() {
 	.pipe(browserSync.reload({stream:true}))
 });
 
-gulp.task ( 'jsconcat', function() {
+gulp.task( 'jsconcat', function() {
 	return gulp.src( 'src/**/**.js' )
 	.pipe(concat('scripts.js'))
 	.pipe(gulp.dest( 'app/js/' ))
@@ -47,6 +47,6 @@ gulp.task( 'cssForCheck', function() {
 });
 
 gulp.task( 'watch', ['browserSync', 'sass', 'pug', 'jsconcat'], function() {
-	gulp.watch( 'src/**/**.**', ['pug', 'sass'] );
+	gulp.watch( 'src/**/**.**', ['pug', 'sass', 'jsconcat'] );
 });
 
