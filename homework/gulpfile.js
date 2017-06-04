@@ -22,13 +22,6 @@ gulp.task( 'sass', function() {
 	.pipe(browserSync.reload({stream:true}))
 });
 
-gulp.task( 'cssForCheck', function() {
-	return gulp.src( 'src/**/**.sass' )
-	.pipe(sass())
-	.pipe(gulp.dest( 'tmp/' ))
-	.pipe(browserSync.reload({stream:true}))
-});
-
 gulp.task ( 'jsconcat', function() {
 	return gulp.src( 'src/**/**.js' )
 	.pipe(concat('scripts.js'))
@@ -45,7 +38,15 @@ gulp.task( 'browserSync', function() {
 	});
 });
 
-gulp.task( 'watch', ['browserSync', 'sass', 'pug', 'jsconcat', 'cssForCheck'], function() {
+//для разовой генерации читабельного CSS
+gulp.task( 'cssForCheck', function() {
+	return gulp.src( 'src/**/**.sass' )
+	.pipe(sass())
+	.pipe(gulp.dest( 'tmp/' ))
+	.pipe(browserSync.reload({stream:true}))
+});
+
+gulp.task( 'watch', ['browserSync', 'sass', 'pug', 'jsconcat'], function() {
 	gulp.watch( 'src/**/**.**', ['pug', 'sass'] );
 });
 
