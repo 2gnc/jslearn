@@ -4,6 +4,7 @@ html(lang="ru")
 		meta(charset="UTF-8")
 		title JS lvl.1 homeworks
 		link(rel="stylesheet" href="css/main.min.css")
+		link(rel="stylesheet" href="css/font-awesome.min.css")
 	body
 		section.lucky
 			div.logo
@@ -36,13 +37,15 @@ html(lang="ru")
 			div.logo
 				p.logo__name Поиск среднего числа
 			div.task-info
-				h1.task-info__heading Введите три числа
+				h1.task-info__heading Введите три разных числа
 				p.task-info__instruction Нажмите на кнопку и узнаете, какое из них среднее
 				hr.task-info__line
 			div.average__inputs
 				input.average__value#firstNum
 				input.average__value#secondNum
 				input.average__value#thirdNum
-				button.average__button(onclick="average();") Узнать
+				button.average__button#check-button(onclick="findAverage();") Узнать
+				button.average__button(onclick="refresh();")
+					i(class="fa fa-refresh" aria-hidden="true")
 		script(src="js/scripts.js")
 

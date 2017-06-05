@@ -1,5 +1,5 @@
 .average
-	@include sec-common(#ff4500, #ffd700)
+	@include sec-common(#ffd700, #ff4500)
 
 	&__inputs
 		width: 500px
@@ -21,13 +21,33 @@
 		&:focus
 			outline: none
 
+		&--wrong
+			box-shadow: 0 0 15px 1px red inset
+			color: red
+
 	&__button
-		background-color: gold
+		background-color: #FF6347
 		color: #212121
+		font-size: 16px
+		font-weight: bold
 		width: 75px
 		height: 40px
 		border: none
+		box-shadow: 2px 2px 5px 0 #212121
+		transition: all 0.3s linear 0s
 
-	&__button:hover
-		background-color: yellow
-		color: #212121
+		&:hover
+			background-color: orange
+			color: #212121
+
+		&:focus
+			outline: none
+
+		&:active
+			box-shadow: 0 0 5px 0 #212121
+			transform: translate(2px, 2px)
+
+		&--checked
+			background-color: orange
+			box-shadow: 0 0 5px 0 #212121
+			transform: translate(2px, 2px)
