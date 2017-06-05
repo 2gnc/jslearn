@@ -21,7 +21,7 @@ html(lang="ru")
 			div.logo
 				p.logo__name Разборки из-за яблок
 			div.task-info
-				h1.task-info__heading Введите исходное количество
+				h1.task-info__heading Введите исходное количество яблок
 				p.task-info__instruction Укажите сколько было яблок у Фрая и Лилы и посмотите, что получилось
 				hr.task-info__line
 			div.apples__inputs
@@ -47,5 +47,12 @@ html(lang="ru")
 				button.average__button#check-button(onclick="findAverage();") Узнать
 				button.average__button(onclick="refresh();")
 					i(class="fa fa-refresh" aria-hidden="true")
+		section.different
+			div.logo
+				p.logo__name Отличное число
+			div.task-info
+				h1.task-info__heading Введите четыре целых числа
+				p.task-info__instruction Три из них должны быть одинаковыми и одно - отличное. Программа определит порядковый номер отличного числа.
+				hr.task-info__line
 		script(src="js/scripts.js")
 
