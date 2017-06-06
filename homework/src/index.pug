@@ -52,7 +52,15 @@ html(lang="ru")
 				p.logo__name Отличное число
 			div.task-info
 				h1.task-info__heading Введите четыре целых числа
-				p.task-info__instruction Три из них должны быть одинаковыми и одно - отличное. Дробные части будут отброшеныю Программа определит порядковый номер отличного числа.
+				p.task-info__instruction Три из них должны быть одинаковыми и одно - отличное. Дробные части будут отброшены. Программа определит, кто из их отличается от других.
 				hr.task-info__line
+			div.different__inputs
+				input.different__value#n1
+				input.different__value#n2
+				input.different__value#n3
+				input.different__value#n4
+			button.different__button(onclick="findDifferent();") Узнать
+			button.different__button(onclick="refreshDifferent();")
+				i(class="fa fa-refresh" aria-hidden="true")
 		script(src="js/scripts.js")
 

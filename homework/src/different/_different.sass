@@ -1,3 +1,38 @@
 .different
 	@include sec-common(#dda0dd, #9932cc)
-	//test
+	&__inputs
+		width: 400px
+		height: 225px
+		margin: 0 auto
+		background-image: url(../img/different-01.jpg)
+		background-repeat: no-repeat
+		display: flex
+		justify-content: space-around
+		align-items: flex-end
+	&__value
+		width: 60px
+		height: 60px
+		margin-bottom: 10px
+		text-align: center
+		font-size: 1em
+		font-weight: bold
+		&:focus
+			outline: none
+	&__button
+		color: white
+		background-color: #9932cc
+		font-size: 16px
+		font-weight: 500
+		height: 40px
+		padding: 0 15px
+		border: none
+		box-shadow: 2px 2px 5px 0 #212121
+		transition: all 0.2s linear 0s
+		margin: 20px
+		&:hover
+			background-color: #dda0dd
+		&:focus
+			outline: none
+		&:active
+			box-shadow: 0 0 5px 0 #212121
+			transform: translate(2px, 2px)
