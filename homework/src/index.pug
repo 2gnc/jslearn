@@ -6,17 +6,35 @@ html(lang="ru")
 		link(rel="stylesheet" href="css/main.min.css")
 		link(rel="stylesheet" href="css/font-awesome.min.css")
 	body
-		section.lucky
+		section.different
 			div.logo
-				p.logo__name Проверятор билетиков
+				p.logo__name Отличное число
 			div.task-info
-				h1.task-info__heading Введите номер билетика
-				p.task-info__instruction В номере билета может быть только шесть символов
+				h1.task-info__heading Введите четыре целых числа
+				p.task-info__instruction Три из них должны быть одинаковыми и одно - отличное. Дробные части будут отброшены. Программа определит, кто из их отличается от других.
 				hr.task-info__line
-			div.lucky__check
-				input.form__input#number(type="number" max="999999")
-				button.tag-button(onclick="getnumber();") Проверить
-				div.lucky__result#isitlucky
+			div.different__inputs
+				input.different__value#n1
+				input.different__value#n2
+				input.different__value#n3
+				input.different__value#n4
+			button.different__button(onclick="findDifferent();") Узнать
+			button.different__button(onclick="refreshDifferent();")
+				i(class="fa fa-refresh" aria-hidden="true")
+		section.average
+			div.logo
+				p.logo__name Поиск среднего числа
+			div.task-info
+				h1.task-info__heading Введите три разных числа
+				p.task-info__instruction Нажмите на кнопку и программа выберет из них среднее
+				hr.task-info__line
+			div.average__inputs
+				input.average__value#firstNum
+				input.average__value#secondNum
+				input.average__value#thirdNum
+				button.average__button#check-button(onclick="findAverage();") Узнать
+				button.average__button(onclick="refresh();")
+					i(class="fa fa-refresh" aria-hidden="true")
 		section.apples
 			div.logo
 				p.logo__name Разборки из-за яблок
@@ -33,34 +51,16 @@ html(lang="ru")
 					input.apples__value#dima(type='number' value='8' disabled)
 				button.cartoon-button.cartoon-button__layout(onclick="countApples();") ? 
 			div.apples__results#result-box
-		section.average
+		section.lucky
 			div.logo
-				p.logo__name Поиск среднего числа
+				p.logo__name Проверятор билетиков
 			div.task-info
-				h1.task-info__heading Введите три разных числа
-				p.task-info__instruction Нажмите на кнопку и программа выберет из них среднее
+				h1.task-info__heading Введите номер билетика
+				p.task-info__instruction В номере билета может быть только шесть символов
 				hr.task-info__line
-			div.average__inputs
-				input.average__value#firstNum
-				input.average__value#secondNum
-				input.average__value#thirdNum
-				button.average__button#check-button(onclick="findAverage();") Узнать
-				button.average__button(onclick="refresh();")
-					i(class="fa fa-refresh" aria-hidden="true")
-		section.different
-			div.logo
-				p.logo__name Отличное число
-			div.task-info
-				h1.task-info__heading Введите четыре целых числа
-				p.task-info__instruction Три из них должны быть одинаковыми и одно - отличное. Дробные части будут отброшены. Программа определит, кто из их отличается от других.
-				hr.task-info__line
-			div.different__inputs
-				input.different__value#n1
-				input.different__value#n2
-				input.different__value#n3
-				input.different__value#n4
-			button.different__button(onclick="findDifferent();") Узнать
-			button.different__button(onclick="refreshDifferent();")
-				i(class="fa fa-refresh" aria-hidden="true")
+			div.lucky__check
+				input.form__input#number(type="number" max="999999")
+				button.tag-button(onclick="getnumber();") Проверить
+				div.lucky__result#isitlucky
 		script(src="js/scripts.js")
 
