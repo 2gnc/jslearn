@@ -5,7 +5,8 @@ var gulp 					= require( 'gulp' ),
 		concat 				= require( 'gulp-concat' ),
 		rename 				= require( 'gulp-rename' ),
 		browserSync 	= require('browser-sync'),
-		autoprefixer 	= require('gulp-autoprefixer');
+		autoprefixer 	= require('gulp-autoprefixer'),
+		sftp 					= require('gulp-sftp');
 
 gulp.task( 'pug', function() {
 	return gulp.src( 'src/**.pug' )
@@ -49,10 +50,21 @@ gulp.task( 'cssForCheck', function() {
 	.pipe(sass())
 	.pipe(autoprefixer({
 		browsers: ['last 3 versions'],
-		cascade: false
+		cascade: 	false
 	}))
 	.pipe(gulp.dest( 'tmp/' ))
 	.pipe(browserSync.reload({stream:true}))
+});
+
+//для отправки на хостинг
+gulp.task('deploy', function () {
+    return gulp.src('app/**/**')
+        .pipe(sftp({
+            host: 			'vh12.timeweb.ru',
+            user: 			'cj04987',
+            pass: 			'',
+            remotePath: 'study.tmweb.ru/public_html/js1'
+        }));
 });
 
 gulp.task( 'watch', ['browserSync', 'sass', 'pug', 'jsconcat'], function() {
