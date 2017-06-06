@@ -1,10 +1,11 @@
-var gulp 		= require( 'gulp' ),
-	pug 		= require( 'gulp-pug' ),
-	sass 		= require( 'gulp-sass' ),
-	csso 		= require( 'gulp-csso' ),
-	concat 		= require( 'gulp-concat' ),
-	rename 		= require( 'gulp-rename' ),
-	browserSync = require('browser-sync');
+var gulp 					= require( 'gulp' ),
+		pug 					= require( 'gulp-pug' ),
+		sass 					= require( 'gulp-sass' ),
+		csso 					= require( 'gulp-csso' ),
+		concat 				= require( 'gulp-concat' ),
+		rename 				= require( 'gulp-rename' ),
+		browserSync 	= require('browser-sync'),
+		autoprefixer 	= require('gulp-autoprefixer');
 
 gulp.task( 'pug', function() {
 	return gulp.src( 'src/**.pug' )
@@ -16,6 +17,10 @@ gulp.task( 'pug', function() {
 gulp.task( 'sass', function() {
 	return gulp.src( 'src/**/**.sass' )
 	.pipe(sass())
+	.pipe(autoprefixer({
+		browsers: ['last 3 versions'],
+		cascade: false
+	}))
 	.pipe(csso())
 	.pipe(rename({suffix: '.min'}))
 	.pipe(gulp.dest( 'app/css/' ))
@@ -42,6 +47,10 @@ gulp.task( 'browserSync', function() {
 gulp.task( 'cssForCheck', function() {
 	return gulp.src( 'src/**/**.sass' )
 	.pipe(sass())
+	.pipe(autoprefixer({
+		browsers: ['last 3 versions'],
+		cascade: false
+	}))
 	.pipe(gulp.dest( 'tmp/' ))
 	.pipe(browserSync.reload({stream:true}))
 });
