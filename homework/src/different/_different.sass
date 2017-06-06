@@ -4,18 +4,26 @@
 		width: 400px
 		height: 225px
 		margin: 0 auto
+		background-color: white
 		background-image: url(../img/different-01.jpg)
 		background-repeat: no-repeat
+		background-position: center center
 		display: flex
 		justify-content: space-around
 		align-items: flex-end
+		padding: 3px
 	&__value
-		width: 60px
-		height: 60px
+		width: 50px
+		height: 50px
 		margin-bottom: 10px
 		text-align: center
 		font-size: 1em
 		font-weight: bold
+		border: none
+		&--this
+			box-shadow: 0 0 15px 1px green inset, 0 0 15px 1px green
+		&--wrong
+			box-shadow: 0 0 15px 1px red inset, 0 0 15px 1px red
 		&:focus
 			outline: none
 	&__button
