@@ -11,9 +11,11 @@ html(lang="ru")
 				p.logo__name Описание числа
 			div.task-info
 				h1.task-info__heading Нажмите кнопку
-				p.task-info__instruction Программа выведет текстовое описание числа
+				p.task-info__instruction Программа сгенерирует трехзначное число и выведет его текстовое описание
 				hr.task-info__line
 			div.number-desc__box
+				button.number-desc__randomise(onclick="randomise();")
+					i(class="fa fa-random" aria-hidden="true")
 				div.number-desc__item
 				div.number-desc__item
 				div.number-desc__item
