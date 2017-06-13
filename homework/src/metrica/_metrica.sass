@@ -4,6 +4,7 @@
 		margin: 0 auto
 		position: relative
 		z-index: 1
+		color: black
 	&__box
 		font-size: 13px
 	&__label
@@ -15,7 +16,7 @@
 		box-sizing: border-box
 		outline: none
 		width: 160px
-		height: 28px
+		height: 35px
 		border: 2px solid #ffdb4d
 		&::-webkit-inner-spin-button
 			display: none
@@ -27,18 +28,22 @@
 			color: rgb(153, 153, 153)
 	&__button
 		background-color: #ffdb4d
-		height: 28px
+		height: 35px
 		border: 0
 		padding-left: 10px
 		padding-right: 10px
+		font-size: 16px
+		color: #000
+		&:focus
+			outline: none
 	&__button:before
 		color: transparent
 		position: absolute
 		top: 0
-		right: 362px
+		right: 356px
 		width: 0
 		height: 0
 		content: ''
 		border-style: solid
 		border-left-color: #ffdb4d
-		border-width: 14px 0 14px 12px
+		border-width: 17px 0 17px 12px

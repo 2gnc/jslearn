@@ -226,6 +226,8 @@ function refreshDifferent() {
 		a[i].value = '';
 	}
 };
+'use strict';
+
 "use strict";
 //test
 
@@ -248,8 +250,6 @@ document.getElementById('isitlucky').innerHTML = '<p class="result__text">Теб
 	(userNumber.length != 6)? 
 	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
 };
-'use strict';
-
 'use strict'
 //функция для получения случайного целого числа
 function randomise() {
