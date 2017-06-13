@@ -295,6 +295,10 @@ function randomise() {
 	}
 //функция с задержкой показывает на доске, какое число: четное или не четное
 	function showDescription(numberToDescript) {
+// очищаем предыдущее описание числа, если оно было
+		if ( placeForDescription.innerHTML !== '' ) {
+		placeForDescription.innerHTML = '';
+		}
 		setTimeout( function(){
 			if ( numberToAnalize%2 != 0 ) {
 				placeForDescription.innerHTML = 'Это нечетное целое число';
