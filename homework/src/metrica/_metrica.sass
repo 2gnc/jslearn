@@ -1,11 +1,12 @@
 .metrica
 	@include sec-common(white, white)
 	&__box
-		margin: 0 auto
 		position: relative
 		z-index: 1
 		color: black
-	&__box
+		display: flex
+		justify-content: center
+		align-items: center
 		font-size: 13px
 	&__label
 		&:after
@@ -27,6 +28,7 @@
 		&::placeholder
 			color: rgb(153, 153, 153)
 	&__button
+		box-sizing: border-box
 		background-color: #ffdb4d
 		height: 35px
 		border: 0
@@ -40,10 +42,39 @@
 		color: transparent
 		position: absolute
 		top: 0
-		right: 356px
+		right: 355px
 		width: 0
 		height: 0
 		content: ''
 		border-style: solid
 		border-left-color: #ffdb4d
-		border-width: 17px 0 17px 12px
+		border-width: 18px 0 18px 12px
+	&__stats
+		width: 450px
+		margin: 20px auto 0 auto
+		font-size: 13px
+	&__table
+		width: 100%
+		border: 1px solid rgb(236, 236, 236)
+		border-collapse: collapse
+	&__row
+	&__row--header
+		background-color: rgb(246, 245, 243)
+		height: 46px
+		border-bottom: 1px solid rgb(236, 236, 236)
+	&__col
+		border-right: 1px solid rgb(236, 236, 236)
+	&__col--first
+		width: 58%
+	&__col--second
+		width: 20%
+	&__col--third
+		width: 20%
+	&__cell
+		text-align: left
+		padding-left: 20px
+	&__cell--header
+		font-weight: 900
+		font-size: 110%
+		padding-left: 0
+		text-align: center
