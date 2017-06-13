@@ -10,12 +10,12 @@ html(lang="ru")
 			div.logo
 				p.logo__name Счетчик посещений
 			div.task-info
-				h1.task-info__heading Введите продолжительность посещения
-				p.task-info__instruction Длительность посещения вводится в секундах, можно ввести несколько значений
+				h1.task-info__heading Введите длительность посещения
+				p.task-info__instruction Длительность посещения вводится в секундах, можно вводить несколько раз
 				hr.task-info__line
 			div.metrica__box
-				label.metrica__label(for='visit-duration') Введите продолжительность визита
-				input.metrica__input#visit-duration(type='number')
+				label.metrica__label(for='visit-duration') Длительность посещения
+				input.metrica__input#visit-duration(type='number' placeholder='количество секунд')
 				button.metrica__button Ввод
 				button.metrica__button Очистить отчет
 		section.number-desc
