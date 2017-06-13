@@ -6,6 +6,18 @@ html(lang="ru")
 		link(rel="stylesheet" href="css/main.min.css")
 		link(rel="stylesheet" href="css/font-awesome.min.css")
 	body
+		section.metrica
+			div.logo
+				p.logo__name Счетчик посещений
+			div.task-info
+				h1.task-info__heading Введите продолжительность посещения
+				p.task-info__instruction Длительность посещения вводится в секундах, можно ввести несколько значений
+				hr.task-info__line
+			div.metrica__box
+				label.metrica__label(for='visit-duration') Введите продолжительность визита
+				input.metrica__input#visit-duration(type='number')
+				button.metrica__button Ввод
+				button.metrica__button Очистить отчет
 		section.number-desc
 			div.logo
 				p.logo__name Описание числа
