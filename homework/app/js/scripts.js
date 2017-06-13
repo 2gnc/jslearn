@@ -255,8 +255,12 @@ function randomise() {
 
 //получим в массив все элементы, внутрь которых надо вставлять рандомайзер
 	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+//
 		finalRandomNumber = [],
-		numberToAnalize;
+//
+		numberToAnalize,
+// куда выводить текстовое описание
+		placeForDescription = document.getElementById( 'result' );
 
 //функция дает случайное целое число
 	function getRandomNumber() {
@@ -265,7 +269,7 @@ function randomise() {
 
 //функция выводит элементы с задержкой 0.2 секунды
 	function makeRandomNumber(where) {
-//получаем массив из 10 случайных чисел
+//получаем массив из 10 случайных чисел, которые будем анимировать
 	let numbersForScroll = [];
 	for ( let k = 0; k < 10; k++ ) {
 		numbersForScroll.push(getRandomNumber());
@@ -288,15 +292,26 @@ function randomise() {
 			)();
 			return finalRandomNumber;
 	}
+//функция с задержкой показывает на доске, какое число: четное или не четное
+	function showDescription(numberToDescript) {
+		setTimeout( function(){
+			if ( numberToAnalize%2 != 0 ) {
+				placeForDescription.innerHTML = 'Это нечетное целое число';
+			}
+			else {
+				placeForDescription.innerHTML = 'Это четное целое число';
+			}}
+		, 2500)
+	};
 
-//для масива с элементами для простановки случайных чисел вызываем рандомайзер
+//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
+//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
 	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
 		makeRandomNumber(elementsToPlaseRandomizer[i]);
 	}
 
 //получили трехзначное число для последующего анализа
 numberToAnalize = parseInt(finalRandomNumber.join(''));
-console.log ( numberToAnalize );
-
+showDescription(numberToAnalize);
 
 };

@@ -1,18 +1,37 @@
 .number-desc
 	@include sec-common(#ffa07a, #32cd32)
 	&__box
-		width: 500px
+		border: 3px solid white
+		width: 400px
+		height: 290px
 		margin: 0 auto
+		background-image: url(../img/number-desc.jpg)
+		position: relative
+	&__items
 		display: flex
-		align-content: flex-end
 		justify-content: center
+		transform: rotate(-11deg)
+		position: absolute
+		top: 80px
+		left: 170px
 	&__item
-		width: 50px
-		height: 60px
-		background-color: #eee8aa
 		margin-right: 10px
-		margin-top: 9px
+		margin-top: 40px
+		color: #212121
+		font-weight: bold
+		font-size: 2em
+		line-height: 2em
+	&__result
+		width: 150px
+		height: 100px
+		position: absolute
+		left: 140px
+		top: 20px
+		font-weight: bold
 	&__randomise
+		position: absolute
+		top: 210px
+		left: 56px
 		color: #212121
 		background-color: #ff6347
 		font-size: 30px
@@ -23,7 +42,7 @@
 		border: none
 		box-shadow: 2px 2px 5px 0 #212121
 		transition: all 0.2s linear 0s
-		margin: 20px
+		box-shadow: 0 0 2px 2px white
 		&:hover
 			background-color: #7cfc00
 		&:focus
