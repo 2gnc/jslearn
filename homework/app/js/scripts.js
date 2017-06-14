@@ -157,28 +157,6 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
-"use strict";
-//test
-
-function getnumber() { 
-	var userNumber = document.getElementById('number').value; //получили число в виде строки
-	var first = +userNumber[0],
-		second = +userNumber[1],
-		third = +userNumber[2],
-		fourth = +userNumber[3],
-		fifth = +userNumber[4],
-		sixsth = +userNumber[5],
-		leftPart = first + second + third,
-		rightPart = fourth + fifth + sixsth,
-		isLucky = leftPart === rightPart;
-function showResult() {
-(isLucky == true)? 
-document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты <span class="result--yes">счастливчик!</span> </p>': 
-document.getElementById('isitlucky').innerHTML = '<p class="result__text">Тебе <span class="result--no">не повезло</span> </p>';
-};
-	(userNumber.length != 6)? 
-	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
-};
 'use strict';
 
 function findDifferent() {
@@ -248,9 +226,33 @@ function refreshDifferent() {
 		a[i].value = '';
 	}
 };
+"use strict";
+//test
+
+function getnumber() { 
+	var userNumber = document.getElementById('number').value; //получили число в виде строки
+	var first = +userNumber[0],
+		second = +userNumber[1],
+		third = +userNumber[2],
+		fourth = +userNumber[3],
+		fifth = +userNumber[4],
+		sixsth = +userNumber[5],
+		leftPart = first + second + third,
+		rightPart = fourth + fifth + sixsth,
+		isLucky = leftPart === rightPart;
+function showResult() {
+(isLucky == true)? 
+document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты <span class="result--yes">счастливчик!</span> </p>': 
+document.getElementById('isitlucky').innerHTML = '<p class="result__text">Тебе <span class="result--no">не повезло</span> </p>';
+};
+	(userNumber.length != 6)? 
+	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
+};
 'use strict';
 //кнопка "Добавить"
 const 	buttonAdd = document.getElementById( 'view-duration-add' ),
+// ссылка "сбросить счетчик"
+		linkReset = document.getElementById( 'resetter' ),
 // ячейки "Количество просмотров" и "Процент просмотров"
 		numberOfViews = document.getElementById( 'views-num' ),
 		percentOfViews = document.getElementById( 'views-percent' ),
@@ -288,32 +290,68 @@ function viewsTotalCounter() {
 		++numOfViews;
 		numberOfViews.innerHTML = numOfViews;
 		percentOfViews.innerHTML = '100';
+		document.getElementById( 'view-duration' ).value = '';
 
 		if ( viewDuration < 10 ) {
 			++numOfRejects;
 			numberOfRejects.innerHTML = numOfRejects;
+			countPercents();
 		}
 
-		if ( viewDuration >= 10 && viewDuration < 60 ) {
+		if ( viewDuration >= 10 && viewDuration < 3600 ) {
 			++numOfAttentives;
 			numberOfAttentives.innerHTML = numOfAttentives;
+			countPercents();
 		}
 
 		if ( viewDuration >= 10 ) {
 			++numOfVisits;
 			numberOfVisits.innerHTML = numOfVisits;
+			countPercents();
 		}
 // после учета всех возможных случаев рассчитаем проценты по каждому показателю
+	//percentOfRejects.innerHTML = 100 * numOfRejects / numOfVisits;
+	// пересчитываем все проценты
+	function countPercents() {
+		percentOfRejects.innerHTML = Math.round( 100 * numOfRejects / numOfViews );
+		percentOfAttentives.innerHTML = Math.round( 100 * numOfAttentives / numOfViews );
+		percentOfVisits.innerHTML = Math.round( 100 * numOfVisits / numOfViews );
+	};
 
-	}
+// Функция для сброса счетчиков
+	function reseter() {
+		numOfViews = 0;
+		numOfRejects = 0;
+		numOfAttentives = 0;
+		numOfVisits = 0;
+		numberOfViews.innerHTML = '';
+		percentOfViews.innerHTML = '';
+		numberOfRejects.innerHTML = '';
+		percentOfRejects.innerHTML = '';
+		numberOfAttentives.innerHTML = '';
+		percentOfAttentives.innerHTML = '';
+		numberOfVisits.innerHTML = '';
+		percentOfVisits.innerHTML = '';
+	};
+
+//Обработчик события для сброса счетчиков
+linkReset.addEventListener( 'click', reseter );
+
+}
 	return countStats;
 };
+var clicker = viewsTotalCounter();
 
-var click = viewsTotalCounter();
+
 
 //обработчик события клика на кнопку "добавить"
-//addView - один визит
-buttonAdd.addEventListener( 'click', click );
+buttonAdd.addEventListener( 'click', clicker );
+
+
+
+
+
+
 'use strict'
 //функция для получения случайного целого числа
 function randomise() {

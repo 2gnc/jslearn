@@ -17,6 +17,8 @@ html(lang="ru")
 				label.metrica__label(for='visit-duration') Длительность посещения
 				input.metrica__input#view-duration(type='number' placeholder='количество секунд')
 				button.metrica__button#view-duration-add Добавить
+			p.metrica__reset#resetter Сбросить счетчик
+			p.metrica__info Если просмотр длится меньше 10 секунд, то он засчитывается как отказ. Просмотры длительностью от 10 секунд до 1 часа, считаются визитом и одновременно внимательным просмотром, просмотры дольше 60 минут считаются просто визитами. Проценты рассчитаны от общего количества просмотров. 
 			div.metrica__stats
 				table.metrica__table
 					col.metrica__col.metrica__col--first
