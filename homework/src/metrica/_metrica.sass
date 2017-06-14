@@ -1,5 +1,5 @@
 .metrica
-	@include sec-common(white, white)
+	@include sec-common(white, rgb(246, 245, 243))
 	&__box
 		position: relative
 		z-index: 1
@@ -42,7 +42,7 @@
 		color: transparent
 		position: absolute
 		top: 0
-		right: 355px
+		right: 357px
 		width: 0
 		height: 0
 		content: ''
@@ -58,6 +58,8 @@
 		border: 1px solid rgb(236, 236, 236)
 		border-collapse: collapse
 	&__row
+		border-bottom: 1px solid rgb(236, 236, 236)
+		height: 35px
 	&__row--header
 		background-color: rgb(246, 245, 243)
 		height: 46px
@@ -78,3 +80,5 @@
 		font-size: 110%
 		padding-left: 0
 		text-align: center
+	&__value
+		color: #212121

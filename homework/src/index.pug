@@ -6,6 +6,7 @@ html(lang="ru")
 		link(rel="stylesheet" href="css/main.min.css")
 		link(rel="stylesheet" href="css/font-awesome.min.css")
 	body
+		aside.navigation
 		section.metrica
 			div.logo
 				p.logo__name Счетчик посещений
@@ -15,8 +16,8 @@ html(lang="ru")
 				hr.task-info__line
 			div.metrica__box
 				label.metrica__label(for='visit-duration') Длительность посещения
-				input.metrica__input#visit-duration(type='number' placeholder='количество секунд')
-				button.metrica__button Добавить
+				input.metrica__input#view-duration(type='number' placeholder='количество секунд')
+				button.metrica__button#view-duration-add Добавить
 			div.metrica__stats
 				table.metrica__table
 					col.metrica__col.metrica__col--first
@@ -26,22 +27,22 @@ html(lang="ru")
 						td.metrica__cell.metrica__cell--header Показатель
 						td.metrica__cell.metrica__cell--header Количество
 						td.metrica__cell.metrica__cell--header %
-					tr
+					tr.metrica__row
 						td.metrica__cell Просмотры
-						td
-						td
-					tr
+						td.metrica__value#views-num
+						td.metrica__value#views-percent
+					tr.metrica__row
 						td.metrica__cell Визиты
-						td
-						td
-					tr
+						td.metrica__value
+						td.metrica__value
+					tr.metrica__row
 						td.metrica__cell Внимательное изучение
-						td
-						td
-					tr
+						td.metrica__value
+						td.metrica__value
+					tr.metrica__row
 						td.metrica__cell Отказы
-						td
-						td
+						td.metrica__value
+						td.metrica__value
 		section.number-desc
 			div.logo
 				p.logo__name Описание числа

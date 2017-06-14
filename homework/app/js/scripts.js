@@ -249,7 +249,28 @@ document.getElementById('isitlucky').innerHTML = '<p class="result__text">Теб
 	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
 };
 'use strict';
+//кнопка "Добавить"
+const 	buttonAdd = document.getElementById( 'view-duration-add' ),
+// ячейка "Количество просмотров"
+		numberOfViews = document.getElementById( 'views-num' ),
+//ячейка "Процент просмотров"
+		percentOfViews = document.getElementById( 'views-percent' );
 
+function viewsTotalCounter() {
+	var viewsCount = 0;
+	var countTotal = function() {
+		var total = ++viewsCount;
+		numberOfViews.innerHTML = total ;
+		percentOfViews.innerHTML = '100';
+	}
+	return countTotal;
+}
+
+var click = viewsTotalCounter();
+
+//обработчик события клика на кнопку "добавить"
+//addView - один визит
+buttonAdd.addEventListener( 'click', click );
 'use strict'
 //функция для получения случайного целого числа
 function randomise() {
