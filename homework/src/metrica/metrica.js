@@ -1,37 +1,63 @@
 'use strict';
 //кнопка "Добавить"
 const 	buttonAdd = document.getElementById( 'view-duration-add' ),
-// ячейка "Количество просмотров"
+// ячейки "Количество просмотров" и "Процент просмотров"
 		numberOfViews = document.getElementById( 'views-num' ),
-//ячейка "Процент просмотров"
 		percentOfViews = document.getElementById( 'views-percent' ),
-//ячейка "Количество отказов"
-		numberOfRejects = document.getElementById( 'rejects-num' )
+//ячейки "Количество отказов" и "процент отказов"
+		numberOfRejects = document.getElementById( 'rejects-num' ),
+		percentOfRejects = document.getElementById( 'rejects-percent' ),
+//ячейки "Внимательное изучение" и процент внимательного изучения"
+		numberOfAttentives = document.getElementById( 'attentives-num' ),
+		percentOfAttentives = document.getElementById( 'attentives-percent' ),
+//ячейки "Количество визитов" и процент визитов
+		numberOfVisits = document.getElementById( 'visits-num' ),
+		percentOfVisits = document.getElementById( 'visits-percent' )
 ;
 //Функция - обертка
 function viewsTotalCounter() {
+
 //счетчик просмотров
-	var viewsCount = 0,
-//счетчик отказов
-		rejects = 0;
+	var numOfViews = 0,
+
+//счетчик отказов 
+		numOfRejects = 0,
+
+//счетчик внимательного изучения
+		numOfAttentives = 0,
+
+//счетчик визитов
+		numOfVisits = 0;
+
 //Функция - счетчик (замыкание)
-	var countTotal = function() {
-//Количество секунд из input
+	var countStats = function() {
+// длительность просмотра
 		const	viewDuration = +document.getElementById( 'view-duration' ).value;
-//Счетчик количества просмотров (равен количеству кликов на кнопку 'Добавить')
-		var total = ++viewsCount,
-			totalRejects;
-//если это отказ, записываем отказ
+
+//Счетчик количества просмотров срабатывает при клике на кнопку 'Добавить'
+		++numOfViews;
+		numberOfViews.innerHTML = numOfViews;
+		percentOfViews.innerHTML = '100';
+
 		if ( viewDuration < 10 ) {
-			totalRejects = ++rejects;
-			numberOfRejects.innerHTML = totalRejects ;
+			++numOfRejects;
+			numberOfRejects.innerHTML = numOfRejects;
 		}
 
-		numberOfViews.innerHTML = total ;
-		percentOfViews.innerHTML = '100';
+		if ( viewDuration >= 10 && viewDuration < 60 ) {
+			++numOfAttentives;
+			numberOfAttentives.innerHTML = numOfAttentives;
+		}
+
+		if ( viewDuration >= 10 ) {
+			++numOfVisits;
+			numberOfVisits.innerHTML = numOfVisits;
+		}
+// после учета всех возможных случаев рассчитаем проценты по каждому показателю
+
 	}
-	return countTotal;
-}
+	return countStats;
+};
 
 var click = viewsTotalCounter();
 
