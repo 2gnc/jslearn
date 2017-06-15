@@ -27,7 +27,7 @@ function showWhat() {
   	m = m+2;
     d = d-2;
 		mIsDonated = true;
-		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Фрай: ' + d +  '</p></div>';
+		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
 		showWhat();
   }
 
