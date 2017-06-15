@@ -27,7 +27,7 @@ function showWhat() {
   	m = m+2;
     d = d-2;
 		mIsDonated = true;
-		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Фрай: ' + d +  '</p></div>';
+		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
 		showWhat();
   }
 
@@ -248,77 +248,6 @@ document.getElementById('isitlucky').innerHTML = '<p class="result__text">Теб
 	(userNumber.length != 6)? 
 	document.getElementById('isitlucky').innerHTML = '<p class="result__text">Ты ввел <span class="result--no">неправильное</span> число, дружок! Попробуй еще раз.</p>': showResult();
 };
-'use strict'
-//функция для получения случайного целого числа
-function randomise() {
-	//let plaseForNumber = document.getElementById('first-item');
-
-//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
-	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
-//
-		finalRandomNumber = [],
-//
-		numberToAnalize,
-// куда выводить текстовое описание
-		placeForDescription = document.getElementById( 'result' );
-
-//функция дает случайное целое число
-	function getRandomNumber() {
-		return parseInt( Math.random()*10 )
-	}
-
-//функция выводит элементы с задержкой 0.2 секунды
-	function makeRandomNumber(where) {
-//получаем массив из 10 случайных чисел, которые будем анимировать
-	let numbersForScroll = [];
-	for ( let k = 0; k < 10; k++ ) {
-		numbersForScroll.push(getRandomNumber());
-		}
-//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
-	finalRandomNumber.push(numbersForScroll[9]);
-//выводим 10 раз элемнты массива, начиная с 0-го
-		let i = 0;
-		( function numbersScroller() {
-			if ( i < 10 ) {
-				where.innerHTML = numbersForScroll[i];
-				i++;
-				setTimeout( numbersScroller, 200 );
-			}
-//затем выводм и оставляем последнее число
-			else {
-				where.innerHTML = numbersForScroll[9];
-			}
-		}
-			)();
-			return finalRandomNumber;
-	}
-//функция с задержкой показывает на доске, какое число: четное или не четное
-	function showDescription(numberToDescript) {
-// очищаем предыдущее описание числа, если оно было
-		if ( placeForDescription.innerHTML !== '' ) {
-		placeForDescription.innerHTML = '';
-		}
-		setTimeout( function(){
-			if ( numberToAnalize%2 != 0 ) {
-				placeForDescription.innerHTML = 'Это нечетное целое число';
-			}
-			else {
-				placeForDescription.innerHTML = 'Это четное целое число';
-			}}
-		, 2500)
-	};
-
-//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
-//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
-	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
-		makeRandomNumber(elementsToPlaseRandomizer[i]);
-	}
-
-//получили трехзначное число для последующего анализа
-numberToAnalize = parseInt(finalRandomNumber.join(''));
-showDescription(numberToAnalize);
-
-};
 'use strict';
 //кнопка "Добавить"
 const 	buttonAdd = document.getElementById( 'view-duration-add' ),
@@ -423,3 +352,156 @@ buttonAdd.addEventListener( 'click', clicker );
 
 
 
+'use strict'
+//функция для получения случайного целого числа
+function randomise() {
+	//let plaseForNumber = document.getElementById('first-item');
+
+//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
+	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+//
+		finalRandomNumber = [],
+//
+		numberToAnalize,
+// куда выводить текстовое описание
+		placeForDescription = document.getElementById( 'result' );
+
+//функция дает случайное целое число
+	function getRandomNumber() {
+		return parseInt( Math.random()*10 )
+	}
+
+//функция выводит элементы с задержкой 0.2 секунды
+	function makeRandomNumber(where) {
+//получаем массив из 10 случайных чисел, которые будем анимировать
+	let numbersForScroll = [];
+	for ( let k = 0; k < 10; k++ ) {
+		numbersForScroll.push(getRandomNumber());
+		}
+//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
+	finalRandomNumber.push(numbersForScroll[9]);
+//выводим 10 раз элемнты массива, начиная с 0-го
+		let i = 0;
+		( function numbersScroller() {
+			if ( i < 10 ) {
+				where.innerHTML = numbersForScroll[i];
+				i++;
+				setTimeout( numbersScroller, 200 );
+			}
+//затем выводм и оставляем последнее число
+			else {
+				where.innerHTML = numbersForScroll[9];
+			}
+		}
+			)();
+			return finalRandomNumber;
+	}
+//функция с задержкой показывает на доске, какое число: четное или не четное
+	function showDescription(numberToDescript) {
+// очищаем предыдущее описание числа, если оно было
+		if ( placeForDescription.innerHTML !== '' ) {
+		placeForDescription.innerHTML = '';
+		}
+		setTimeout( function(){
+			if ( numberToAnalize%2 != 0 ) {
+				placeForDescription.innerHTML = 'Это нечетное целое число';
+			}
+			else {
+				placeForDescription.innerHTML = 'Это четное целое число';
+			}}
+		, 2500)
+	};
+
+//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
+//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
+	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
+		makeRandomNumber(elementsToPlaseRandomizer[i]);
+	}
+
+//получили трехзначное число для последующего анализа
+numberToAnalize = parseInt(finalRandomNumber.join(''));
+showDescription(numberToAnalize);
+
+};
+'use strict';
+
+var textRedactor = function() {
+// получаем кнопки Сохранить, Показать и Очистить
+	const 	saveButton = document.getElementById( 'save' ),
+			showButton = document.getElementById( 'show' ),
+			clearButton = document.getElementById( 'clear' ),
+// получаем элемент, куда будем добавлять набранный текст
+			placeToShow = document.getElementById( 'whereToShow' ),
+// элемент для вставки лимита памяти
+			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
+// начальное значение набранного текста
+	var 	textToShow = '',
+			memoryUsed = 0;
+// покажем изначальный лимит памяти
+	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
+// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
+	function saveText() {
+//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
+		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
+// добавляем 1 к счетчику строк
+		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
+//получаем текст из поля ввода
+		textFromInput = document.getElementById( 'redactorinput' ).value;
+//добавляем к переменной textToShow
+		if ( textToShow != '') {
+//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
+		textToShow = textToShow + '<br>' + textFromInput
+		}
+//если еще ничего не вводили, то просто добавляем строку
+		else {
+			textToShow += textFromInput
+		};
+// после ввода строки, очищаем поле ввода
+		document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+// очищаем сообщение об ошибке, если оно было на экране
+		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
+			placeToShow.innerHTML = '';
+			}
+		}
+//если строка ввода пустая и еще есть свободный лимит памяти
+		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
+			placeToShow.innerHTML = 'err: вы ничего не ввели! '
+		}
+		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
+			placeToShow.innerHTML = 'Слишком длинная строка! '
+		else {
+			placeToShow.innerHTML = 'Лимит памяти исчеран! '
+		}
+	}
+
+	function showText() {
+		if( textToShow != '' ) {
+			placeToShow.innerHTML = textToShow;
+		}
+
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+	}
+
+	function clearText() {
+		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
+			textToShow = '';
+			placeToShow.innerHTML = '';
+			memoryLimitIndicator.innerHTML = '0 of 8';
+			memoryUsed = 0;
+			document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+			document.getElementById( 'redactorinput' ).focus();
+		}
+	}
+
+// Обработчик на сохранение строки
+saveButton.addEventListener( 'click', saveText );
+// Обработчик на отображение строк
+showButton.addEventListener( 'click', showText );
+// Обработчик на очистку строк
+clearButton.addEventListener( 'click', clearText );
+}
+textRedactor();

@@ -15,11 +15,14 @@ html(lang="ru")
 				hr.task-info__line
 			img(src='img/redactor-02.png').redactor__bethesda-logo
 			div.redactor__box
-				div.redactor__result 
-				input(type='text', autofocus).redactor__input
+				div.redactor__result#whereToShow
+				span.redactor__arrow &raquo;
+				input(type='text', autofocus).redactor__input#redactorinput
 				span.redactor__button#save [ Сохранить ]
 				span.redactor__button#show [ Показать ]
 				span.redactor__button#clear [ Очистить ]
+				span.redactor__memory Memory limit:
+				span.redactor__memory-indicator#memoryIndicator
 		section.metrica
 			div.logo
 				p.logo__name Счетчик посещений
