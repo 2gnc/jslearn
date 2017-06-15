@@ -6,6 +6,19 @@ html(lang="ru")
 		link(rel="stylesheet" href="css/main.min.css")
 		link(rel="stylesheet" href="css/font-awesome.min.css")
 	body
+		section.redactor
+			div.logo
+				p.logo__name Текстовый редактор
+			div.task-info
+				h1.task-info__heading Введите строку
+				p.task-info__instruction Кнопка "Сохранить" сохранит строку, кнопка "Предпросмотр" покажет на экране все введенные строки
+				hr.task-info__line
+			img(src='img/redactor-02.png').redactor__bethesda-logo
+			div.redactor__box
+				div.redactor__result 
+				input(type='text', autofocus).redactor__input
+				span.redactor__button#save [ Сохранить ]
+				span.redactor__button#show [ Просмотр ]
 		section.metrica
 			div.logo
 				p.logo__name Счетчик посещений
