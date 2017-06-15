@@ -47,7 +47,8 @@ var textRedactor = function() {
 		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
 			placeToShow.innerHTML = 'Слишком длинная строка! '
 		else {
-			placeToShow.innerHTML = 'Лимит памяти исчеран! '
+			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
+			document.getElementById( 'redactorinput' ).value = '';
 		}
 	}
 
