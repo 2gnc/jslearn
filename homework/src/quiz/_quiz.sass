@@ -6,3 +6,107 @@
 		background-image: url(../img/quiz-01.png)
 		background-repeat: no-repeat
 		margin: 0 auto
+	&__bottle
+		background-image: url(../img/quiz-02.png)
+		width: 107px
+		height: 200px
+		box-sizing: border-box
+		overflow: hidden
+		opacity: 0.6
+		position: relative
+		top: 190px
+		left: 350px
+		z-index: 2
+	&__key
+		position: relative
+		z-index: 1
+		top: -5px
+		&--one
+			top: -15px
+		&--two
+			top: -25px
+		&--three
+			top: -35px
+		&--four
+			top: -45px
+		&--five
+			top: -55px
+		&--six
+			top: -65px
+		&--seven
+			top: -75px
+		&--eith
+			top: -85px
+		&--nine
+			top: -95px
+		&--ten
+			top: -105px
+	&__game-buttons
+		width: 360px
+		float: right
+		margin-bottom: 10px
+		display: flex
+		justify-content: space-between
+	&__game-btns
+		text-transform: uppercase
+		background-color: red
+		font-size: 11px
+		font-weight: bolder
+		color: white
+		border: 1px solid #ffffff
+		padding: 5px
+		&:focus
+			outline: none
+		&:hover
+			cursor: pointer
+	&__question
+		width: 360px
+		float: right
+		text-align: left
+		color: #212121
+		font-size: 13px
+		font-weight: bolder
+	&__countdown
+		font-size: 1.5em
+		padding-right: 40px
+		font-weight: bold
+	&__question-txt
+		height: 60px
+		background-color: white
+		opacity: 0.8
+		box-sizing: border-box
+		padding: 5px 10px
+		border-radius: 4px
+		display: flex
+		align-items: center
+		margin-bottom: 10px
+		border: 1px solid #212121
+	&__answer
+		width: 360px
+		text-align: right
+		display: flex
+		justify-content: flex-end
+		align-items: center
+	&__answer-inp
+		background-color: 
+		opacity: 0.8
+		border: 1px solid #212121
+		padding: 5px
+		height: 20px
+		&:focus
+			outline: none
+			border: 1px solid green
+	&__answer-btn
+		background-color: white
+		opacity: 0.8
+		border-radius: 5px
+		padding: 5px
+		border: none
+		margin-left: 10px
+		height: 30px 
+		border: 1px solid #212121
+		&:focus
+			outline: none
+		&:hover
+			opacity: 1
+			cursor: pointer

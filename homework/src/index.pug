@@ -11,9 +11,21 @@ html(lang="ru")
 				p.logo__name Вопросы и ответы
 			div.task-info
 				h1.task-info__heading.task-info__heading--saw Давай сыграем в игру
-				p.task-info__instruction.task-info__instruction--saw Я задам три случайных вопроса, тебе нужно ввести ответ в течение 10 секунд. Не ошибайся! Только от тебя зависит, сможешь ли ты спастись!
+				p.task-info__instruction.task-info__instruction--saw Я задам три случайных вопроса. Ты должен дать ответ в течение 10 секунд. Не ошибайся! Только от тебя зависит, сможешь ли ты спастись!
 				hr.task-info__line.task-info__line--saw
 			div.quiz__box
+				div.quiz__game-buttons
+					button.quiz__game-btns Начать игру
+					button.quiz__game-btns Следующий раунд
+					button.quiz__game-btns Начать заново
+				div.quiz__question 
+					div.quiz__question-txt Какие объекты во Вселенной не излучают и не отражают свет?
+					div.quiz__answer
+						span.quiz__countdown 10
+						input(placeholder='введите ответ здесь').quiz__answer-inp
+						button.quiz__answer-btn Ответить
+				div.quiz__bottle
+					img(src='img/quiz-03.png').quiz__key
 		section.redactor
 			div.logo
 				p.logo__name Текстовый редактор
