@@ -47,18 +47,27 @@
 		margin-bottom: 10px
 		display: flex
 		justify-content: space-between
-	&__game-btns
+	&__game-btn
 		text-transform: uppercase
 		background-color: red
 		font-size: 11px
 		font-weight: bolder
 		color: white
 		border: 1px solid #ffffff
-		padding: 5px
+		padding: 5px 10px
+		box-shadow: -2px 3px 10px 1px #212121
 		&:focus
 			outline: none
 		&:hover
 			cursor: pointer
+			background-color: #dc143c
+		&:active
+			transform: translate(2px, 2px)
+			box-shadow: 0 0 0 0 #212121
+		&--pushed
+			transform: translate(2px, 2px)
+			box-shadow: 0 0 0 0 #212121
+			background-color: #dc143c
 	&__question
 		width: 360px
 		float: right
