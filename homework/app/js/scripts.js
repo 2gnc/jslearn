@@ -496,6 +496,8 @@ if (usedNumbers.length <= 47) {
 	if (roundQuestionsAndAnswers != []) {
 	roundQuestionsAndAnswers = [];
 		};
+// разблокируем кнопку "еще раунд"
+	newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
 // создаем массив с тремя вопросами
 	getRoundNumbers();
 	console.log( 'номера вопросов' );
@@ -512,13 +514,9 @@ if (usedNumbers.length <= 47) {
 		}
 	else {
 		console.log( 'Больше нет попыток' );
-	};	
+		newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
+		};	
 	};
-
-// метод Quiz - новый раунд
-// Quiz.prototype.newRound = function() {
-
-// }
 
 // создание новой игры
 function makeQuiz() {
