@@ -486,10 +486,16 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 // метод Quiz создает новый раунд
 Quiz.prototype.makeRound = function() {
 //	++this.roundsCount;
-// проверяем, не пустой ли массив с номерами раунда. Если не пустой - очищаем
-if (roundNumbers != []) {
+// проверяем, если ли еще как минимум 3 неиспользованных впороса
+if (usedNumbers.length <= 47) {
+// очищаем массив с тремя случайными числами
+	if (roundNumbers != []) {
 	roundNumbers = [];
-};
+		};
+// очищаем массив с вопросами и ответами для раунда
+	if (roundQuestionsAndAnswers != []) {
+	roundQuestionsAndAnswers = [];
+		};
 // создаем массив с тремя вопросами
 	getRoundNumbers();
 	console.log( 'номера вопросов' );
@@ -503,7 +509,11 @@ if (roundNumbers != []) {
 	console.log( 'использованые вопросы' );
 	console.log( usedNumbers );
 //	console.log( this.roundsCount );
-		};
+		}
+	else {
+		console.log( 'Больше нет попыток' );
+	};	
+	};
 
 // метод Quiz - новый раунд
 // Quiz.prototype.newRound = function() {
