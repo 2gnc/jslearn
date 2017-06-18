@@ -437,7 +437,9 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка "Новый раунд"
 			newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // Кнопка "Начать заново"
-			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2];
+			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
+// Поле для отображения вопроса
+			questionPlace = document.querySelector( '.quiz__question-txt' );
 
 //подключаем файл с вопросами
 	var xhr = new XMLHttpRequest();
@@ -486,10 +488,8 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 
 // метод Quiz создает новый раунд
 Quiz.prototype.makeRound = function() {
-//	++this.roundsCount;
 // проверяем, если ли еще как минимум 3 неиспользованных вопроса
 	if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
-//if (usedNumbers.length <= 47) {
 // очищаем массив с тремя случайными числами
 	if ( roundNumbers != [] ) {
 	roundNumbers = [];
@@ -508,6 +508,21 @@ Quiz.prototype.makeRound = function() {
 	for ( var i = 0; i < roundNumbers.length; i++ ) {
 		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 	};
+
+// Цикл из трех итерации: задаем вопросы
+// Показываем первый вопрос
+	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
+	
+	// for (var i = 1; i < roundQuestionsAndAnswers.length; i++) {
+	// 	console.log( roundQuestionsAndAnswers[i].question );
+	// 	console.log( roundQuestionsAndAnswers[i].answer );
+	// 	setTimeout( function(){
+	// 		console.log ( roundQuestionsAndAnswers[1].question )
+
+	// 	},
+	// 	1000 );
+	// }
+
 	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
 	console.log( 'использованые вопросы' );
