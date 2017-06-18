@@ -60,7 +60,11 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 
 // метод Quiz создает новый раунд
 Quiz.prototype.makeRound = function() {
-	++this.roundsCount;
+//	++this.roundsCount;
+// проверяем, не пустой ли массив с номерами раунда. Если не пустой - очищаем
+if (roundNumbers != []) {
+	roundNumbers = [];
+};
 // создаем массив с тремя вопросами
 	getRoundNumbers();
 	console.log( 'номера вопросов' );
@@ -73,35 +77,13 @@ Quiz.prototype.makeRound = function() {
 	console.log( roundQuestionsAndAnswers );
 	console.log( 'использованые вопросы' );
 	console.log( usedNumbers );
-
-// //подключаем файл с вопросами
-// 	var xhr = new XMLHttpRequest();
-// //создаем асинхронный запрос
-// 	xhr.open('GET', 'quiz.json', true);
-// //вызываем асинхронный запрос
-// 	xhr.send();
-// //событие "по готовности" - обрабатывает полученный файл
-// 	xhr.onreadystatechange = function() { 
-
-// 		if (xhr.readyState != 4) return;
-// 		if (xhr.status != 200) {
-// 				console.log('Ошибка!');
-// 				};
-
-// // если файл получен без проблем, обрабатываем его 
-// // это массив всех вопросов и ответов
-// 		var allQuestions = JSON.parse( xhr.responseText ); 
-
-// 		// обрабатываем массив с индексами вопросов и ответов для раунда
-// 		for (var i = 0; i < roundNumbers.length; i++) {
-// // записываем в roundQuestionsAndAnswers объекты вопрос-ответ
-// 			roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
-// 		};
-// 		console.log( 'Посмотрим массив вопросов' )
-// 		console.log( roundQuestionsAndAnswers );
-// 	};
-
+//	console.log( this.roundsCount );
 		};
+
+// метод Quiz - новый раунд
+// Quiz.prototype.newRound = function() {
+
+// }
 
 // создание новой игры
 function makeQuiz() {
@@ -113,11 +95,16 @@ function makeQuiz() {
 	newGameBtn.classList.add( 'quiz__game-btn--pushed' );
 // Создаем первый раунд
 	game.makeRound();
-	console.log( game.roundsCount );
-};
-newGameBtn.addEventListener( 'click', makeQuiz );
+// Обработчик события на кнопке "Еще раунд"
+	newRoundBtn.addEventListener( 'click', game.makeRound );
+	};
 
+
+// Обработчик события нажатия на кнопку "Новая игра"
+newGameBtn.addEventListener( 'click', makeQuiz );
 };
+
+
 
 
 		/*
