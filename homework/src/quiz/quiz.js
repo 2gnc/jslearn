@@ -1,58 +1,127 @@
 'use strict';
 
-// массив для хранения раундов
-let rounds = [],
 // массив с номерами вопросов и ответов для одного раунда
-		roundNumbers = [],
-// массив вопросов и ответов для одного раунда;
-		roundQuestionsAndAnswers = [];
+let roundNumbers = [],
+// массив вопросов и ответов для одного раунда
+		roundQuestionsAndAnswers = [],
+//массив для хранения уже заданных вопросов
+		usedNumbers = [];
 // кнопка "Новая игра"
-const newGameBtn = document.getElementsByClassName( 'quiz__game-btns' )[0],
+let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // кнопка "Новый раунд"
-			newRoundBtn = document.getElementsByClassName( 'quiz__game-btns' )[1],
+			newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // кнопка "Начать заново"
-			clearGameBtn = document.getElementsByClassName( 'quiz__game-btns' )[2];
+			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2];
 
+//подключаем файл с вопросами
+	var xhr = new XMLHttpRequest();
+//создаем асинхронный запрос
+	xhr.open('GET', 'quiz.json', true);
+//вызываем асинхронный запрос
+	xhr.send();
+//событие "по готовности" - обрабатывает полученный файл
+	xhr.onreadystatechange = function() { 
+		if (xhr.readyState != 4) return;
+		if (xhr.status != 200) {
+				console.log('Ошибка!');
+				};
+// если файл получен без проблем, обрабатываем его 
+// это массив всех вопросов и ответов
+		var allQuestions = JSON.parse( xhr.responseText ); 
 
+// Функция дает случайное число, не входящее в массив уже использованых номеров
+function getRandomNumber(min = 0, max = 49) {
+	do {
+		var rand = parseInt(Math.random() * (max - min) + min);
+	}
+	while (usedNumbers.indexOf(rand) !== -1);
+	return rand
+};
 
-// Функция - рандомайзер, дает три случайных индекса массива вопросов и ответов
-function getRoundNumbers(min = 0, max = 49) {
+// Функция дает три случайных индекса массива вопросов и ответов
+function getRoundNumbers() {
 	for (var i = 0; i < 3; i++) {
-		roundNumbers.push(parseInt(Math.random() * (max - min) + min));
+// получаем уникальное число
+		var number = getRandomNumber();
+// записываем это число в массив использованных чисел
+			roundNumbers.push(number);
+// записываем это число в массив чисел раунда
+			usedNumbers.push(number);
 		}
 	};
 
+//создаем класс для всей игры
+function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
+	this.rightAnswersCount = rightAnswersCount;
+	this.wrongAnswersCount = wrongAnswersCount;
+	this.roundsCount = roundsCount;
+	this.escapeChance = escapeChance;
+};
 
+// метод Quiz создает новый раунд
+Quiz.prototype.makeRound = function() {
+	++this.roundsCount;
+// создаем массив с тремя вопросами
+	getRoundNumbers();
+	console.log( 'номера вопросов' );
+	console.log( roundNumbers );
+// Получаем три вопроса и ответа для раунда
+	for ( var i = 0; i < roundNumbers.length; i++ ) {
+		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
+	};
+	console.log( 'массив вопросов' );
+	console.log( roundQuestionsAndAnswers );
+	console.log( 'использованые вопросы' );
+	console.log( usedNumbers );
 
-//подключаем файл с вопросами
-var xhr = new XMLHttpRequest();
-//создаем асинхронный запрос
-xhr.open('GET', 'quiz.json', true);
-//вызываем асинхронный запрос
-xhr.send();
+// //подключаем файл с вопросами
+// 	var xhr = new XMLHttpRequest();
+// //создаем асинхронный запрос
+// 	xhr.open('GET', 'quiz.json', true);
+// //вызываем асинхронный запрос
+// 	xhr.send();
+// //событие "по готовности" - обрабатывает полученный файл
+// 	xhr.onreadystatechange = function() { 
 
-//событие "по готовности" - обрабатывает полученный файл
-xhr.onreadystatechange = function() { 
-	if (xhr.readyState != 4) return;
-	if (xhr.status != 200) {
-		console.log('Ошибка!');
-		} 
-//если файл получен без проблем, обрабатываем его 
-	else {
-// это массив всех вопросов и ответов
-		var allQuestions = JSON.parse( xhr.responseText ); 
-// получаем массив с тремя индексами, которые будем отбирать из всей базы вопросов
-		getRoundNumbers();
-// обрабатываем массив с индексами вопросов и ответов для раунда
-		for (var i = 0; i < roundNumbers.length; i++) {
-// записываем в roundQuestionsAndAnswers объекты вопрос-ответ
-			roundQuestionsAndAnswers.push(allQuestions.questions[roundNumbers[i]]);
+// 		if (xhr.readyState != 4) return;
+// 		if (xhr.status != 200) {
+// 				console.log('Ошибка!');
+// 				};
+
+// // если файл получен без проблем, обрабатываем его 
+// // это массив всех вопросов и ответов
+// 		var allQuestions = JSON.parse( xhr.responseText ); 
+
+// 		// обрабатываем массив с индексами вопросов и ответов для раунда
+// 		for (var i = 0; i < roundNumbers.length; i++) {
+// // записываем в roundQuestionsAndAnswers объекты вопрос-ответ
+// 			roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
+// 		};
+// 		console.log( 'Посмотрим массив вопросов' )
+// 		console.log( roundQuestionsAndAnswers );
+// 	};
+
 		};
-		console.log( roundNumbers );
-		console.log( roundQuestionsAndAnswers );
+
+// создание новой игры
+function makeQuiz() {
+// Создаем экземпляр типа Quiz
+	var game = new Quiz(0, 0, 0, 0);
+// Блокируем возможность повторно нажать кнопку Новая игра
+	newGameBtn.setAttribute( 'disabled', '' );
+// Добавляем класс --pushed
+	newGameBtn.classList.add( 'quiz__game-btn--pushed' );
+// Создаем первый раунд
+	game.makeRound();
+	console.log( game.roundsCount );
+};
+newGameBtn.addEventListener( 'click', makeQuiz );
+
+};
+
 
 		/*
-		*	из JSON сделать массив
+		*	из JSON сделать массив объектов
 		*	запустить рандомайзер, получить три индекса
 		*	получить три пары вопрос - ответ
 		*	запустить функцию показа вопросов и ожидания ответов
@@ -63,5 +132,5 @@ xhr.onreadystatechange = function() {
 		*	сдвинуть ключ в банке в зависимости от показателя вероятности успеха
 		* объект "quizItem" (вопрос, ответ, проверка ответа, пересчет вероятности успеха)
 		*/
-		};
-	};
+//		};
+	//};
