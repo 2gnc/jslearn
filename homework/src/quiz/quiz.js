@@ -1,16 +1,17 @@
 'use strict';
-
-// массив с номерами вопросов и ответов для одного раунда
+// Таймер в секундах на один ответ
+const answerTimer = 10;
+// Массив с номерами вопросов и ответов для одного раунда
 let roundNumbers = [],
-// массив вопросов и ответов для одного раунда
+// Массив вопросов и ответов для одного раунда
 		roundQuestionsAndAnswers = [],
-//массив для хранения уже заданных вопросов
+// Массив для хранения уже заданных вопросов
 		usedNumbers = [];
-// кнопка "Новая игра"
+// Кнопка "Новая игра"
 let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
-// кнопка "Новый раунд"
+// Кнопка "Новый раунд"
 			newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
-// кнопка "Начать заново"
+// Кнопка "Начать заново"
 			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2];
 
 //подключаем файл с вопросами
@@ -61,10 +62,11 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 // метод Quiz создает новый раунд
 Quiz.prototype.makeRound = function() {
 //	++this.roundsCount;
-// проверяем, если ли еще как минимум 3 неиспользованных впороса
-if (usedNumbers.length <= 47) {
+// проверяем, если ли еще как минимум 3 неиспользованных вопроса
+	if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
+//if (usedNumbers.length <= 47) {
 // очищаем массив с тремя случайными числами
-	if (roundNumbers != []) {
+	if ( roundNumbers != [] ) {
 	roundNumbers = [];
 		};
 // очищаем массив с вопросами и ответами для раунда
@@ -106,7 +108,6 @@ function makeQuiz() {
 // Обработчик события на кнопке "Еще раунд"
 	newRoundBtn.addEventListener( 'click', game.makeRound );
 	};
-
 
 // Обработчик события нажатия на кнопку "Новая игра"
 newGameBtn.addEventListener( 'click', makeQuiz );
