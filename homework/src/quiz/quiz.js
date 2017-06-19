@@ -63,70 +63,103 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 	this.escapeChance = escapeChance;
 };
 
-// метод Quiz создает новый раунд
-Quiz.prototype.makeRound = function() {
-// проверяем, если ли еще как минимум 3 неиспользованных вопроса
-	if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
-// очищаем массив с тремя случайными числами
-	if ( roundNumbers != [] ) {
-	roundNumbers = [];
-		};
-// очищаем массив с вопросами и ответами для раунда
-	if (roundQuestionsAndAnswers != []) {
-	roundQuestionsAndAnswers = [];
-		};
-// разблокируем кнопку "еще раунд"
-	newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
-// создаем массив с тремя вопросами
-	getRoundNumbers();
-// Получаем три вопроса и ответа для раунда
-	for ( var i = 0; i < roundNumbers.length; i++ ) {
-		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
-	};
+//новая версия алгоритма 
 
-// Функция для вывода таймера обратного отсчета
+// Счётчик заданных вопросов = 0
+// Очистим массивы номеров для раунда и вопросов и ответов раунда
+// Получим новый массив вопросов и ответов (из выборки исключаем уже заданные вопросы)
+// Цикл while счётчик заданых вопросов < 3
+//  Выводим вопрос
+//  Включаем таймер 10 секунд
+//   Если ввели ответ - 
+//     - сбросить таймер
+//     - увеличить счётчик заданных вопросов на 1
+//     - включить функцию проверки ответа
+//     - следующая итерация 
+//   Если не ввели ответ и прошло 10 секунд
+//     - включить функцию проверки ответа (считаем за неправильный ответ)
+//     - увеличить счётчик заданных вопросов на 1
+//     - следующая итерация
+// Если счётчик заданных вопросов = 2 (окончание раунда)
+//   Скрыть поле ввода ответа 
+//   Показать правильные ответы
+//   Визуализировать банку
+//   Разблокировать кнопку "Новый раунд"
+
+Quiz.prototype.makeRound = function() {
+// Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
+	var questionsCouner = 0;
+// Функция для показа обратного отсчета на странице
 	function countDown() {
 		let m = answerTimer;
 		(function answerCountdown() {
 			if (m <= 10 && m >= 0) {
+// Отображаем начальное значение таймера - 10
 				timerPlace.innerHTML = m;
 				m--;
-// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд
+// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
 				setTimeout( answerCountdown, 909 );
 			};
 		})();
-	};
-
-// Цикл из трех итерации: задаем вопросы
-// Показываем первый вопрос
-	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
-// Запускаем три вопроса с интервалом 10 секунд, в цикле от 0 до 2
-	(function tenSeconds(i = 0) {
-// Запускаем отсчет от 10 до 0
-		countDown();
-		questionPlace.innerHTML = roundQuestionsAndAnswers[i].question;
-		++i;
-		if ( i < 3 ) {
-				setTimeout(function() {
-					tenSeconds( i )
-				}, 10000);
+	};	
+// Проверяем, остались ли незаданными еще хотя бы 3 вопроса
+		if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
+// Если это не первый раунд в игре, то очищаем массив номеров вопросов
+			if ( roundNumbers != [] ) {
+				roundNumbers = [];
 			};
-//Когда задан третий вопрос и время на него вышло, скрываем таймер, поле ввода и кнопку 
-
-	})();
-
-	console.log( roundQuestionsAndAnswers );
-	}
-	else {
-		console.log( 'Больше нет попыток' );
-		newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
-		};	
+// Если это не первый раунд в игре, то очищаем массив объектов "вопрос-ответ"
+			if (roundQuestionsAndAnswers != []) {
+				roundQuestionsAndAnswers = [];
+			};
+// Отключаем кнопку "новый раунд"
+			newRoundBtn.setAttribute( 'disabled', '' );
+// Добавляем модификатор --disabled кнопке "новый раунд"
+			newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
+// Получаем массив номеров вопросов для раунда (с учетом вопросов, заданных в предыдущих раундах)
+			getRoundNumbers();
+// Запускаем цикл для каждого номера из массива вопросов для данного раунда (всего три вопроса), начинаем с 0
+			for ( var i = 0; i < roundNumbers.length; i++ ) {
+// Создаем массив объектов вопрос-ответ
+				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
+			};
+// Создаем и сразу запускаем функцию 
+			(function tenSeconds(l = 0) {
+// Выводим на экран i-й вопрос
+				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
+// Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
+				countDown();
+// Увеличиваем счетчик заданных вопросов
+				questionsCouner ++;
+// Увеличиваем счетчик итераций
+				l++;
+				console.log( questionsCouner );
+// Если еще не задано три вопроса в этом раунде, запускаем заново
+				if ( l < 3 ) {
+					setTimeout(function() {
+						tenSeconds(l);
+// Если задано уже три вопроса:
+						if( questionsCouner == 3 ) {
+// Отсчитываем еще 10 секунд
+							setTimeout( function() {
+								console.log( 'ура' );
+// Убираем блокировку с кнопки "новый раунд"
+								newRoundBtn.removeAttribute( 'disabled', '' );
+// Убираем модификатор с кнопки "новый раунд"
+								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+							}, 10000);
+						}
+					}, 10000);
+				};
+			})();
+		}
+// Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
+		else {
+			console.log( 'Все вопросы кончились' );
+		};
 	};
 
-	if ( timerPlace.innerHTML == '0' ) {
-			console.log( 'все' )
-		};
-
+// конец новой версии алгоритма
 
 // создание новой игры
 function makeQuiz() {
