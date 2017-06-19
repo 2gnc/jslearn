@@ -10,11 +10,13 @@ let roundNumbers = [],
 // Кнопка "Новая игра"
 let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка "Новый раунд"
-			newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
+	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // Кнопка "Начать заново"
-			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
+	clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
 // Поле для отображения вопроса
-			questionPlace = document.querySelector( '.quiz__question-txt' );
+	questionPlace = document.querySelector( '.quiz__question-txt' ),
+// Поле для отображения таймера обратного отсчета
+	timerPlace = document.querySelector( '.quiz__countdown' );
 
 //подключаем файл с вопросами
 	var xhr = new XMLHttpRequest();
@@ -84,12 +86,26 @@ Quiz.prototype.makeRound = function() {
 		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 	};
 
+// Функция для вывода таймера обратного отсчета
+	function countDown() {
+		let m = answerTimer;
+		(function answerCountdown() {
+			if (m <= 10 && m >= 0) {
+				timerPlace.innerHTML = m;
+				m--;
+// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд
+				setTimeout( answerCountdown, 909 )
+			};
+		})();
+	};
+
 // Цикл из трех итерации: задаем вопросы
 // Показываем первый вопрос
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
-// Запускаем 10-секундный отсчет, в цикле
-	(function tenSeconds(i) {
-		//что делаем
+// Запускаем три вопроса с интервалом 10 секунд, в цикле от 0 до 2
+	(function tenSeconds(i = 0) {
+// Запускаем отсчет от 10 до 0
+		countDown();
 		questionPlace.innerHTML = roundQuestionsAndAnswers[i].question;
 		++i;
 		if ( i < 3 ) {
@@ -97,13 +113,12 @@ Quiz.prototype.makeRound = function() {
 					tenSeconds( i )
 				}, 10000);
 			};
-	})(0);
+	})();
 
 	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
 	console.log( 'использованые вопросы' );
 	console.log( usedNumbers );
-//	console.log( this.roundsCount );
 		}
 	else {
 		console.log( 'Больше нет попыток' );

@@ -1,77 +1,3 @@
-function countApples() {
-
-// задаем переменные
-	var 	n = +document.getElementById( 'petya' ).value,
-				m = +document.getElementById( 'masha' ).value, 
-  			d = +document.getElementById( 'dima' ).value,
-				mIsDonated,
-				result = document.getElementById( 'result-box' ),
-				resultOfIteration,
-				resultsLog = new Array();
-
-// записываем в массив (на следующий свободный идекс результат итерации (если условие выполнилось - результат записался в массив))
-function showWhat() {
-	resultsLog[resultsLog.length] = resultOfIteration ;
-};
-
-// 1 проверка: меньше ли у Пети яблок, чем у Маши    
-  if ( n < m ) {
-  	m = m/2;
-    n = n + m;
-		resultOfIteration = ' <div class="apples__log apples__log--caseone">У Фрая яблок меньше, он отнял половину у Лилы. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-		showWhat();
-  } 
-
-// 2 проверка: независимо от первой проверки, Дима проверил, меньше ли у Маши яблок, чем 5
-	if ( m < 5 ) {
-  	m = m+2;
-    d = d-2;
-		mIsDonated = true;
-		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-		showWhat();
-  }
-
-// 3 проверка: независимо от предыдущих, Дима ест свои яблоки. У него что-то осталось или нет
-// если яблок оставалось меньше 7, то у него остается 0 и программа завершается
-	if ( n <= 7 ) {
-		n = 0;
-	resultOfIteration = ' <div class="apples__log apples__log--casethree">Фрай съел все свои яблоки. Бендер ничего делать не стал. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-	showWhat();
-	}
-// иначе Петя съел 7 яблок
-	else {
-					n = n-7;
-					resultOfIteration = ' <div class="apples__log apples__log--casefour">Фрай съел часть своих яблок.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-					showWhat();
-					
-					// если в итоге у него осталось больше 10 яблок, Дима отбирает у него 10 и на этом успокаивается.
-					if ( n >= 10 ) {
-						n = n-10;
-						d = d+10;
-						resultOfIteration = ' <div class="apples__log apples__log--casefive">У Фрая много яблок, Бендер забрал у него 10.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-						showWhat();
-						}
-						//если у него было меньше 10, то Дима у Пети ничего не забирает, а идет к Маше
-						// если Дима раньше отдавал Маше 2 яблока, то он забирает их обратно
-				else if(mIsDonated) {
-					m = m-2;
-					d = d+2;
-					resultOfIteration = '<div class="apples__log apples__log--casesix">У Фрая мало яблок, Бендер забрал у Лилы свои 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p> ';
-					showWhat();
-				}
-				//если Дима яблок Маше не Давал, то он от всех отстал и ушел.
-				else {
-					resultOfIteration = ' <div class="apples__log apples__log--caseseven">У Фрая меньше 10 яблок, Бендер оставил его в покое.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-					showWhat();
-				}
-	
-		}
-
-//Объединяем в одну строку все содержимое массива, записывем в переменную show
-	var show = resultsLog.join('');
-// записываем полученную строку в result
-	result.innerHTML = show;
-};
 function findAverage() {
 	// блокируем кнопку от повторного нажатия
 	document.getElementById( 'check-button' ).classList.add( 'average__button--checked' );
@@ -157,6 +83,80 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
+function countApples() {
+
+// задаем переменные
+	var 	n = +document.getElementById( 'petya' ).value,
+				m = +document.getElementById( 'masha' ).value, 
+  			d = +document.getElementById( 'dima' ).value,
+				mIsDonated,
+				result = document.getElementById( 'result-box' ),
+				resultOfIteration,
+				resultsLog = new Array();
+
+// записываем в массив (на следующий свободный идекс результат итерации (если условие выполнилось - результат записался в массив))
+function showWhat() {
+	resultsLog[resultsLog.length] = resultOfIteration ;
+};
+
+// 1 проверка: меньше ли у Пети яблок, чем у Маши    
+  if ( n < m ) {
+  	m = m/2;
+    n = n + m;
+		resultOfIteration = ' <div class="apples__log apples__log--caseone">У Фрая яблок меньше, он отнял половину у Лилы. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+		showWhat();
+  } 
+
+// 2 проверка: независимо от первой проверки, Дима проверил, меньше ли у Маши яблок, чем 5
+	if ( m < 5 ) {
+  	m = m+2;
+    d = d-2;
+		mIsDonated = true;
+		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+		showWhat();
+  }
+
+// 3 проверка: независимо от предыдущих, Дима ест свои яблоки. У него что-то осталось или нет
+// если яблок оставалось меньше 7, то у него остается 0 и программа завершается
+	if ( n <= 7 ) {
+		n = 0;
+	resultOfIteration = ' <div class="apples__log apples__log--casethree">Фрай съел все свои яблоки. Бендер ничего делать не стал. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+	showWhat();
+	}
+// иначе Петя съел 7 яблок
+	else {
+					n = n-7;
+					resultOfIteration = ' <div class="apples__log apples__log--casefour">Фрай съел часть своих яблок.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+					showWhat();
+					
+					// если в итоге у него осталось больше 10 яблок, Дима отбирает у него 10 и на этом успокаивается.
+					if ( n >= 10 ) {
+						n = n-10;
+						d = d+10;
+						resultOfIteration = ' <div class="apples__log apples__log--casefive">У Фрая много яблок, Бендер забрал у него 10.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+						showWhat();
+						}
+						//если у него было меньше 10, то Дима у Пети ничего не забирает, а идет к Маше
+						// если Дима раньше отдавал Маше 2 яблока, то он забирает их обратно
+				else if(mIsDonated) {
+					m = m-2;
+					d = d+2;
+					resultOfIteration = '<div class="apples__log apples__log--casesix">У Фрая мало яблок, Бендер забрал у Лилы свои 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p> ';
+					showWhat();
+				}
+				//если Дима яблок Маше не Давал, то он от всех отстал и ушел.
+				else {
+					resultOfIteration = ' <div class="apples__log apples__log--caseseven">У Фрая меньше 10 яблок, Бендер оставил его в покое.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+					showWhat();
+				}
+	
+		}
+
+//Объединяем в одну строку все содержимое массива, записывем в переменную show
+	var show = resultsLog.join('');
+// записываем полученную строку в result
+	result.innerHTML = show;
+};
 'use strict';
 
 function findDifferent() {
@@ -364,11 +364,13 @@ let roundNumbers = [],
 // Кнопка "Новая игра"
 let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка "Новый раунд"
-			newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
+	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // Кнопка "Начать заново"
-			clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
+	clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
 // Поле для отображения вопроса
-			questionPlace = document.querySelector( '.quiz__question-txt' );
+	questionPlace = document.querySelector( '.quiz__question-txt' ),
+// Поле для отображения таймера обратного отсчета
+	timerPlace = document.querySelector( '.quiz__countdown' );
 
 //подключаем файл с вопросами
 	var xhr = new XMLHttpRequest();
@@ -438,12 +440,26 @@ Quiz.prototype.makeRound = function() {
 		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 	};
 
+// Функция для вывода таймера обратного отсчета
+	function countDown() {
+		let m = answerTimer;
+		(function answerCountdown() {
+			if (m <= 10 && m >= 0) {
+				timerPlace.innerHTML = m;
+				m--;
+// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд
+				setTimeout( answerCountdown, 909 )
+			};
+		})();
+	};
+
 // Цикл из трех итерации: задаем вопросы
 // Показываем первый вопрос
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
-// Запускаем 10-секундный отсчет, в цикле
-	(function tenSeconds(i) {
-		//что делаем
+// Запускаем три вопроса с интервалом 10 секунд, в цикле от 0 до 2
+	(function tenSeconds(i = 0) {
+// Запускаем отсчет от 10 до 0
+		countDown();
 		questionPlace.innerHTML = roundQuestionsAndAnswers[i].question;
 		++i;
 		if ( i < 3 ) {
@@ -451,13 +467,12 @@ Quiz.prototype.makeRound = function() {
 					tenSeconds( i )
 				}, 10000);
 			};
-	})(0);
+	})();
 
 	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
 	console.log( 'использованые вопросы' );
 	console.log( usedNumbers );
-//	console.log( this.roundsCount );
 		}
 	else {
 		console.log( 'Больше нет попыток' );
