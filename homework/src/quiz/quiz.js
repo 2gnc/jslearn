@@ -92,7 +92,8 @@ Quiz.prototype.makeRound = function() {
 				timerPlace.innerHTML = m;
 				m--;
 // не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд
-				setTimeout( answerCountdown, 909 )
+				setTimeout( answerCountdown, 909 );
+				return m;
 			};
 		})();
 	};
@@ -111,6 +112,10 @@ Quiz.prototype.makeRound = function() {
 					tenSeconds( i )
 				}, 10000);
 			};
+//Когда задан третий вопрос и время на него вышло, скрываем таймер, поле ввода и кнопку 
+		if ( i === 2 && countDown() == 0 ) {
+			console.log( 'все' );
+		};
 	})();
 	console.log( roundQuestionsAndAnswers );
 	}
