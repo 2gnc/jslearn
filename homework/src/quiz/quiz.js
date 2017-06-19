@@ -87,16 +87,17 @@ Quiz.prototype.makeRound = function() {
 // Цикл из трех итерации: задаем вопросы
 // Показываем первый вопрос
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
-	
-	// for (var i = 1; i < roundQuestionsAndAnswers.length; i++) {
-	// 	console.log( roundQuestionsAndAnswers[i].question );
-	// 	console.log( roundQuestionsAndAnswers[i].answer );
-	// 	setTimeout( function(){
-	// 		console.log ( roundQuestionsAndAnswers[1].question )
-
-	// 	},
-	// 	1000 );
-	// }
+// Запускаем 10-секундный отсчет, в цикле
+	(function tenSeconds(i) {
+		//что делаем
+		questionPlace.innerHTML = roundQuestionsAndAnswers[i].question;
+		++i;
+		if ( i < 3 ) {
+				setTimeout(function() {
+					tenSeconds( i )
+				}, 10000);
+			};
+	})(0);
 
 	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
