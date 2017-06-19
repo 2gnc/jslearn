@@ -112,10 +112,9 @@ Quiz.prototype.makeRound = function() {
 				}, 10000);
 			};
 //Когда задан третий вопрос и время на него вышло, скрываем таймер, поле ввода и кнопку 
-		if ( i === 2 && countDown() == -1 ) {
-			console.log( 'все' );
-		};
+
 	})();
+
 	console.log( roundQuestionsAndAnswers );
 	}
 	else {
@@ -123,6 +122,11 @@ Quiz.prototype.makeRound = function() {
 		newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
 		};	
 	};
+
+	if ( timerPlace.innerHTML == '0' ) {
+			console.log( 'все' )
+		};
+
 
 // создание новой игры
 function makeQuiz() {
