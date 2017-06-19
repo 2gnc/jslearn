@@ -1,3 +1,77 @@
+function countApples() {
+
+// задаем переменные
+	var 	n = +document.getElementById( 'petya' ).value,
+				m = +document.getElementById( 'masha' ).value, 
+  			d = +document.getElementById( 'dima' ).value,
+				mIsDonated,
+				result = document.getElementById( 'result-box' ),
+				resultOfIteration,
+				resultsLog = new Array();
+
+// записываем в массив (на следующий свободный идекс результат итерации (если условие выполнилось - результат записался в массив))
+function showWhat() {
+	resultsLog[resultsLog.length] = resultOfIteration ;
+};
+
+// 1 проверка: меньше ли у Пети яблок, чем у Маши    
+  if ( n < m ) {
+  	m = m/2;
+    n = n + m;
+		resultOfIteration = ' <div class="apples__log apples__log--caseone">У Фрая яблок меньше, он отнял половину у Лилы. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+		showWhat();
+  } 
+
+// 2 проверка: независимо от первой проверки, Дима проверил, меньше ли у Маши яблок, чем 5
+	if ( m < 5 ) {
+  	m = m+2;
+    d = d-2;
+		mIsDonated = true;
+		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+		showWhat();
+  }
+
+// 3 проверка: независимо от предыдущих, Дима ест свои яблоки. У него что-то осталось или нет
+// если яблок оставалось меньше 7, то у него остается 0 и программа завершается
+	if ( n <= 7 ) {
+		n = 0;
+	resultOfIteration = ' <div class="apples__log apples__log--casethree">Фрай съел все свои яблоки. Бендер ничего делать не стал. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+	showWhat();
+	}
+// иначе Петя съел 7 яблок
+	else {
+					n = n-7;
+					resultOfIteration = ' <div class="apples__log apples__log--casefour">Фрай съел часть своих яблок.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+					showWhat();
+					
+					// если в итоге у него осталось больше 10 яблок, Дима отбирает у него 10 и на этом успокаивается.
+					if ( n >= 10 ) {
+						n = n-10;
+						d = d+10;
+						resultOfIteration = ' <div class="apples__log apples__log--casefive">У Фрая много яблок, Бендер забрал у него 10.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+						showWhat();
+						}
+						//если у него было меньше 10, то Дима у Пети ничего не забирает, а идет к Маше
+						// если Дима раньше отдавал Маше 2 яблока, то он забирает их обратно
+				else if(mIsDonated) {
+					m = m-2;
+					d = d+2;
+					resultOfIteration = '<div class="apples__log apples__log--casesix">У Фрая мало яблок, Бендер забрал у Лилы свои 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p> ';
+					showWhat();
+				}
+				//если Дима яблок Маше не Давал, то он от всех отстал и ушел.
+				else {
+					resultOfIteration = ' <div class="apples__log apples__log--caseseven">У Фрая меньше 10 яблок, Бендер оставил его в покое.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
+					showWhat();
+				}
+	
+		}
+
+//Объединяем в одну строку все содержимое массива, записывем в переменную show
+	var show = resultsLog.join('');
+// записываем полученную строку в result
+	result.innerHTML = show;
+};
 function findAverage() {
 	// блокируем кнопку от повторного нажатия
 	document.getElementById( 'check-button' ).classList.add( 'average__button--checked' );
@@ -83,80 +157,6 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
-function countApples() {
-
-// задаем переменные
-	var 	n = +document.getElementById( 'petya' ).value,
-				m = +document.getElementById( 'masha' ).value, 
-  			d = +document.getElementById( 'dima' ).value,
-				mIsDonated,
-				result = document.getElementById( 'result-box' ),
-				resultOfIteration,
-				resultsLog = new Array();
-
-// записываем в массив (на следующий свободный идекс результат итерации (если условие выполнилось - результат записался в массив))
-function showWhat() {
-	resultsLog[resultsLog.length] = resultOfIteration ;
-};
-
-// 1 проверка: меньше ли у Пети яблок, чем у Маши    
-  if ( n < m ) {
-  	m = m/2;
-    n = n + m;
-		resultOfIteration = ' <div class="apples__log apples__log--caseone">У Фрая яблок меньше, он отнял половину у Лилы. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-		showWhat();
-  } 
-
-// 2 проверка: независимо от первой проверки, Дима проверил, меньше ли у Маши яблок, чем 5
-	if ( m < 5 ) {
-  	m = m+2;
-    d = d-2;
-		mIsDonated = true;
-		resultOfIteration = ' <div class="apples__log apples__log--casetwo"> У Лилы осталось меньше 5 яблок, Бендер дает ей 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-		showWhat();
-  }
-
-// 3 проверка: независимо от предыдущих, Дима ест свои яблоки. У него что-то осталось или нет
-// если яблок оставалось меньше 7, то у него остается 0 и программа завершается
-	if ( n <= 7 ) {
-		n = 0;
-	resultOfIteration = ' <div class="apples__log apples__log--casethree">Фрай съел все свои яблоки. Бендер ничего делать не стал. <p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-	showWhat();
-	}
-// иначе Петя съел 7 яблок
-	else {
-					n = n-7;
-					resultOfIteration = ' <div class="apples__log apples__log--casefour">Фрай съел часть своих яблок.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-					showWhat();
-					
-					// если в итоге у него осталось больше 10 яблок, Дима отбирает у него 10 и на этом успокаивается.
-					if ( n >= 10 ) {
-						n = n-10;
-						d = d+10;
-						resultOfIteration = ' <div class="apples__log apples__log--casefive">У Фрая много яблок, Бендер забрал у него 10.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-						showWhat();
-						}
-						//если у него было меньше 10, то Дима у Пети ничего не забирает, а идет к Маше
-						// если Дима раньше отдавал Маше 2 яблока, то он забирает их обратно
-				else if(mIsDonated) {
-					m = m-2;
-					d = d+2;
-					resultOfIteration = '<div class="apples__log apples__log--casesix">У Фрая мало яблок, Бендер забрал у Лилы свои 2 яблока.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p> ';
-					showWhat();
-				}
-				//если Дима яблок Маше не Давал, то он от всех отстал и ушел.
-				else {
-					resultOfIteration = ' <div class="apples__log apples__log--caseseven">У Фрая меньше 10 яблок, Бендер оставил его в покое.<p>Фрай: ' + n + ', Лила: ' + m + ', Бендер: ' + d +  '</p></div>';
-					showWhat();
-				}
-	
-		}
-
-//Объединяем в одну строку все содержимое массива, записывем в переменную show
-	var show = resultsLog.join('');
-// записываем полученную строку в result
-	result.innerHTML = show;
-};
 'use strict';
 
 function findDifferent() {
@@ -352,6 +352,77 @@ buttonAdd.addEventListener( 'click', clicker );
 
 
 
+'use strict'
+//функция для получения случайного целого числа
+function randomise() {
+	//let plaseForNumber = document.getElementById('first-item');
+
+//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
+	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+//
+		finalRandomNumber = [],
+//
+		numberToAnalize,
+// куда выводить текстовое описание
+		placeForDescription = document.getElementById( 'result' );
+
+//функция дает случайное целое число
+	function getRandomNumber() {
+		return parseInt( Math.random()*10 )
+	}
+
+//функция выводит элементы с задержкой 0.2 секунды
+	function makeRandomNumber(where) {
+//получаем массив из 10 случайных чисел, которые будем анимировать
+	let numbersForScroll = [];
+	for ( let k = 0; k < 10; k++ ) {
+		numbersForScroll.push(getRandomNumber());
+		}
+//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
+	finalRandomNumber.push(numbersForScroll[9]);
+//выводим 10 раз элемнты массива, начиная с 0-го
+		let i = 0;
+		( function numbersScroller() {
+			if ( i < 10 ) {
+				where.innerHTML = numbersForScroll[i];
+				i++;
+				setTimeout( numbersScroller, 200 );
+			}
+//затем выводм и оставляем последнее число
+			else {
+				where.innerHTML = numbersForScroll[9];
+			}
+		}
+			)();
+			return finalRandomNumber;
+	}
+//функция с задержкой показывает на доске, какое число: четное или не четное
+	function showDescription(numberToDescript) {
+// очищаем предыдущее описание числа, если оно было
+		if ( placeForDescription.innerHTML !== '' ) {
+		placeForDescription.innerHTML = '';
+		}
+		setTimeout( function(){
+			if ( numberToAnalize%2 != 0 ) {
+				placeForDescription.innerHTML = 'Это нечетное целое число';
+			}
+			else {
+				placeForDescription.innerHTML = 'Это четное целое число';
+			}}
+		, 2500)
+	};
+
+//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
+//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
+	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
+		makeRandomNumber(elementsToPlaseRandomizer[i]);
+	}
+
+//получили трехзначное число для последующего анализа
+numberToAnalize = parseInt(finalRandomNumber.join(''));
+showDescription(numberToAnalize);
+
+};
 'use strict';
 // Таймер в секундах на один ответ
 const answerTimer = 10;
@@ -433,8 +504,6 @@ Quiz.prototype.makeRound = function() {
 	newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
 // создаем массив с тремя вопросами
 	getRoundNumbers();
-	console.log( 'номера вопросов' );
-	console.log( roundNumbers );
 // Получаем три вопроса и ответа для раунда
 	for ( var i = 0; i < roundNumbers.length; i++ ) {
 		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
@@ -468,12 +537,8 @@ Quiz.prototype.makeRound = function() {
 				}, 10000);
 			};
 	})();
-
-	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
-	console.log( 'использованые вопросы' );
-	console.log( usedNumbers );
-		}
+	}
 	else {
 		console.log( 'Больше нет попыток' );
 		newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
@@ -498,94 +563,7 @@ function makeQuiz() {
 newGameBtn.addEventListener( 'click', makeQuiz );
 };
 
-
-
-
-		/*
-		*	из JSON сделать массив объектов
-		*	запустить рандомайзер, получить три индекса
-		*	получить три пары вопрос - ответ
-		*	запустить функцию показа вопросов и ожидания ответов
-		*	запустить проверку ответа или заблокировать ввод по истечении времени
-		*	заблокировать повторный ввод, пока не вышло время на ответ на предыдущий вопрос
-		*	пересчитать вероятность успеха на основании всех ранее введенных результатов
-		*	показать результат проверки ответа
-		*	сдвинуть ключ в банке в зависимости от показателя вероятности успеха
-		* объект "quizItem" (вопрос, ответ, проверка ответа, пересчет вероятности успеха)
-		*/
-//		};
-	//};
-'use strict'
-//функция для получения случайного целого числа
-function randomise() {
-	//let plaseForNumber = document.getElementById('first-item');
-
-//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
-	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
-//
-		finalRandomNumber = [],
-//
-		numberToAnalize,
-// куда выводить текстовое описание
-		placeForDescription = document.getElementById( 'result' );
-
-//функция дает случайное целое число
-	function getRandomNumber() {
-		return parseInt( Math.random()*10 )
-	}
-
-//функция выводит элементы с задержкой 0.2 секунды
-	function makeRandomNumber(where) {
-//получаем массив из 10 случайных чисел, которые будем анимировать
-	let numbersForScroll = [];
-	for ( let k = 0; k < 10; k++ ) {
-		numbersForScroll.push(getRandomNumber());
-		}
-//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
-	finalRandomNumber.push(numbersForScroll[9]);
-//выводим 10 раз элемнты массива, начиная с 0-го
-		let i = 0;
-		( function numbersScroller() {
-			if ( i < 10 ) {
-				where.innerHTML = numbersForScroll[i];
-				i++;
-				setTimeout( numbersScroller, 200 );
-			}
-//затем выводм и оставляем последнее число
-			else {
-				where.innerHTML = numbersForScroll[9];
-			}
-		}
-			)();
-			return finalRandomNumber;
-	}
-//функция с задержкой показывает на доске, какое число: четное или не четное
-	function showDescription(numberToDescript) {
-// очищаем предыдущее описание числа, если оно было
-		if ( placeForDescription.innerHTML !== '' ) {
-		placeForDescription.innerHTML = '';
-		}
-		setTimeout( function(){
-			if ( numberToAnalize%2 != 0 ) {
-				placeForDescription.innerHTML = 'Это нечетное целое число';
-			}
-			else {
-				placeForDescription.innerHTML = 'Это четное целое число';
-			}}
-		, 2500)
-	};
-
-//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
-//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
-	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
-		makeRandomNumber(elementsToPlaseRandomizer[i]);
-	}
-
-//получили трехзначное число для последующего анализа
-numberToAnalize = parseInt(finalRandomNumber.join(''));
-showDescription(numberToAnalize);
-
-};
+// Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
 'use strict';
 
 var textRedactor = function() {

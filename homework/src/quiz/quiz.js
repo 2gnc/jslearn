@@ -79,8 +79,6 @@ Quiz.prototype.makeRound = function() {
 	newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
 // создаем массив с тремя вопросами
 	getRoundNumbers();
-	console.log( 'номера вопросов' );
-	console.log( roundNumbers );
 // Получаем три вопроса и ответа для раунда
 	for ( var i = 0; i < roundNumbers.length; i++ ) {
 		roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
@@ -114,12 +112,8 @@ Quiz.prototype.makeRound = function() {
 				}, 10000);
 			};
 	})();
-
-	console.log( 'массив вопросов' );
 	console.log( roundQuestionsAndAnswers );
-	console.log( 'использованые вопросы' );
-	console.log( usedNumbers );
-		}
+	}
 	else {
 		console.log( 'Больше нет попыток' );
 		newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
@@ -144,20 +138,4 @@ function makeQuiz() {
 newGameBtn.addEventListener( 'click', makeQuiz );
 };
 
-
-
-
-		/*
-		*	из JSON сделать массив объектов
-		*	запустить рандомайзер, получить три индекса
-		*	получить три пары вопрос - ответ
-		*	запустить функцию показа вопросов и ожидания ответов
-		*	запустить проверку ответа или заблокировать ввод по истечении времени
-		*	заблокировать повторный ввод, пока не вышло время на ответ на предыдущий вопрос
-		*	пересчитать вероятность успеха на основании всех ранее введенных результатов
-		*	показать результат проверки ответа
-		*	сдвинуть ключ в банке в зависимости от показателя вероятности успеха
-		* объект "quizItem" (вопрос, ответ, проверка ответа, пересчет вероятности успеха)
-		*/
-//		};
-	//};
+// Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
