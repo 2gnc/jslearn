@@ -68,6 +68,7 @@
 			transform: translate(2px, 2px)
 			box-shadow: 0 0 0 0 #212121
 			background-color: transparent//#6e0b1f
+			cursor: default
 	&__question
 		width: 360px
 		float: right
@@ -90,12 +91,23 @@
 		align-items: center
 		margin-bottom: 10px
 		border: 1px solid #212121
+	&__result
+		width: 360px
+		display: none
+		&--visible
+			display: flex
+			align-items: center
+			font-size: 1.1em
+			color: white
+			text-align: center
 	&__answer
 		width: 360px
 		text-align: right
 		display: flex
 		justify-content: flex-end
 		align-items: center
+		&--invisible
+			display: none
 	&__answer-inp
 		background-color: 
 		opacity: 0.8

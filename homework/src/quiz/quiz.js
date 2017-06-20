@@ -17,7 +17,12 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Поле для отображения вопроса
 	questionPlace = document.querySelector( '.quiz__question-txt' ),
 // Поле для отображения таймера обратного отсчета
-	timerPlace = document.querySelector( '.quiz__countdown' );
+	timerPlace = document.querySelector( '.quiz__countdown' ),
+// группа тегов для ввода ответа
+	answerPlace = document.querySelector( '.quiz__answer' ),
+// группа для отображения результатов
+	resultsPlace = document.querySelector( '.quiz__result' )
+; 
 
 //подключаем файл с вопросами
 	var xhr = new XMLHttpRequest();
@@ -90,6 +95,10 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 Quiz.prototype.makeRound = function() {
 // Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
 	var questionsCouner = 0;
+// Показываем блок с вводом ответа
+	answerPlace.classList.remove( 'quiz__answer--invisible' );
+// Скрываем блок для результатов
+	resultsPlace.classList.remove( 'quiz__result--visible' );
 // Функция для показа обратного отсчета на странице
 	function countDown() {
 		let m = answerTimer;
@@ -148,6 +157,12 @@ Quiz.prototype.makeRound = function() {
 								newRoundBtn.removeAttribute( 'disabled', '' );
 // Убираем модификатор с кнопки "новый раунд"
 								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+// Скрываем блок с вводом ответа
+								answerPlace.classList.add( 'quiz__answer--invisible' );
+// Убираем третий вопрос из блока текущего вопроса
+								questionPlace.innerHTML = '';
+// Показываем блок для результатов
+								resultsPlace.classList.add( 'quiz__result--visible' );
 							}, 10000);
 						}
 					}, 10000);
