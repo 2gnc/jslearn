@@ -71,7 +71,7 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 	this.wrongAnswersCount = wrongAnswersCount;
 	this.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
 	this.escapeChance = escapeChance;
-};
+	};
 
 
 //новая версия алгоритма работы раунда
@@ -139,61 +139,112 @@ Quiz.prototype.makeRound = function() {
 // Создаем массив объектов вопрос-ответ
 				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 				};
-// Создаем стрелочную функцию tenSeconds - задает три вопроса, рекурсивно
-			var tenSeconds =  (l = 0) => {
-// Константа с стрелочной функцией, которая проверяет ответы
-				var getAnswer =  () => {
-					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
-					console.log( defaultAnswer );
-					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
-				 	if (answer === defaultAnswer) {
-				 		this.rightAnswersCount++;
-				 		console.log('++');
-				 		}
-				 		else {
-				 		console.log('--')
-				 		this.wrongAnswersCount++;
-				 		};
-					};
-// Включаем обработчик события нажатия на кнопку "ответ"
-				answerBtn.addEventListener( 'click', getAnswer );
-// Выводим на экран i-й вопрос
-				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
-// Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
-				countDown();
-// Увеличиваем счетчик заданных вопросов
+//
+			var n = 0;
+// Функция задаст последовательно с таймаутом 10 секунд все вопросы из массива вопросов для раунда
+			questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
+			questionsCouner ++;
+			n++;
+			console.log( questionsCouner );
+			const asker = () => {
+				questionPlace.innerHTML = roundQuestionsAndAnswers[n].question;
 				questionsCouner ++;
-// Увеличиваем счетчик итераций
-				l++;
 				console.log( questionsCouner );
-// Если еще не задано три вопроса в этом раунде, запускаем заново
-				if ( l < 3 ) {
-					setTimeout( () => {
-						tenSeconds(l);
-// Если задано уже три вопроса:
-						if( questionsCouner == 3 ) {
-// Отсчитываем еще 10 секунд
-							setTimeout( () => {
-								console.log( 'Правильных ответов ' + this.rightAnswersCount );
-								console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
-// Убираем блокировку с кнопки "новый раунд"
-								newRoundBtn.removeAttribute( 'disabled', '' );
-// Убираем модификатор с кнопки "новый раунд"
-								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
-// Скрываем блок с вводом ответа
-								answerPlace.classList.add( 'quiz__answer--invisible' );
-// Убираем третий вопрос из блока текущего вопроса
-								questionPlace.innerHTML = '';
-// Показываем блок для результатов
-								resultsPlace.classList.add( 'quiz__result--visible' );
-							}, 10000);
-						}
-					}, 10000);
-				}; 
+				n++;
+				if ( n >= 3 ) { clearInterval(xxx) };
+				if( questionsCouner == 3 ) {
+						setTimeout( () => {
+					 								console.log( 'Правильных ответов ' + this.rightAnswersCount );
+					 								console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
+					 // Убираем блокировку с кнопки "новый раунд"
+					 								newRoundBtn.removeAttribute( 'disabled', '' );
+					 // Убираем модификатор с кнопки "новый раунд"
+					 								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+					 // Скрываем блок с вводом ответа
+					 								answerPlace.classList.add( 'quiz__answer--invisible' );
+					 // Убираем третий вопрос из блока текущего вопроса
+					 								questionPlace.innerHTML = '';
+					 // Показываем блок для результатов
+					 								resultsPlace.classList.add( 'quiz__result--visible' );
+					 							}, 10000);
+					};
 			};
-//Запускаем
-			tenSeconds();
-		}
+			var xxx = setInterval( asker, 10000);
+
+
+
+			var getAnswer =  () => {
+				defaultAnswer = roundQuestionsAndAnswers[n-1].answer.toLowerCase();
+				console.log( defaultAnswer );
+				answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+			 	if (answer === defaultAnswer) {
+			 		this.rightAnswersCount++;
+			 		console.log('++');
+			 		}
+			 		else {
+			 		console.log('--')
+			 		this.wrongAnswersCount++;
+			 		};
+				};
+				answerBtn.addEventListener( 'click', getAnswer );
+
+
+					// // Создаем стрелочную функцию tenSeconds - задает три вопроса, рекурсивно
+					// 			var tenSeconds =  (l = 0) => {
+					// // Константа с стрелочной функцией, которая проверяет ответы
+					// 				var getAnswer =  () => {
+					// 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+					// 					console.log( defaultAnswer );
+					// 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+					// 				 	if (answer === defaultAnswer) {
+					// 				 		this.rightAnswersCount++;
+					// 				 		console.log('++');
+					// 				 		}
+					// 				 		else {
+					// 				 		console.log('--')
+					// 				 		this.wrongAnswersCount++;
+					// 				 		};
+					// 					};
+					// // Включаем обработчик события нажатия на кнопку "ответ"
+					// 				answerBtn.addEventListener( 'click', getAnswer );
+					// // Выводим на экран i-й вопрос
+					// 				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
+					// // Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
+					// 				countDown();
+					// // Увеличиваем счетчик заданных вопросов
+					// 				questionsCouner ++;
+					// // Увеличиваем счетчик итераций
+					// 				l++;
+					// 				console.log( questionsCouner );
+					// // Если еще не задано три вопроса в этом раунде, запускаем заново
+					// 				if ( l < 3 ) {
+					// 					setTimeout( () => {
+					// 						tenSeconds(l);
+					// // Если задано уже три вопроса:
+					// 						if( questionsCouner == 3 ) {
+					// // Отсчитываем еще 10 секунд
+					// 							setTimeout( () => {
+					// 								console.log( 'Правильных ответов ' + this.rightAnswersCount );
+					// 								console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
+					// // Убираем блокировку с кнопки "новый раунд"
+					// 								newRoundBtn.removeAttribute( 'disabled', '' );
+					// // Убираем модификатор с кнопки "новый раунд"
+					// 								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+					// // Скрываем блок с вводом ответа
+					// 								answerPlace.classList.add( 'quiz__answer--invisible' );
+					// // Убираем третий вопрос из блока текущего вопроса
+					// 								questionPlace.innerHTML = '';
+					// // Показываем блок для результатов
+					// 								resultsPlace.classList.add( 'quiz__result--visible' );
+					// 							}, 10000);
+					// 						}
+					// 					}, 10000);
+					// 				}; 
+					// 			};
+					// //Запускаем
+					// 			tenSeconds();
+					// 		}
+				}
 // Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
 		else {
 			console.log( 'Все вопросы кончились' );
