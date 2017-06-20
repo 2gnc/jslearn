@@ -144,16 +144,15 @@ Quiz.prototype.makeRound = function() {
 // Константа с стрелочной функцией, которая проверяет ответы
 				var getAnswer =  () => {
 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+					console.log( defaultAnswer );
 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
 				 	if (answer === defaultAnswer) {
 				 		this.rightAnswersCount++;
-				 		console.log('++')
-				 		return true
+				 		console.log('++');
 				 		}
 				 		else {
 				 		console.log('--')
 				 		this.wrongAnswersCount++;
-				 		return false
 				 		};
 					};
 // Включаем обработчик события нажатия на кнопку "ответ"
@@ -190,7 +189,7 @@ Quiz.prototype.makeRound = function() {
 							}, 10000);
 						}
 					}, 10000);
-				};
+				}; 
 			};
 //Запускаем
 			tenSeconds();
