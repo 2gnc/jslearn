@@ -128,7 +128,6 @@ Quiz.prototype.makeRound = function() {
 			if (roundQuestionsAndAnswers != []) {
 				roundQuestionsAndAnswers = [];
 				};
-
 // Отключаем кнопку "новый раунд"
 			newRoundBtn.setAttribute( 'disabled', '' );
 // Добавляем модификатор --disabled кнопке "новый раунд"
@@ -140,49 +139,23 @@ Quiz.prototype.makeRound = function() {
 // Создаем массив объектов вопрос-ответ
 				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 				};
-// Создаем и сразу запускаем функцию 
-			//(function tenSeconds(l = 0) {
-			//(function tenSeconds(l = 0) {
+// Создаем стрелочную функцию tenSeconds - задает три вопроса, рекурсивно
 			var tenSeconds =  (l = 0) => {
-// // Функция для получения ответа. Возвращает true или false по результатам проверки
-// 				function getAnswer() {
-// 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
-// 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
-// 				 	console.log( 'Ответ пользователя: ' + answer );
-// 				 	console.log( 'Правильный ответ: ' + defaultAnswer );
-// 				 	if (answer === defaultAnswer) {
-// 				 		console.log( 'верно' );
-// 				 		//game.rightAnswersCount++;
-// 				 		//console.log(game.rightAnswersCount);
-// 				 		return true
-// 				 		}
-// 				 		else {
-// 				 		console.log( 'неверно' );
-// 				 		return false
-// 				 		};
-// 					};
 // Константа с стрелочной функцией, которая проверяет ответы
 				var getAnswer =  () => {
 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
-				 	console.log( 'Ответ пользователя: ' + answer );
-				 	console.log( 'Правильный ответ: ' + defaultAnswer );
 				 	if (answer === defaultAnswer) {
-				 		console.log( 'верно' );
-				 		//game.rightAnswersCount++;
-				 		//console.log(game.rightAnswersCount);
-				 		console.log( this.rightAnswersCount );
+				 		this.rightAnswersCount++;
 				 		return true
 				 		}
 				 		else {
-				 		console.log( 'неверно' );
+				 		this.wrongAnswersCount++;
 				 		return false
 				 		};
 					};
-
 // Включаем обработчик события нажатия на кнопку "ответ"
 				answerBtn.addEventListener( 'click', getAnswer );
-
 // Выводим на экран i-й вопрос
 				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
 // Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
@@ -192,14 +165,14 @@ Quiz.prototype.makeRound = function() {
 // Увеличиваем счетчик итераций
 				l++;
 				console.log( questionsCouner );
-				defaultAnswer = '';
-				answer = '';
 // Если еще не задано три вопроса в этом раунде, запускаем заново
 				if ( l < 3 ) {
 					setTimeout(function() {
 						tenSeconds(l);
 // Если задано уже три вопроса:
 						if( questionsCouner == 3 ) {
+							console.log( 'Правильных ответов ' + this.rightAnswersCount );
+							console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
 // Отсчитываем еще 10 секунд
 							setTimeout( function() {
 								console.log( 'ура' );
@@ -218,6 +191,7 @@ Quiz.prototype.makeRound = function() {
 					}, 10000);
 				};
 			};
+//Запускаем
 			tenSeconds();
 		}
 // Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
@@ -225,9 +199,6 @@ Quiz.prototype.makeRound = function() {
 			console.log( 'Все вопросы кончились' );
 		};
 	};
-
-// конец новой версии алгоритма
-
 // создание новой игры
 function makeQuiz() {
 // Создаем экземпляр типа Quiz
