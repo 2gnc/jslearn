@@ -143,13 +143,17 @@ Quiz.prototype.makeRound = function() {
 			var tenSeconds =  (l = 0) => {
 // Константа с стрелочной функцией, которая проверяет ответы
 				var getAnswer =  () => {
+					defaultAnswer = '';
+					answer = '';
 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
 				 	if (answer === defaultAnswer) {
 				 		this.rightAnswersCount++;
+				 		console.log('++')
 				 		return true
 				 		}
 				 		else {
+				 		console.log('--')
 				 		this.wrongAnswersCount++;
 				 		return false
 				 		};
@@ -167,15 +171,14 @@ Quiz.prototype.makeRound = function() {
 				console.log( questionsCouner );
 // Если еще не задано три вопроса в этом раунде, запускаем заново
 				if ( l < 3 ) {
-					setTimeout(function() {
+					setTimeout( () => {
 						tenSeconds(l);
 // Если задано уже три вопроса:
 						if( questionsCouner == 3 ) {
-							console.log( 'Правильных ответов ' + this.rightAnswersCount );
-							console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
 // Отсчитываем еще 10 секунд
-							setTimeout( function() {
-								console.log( 'ура' );
+							setTimeout( () => {
+								console.log( 'Правильных ответов ' + this.rightAnswersCount );
+								console.log( 'Неправильных ответов ' + this.wrongAnswersCount );
 // Убираем блокировку с кнопки "новый раунд"
 								newRoundBtn.removeAttribute( 'disabled', '' );
 // Убираем модификатор с кнопки "новый раунд"
