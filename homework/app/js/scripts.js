@@ -157,6 +157,75 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
+'use strict';
+
+function findDifferent() {
+
+//получаем переменные из инпутов
+	let n1 = parseInt(document.getElementById( 'n1' ).value),
+		n2 = parseInt(document.getElementById( 'n2' ).value),
+		n3 = parseInt(document.getElementById( 'n3' ).value),
+		n4 = parseInt(document.getElementById( 'n4' ).value),
+		differentNumber;
+
+//сбросим оформление инпутов, если что-то было введено раньше
+// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
+	let a = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < a.length; i++) {
+			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
+		}
+
+//определим, какое по счету число является отличным от трех остальных, 
+//присвоим переменной differentNumber порядковый номер отличного чила в массиве
+	if( n1 == n2 && n2 == n3 && n4 != n1) {
+		differentNumber = 3;
+//четвертое
+	}
+	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
+		differentNumber = 2;
+//третье
+	}
+	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
+		differentNumber = 1;
+//второе
+	}
+	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
+		differentNumber = 0;
+//первое
+	}
+	else if (n1 == n2 && n2 == n3 && n3 == n4) {
+		differentNumber = 'error';
+	}
+//три числа из четырех не равны между собой или все числа между собой равны
+	else {
+		differentNumber = 'error';
+	}
+
+//функция берет массив всех элементов input
+// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
+	function showDifferent(serialNumber) {
+			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
+	};
+//присвоим класс отличному числу, если оно есть
+	if( differentNumber !='error' ) {
+		showDifferent(differentNumber)
+	}
+	else {
+		let b = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < b.length; i++) {
+			b[i].classList.add( 'different__value--wrong' )
+			}
+		};
+	};
+
+// очистка оформления и значений инпутов
+function refreshDifferent() {
+	let a = document.getElementsByClassName( 'different__value' );
+	for (var i = 0; i < a.length; i++) {
+		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
+		a[i].value = '';
+	}
+};
 "use strict";
 //test
 
@@ -283,75 +352,6 @@ buttonAdd.addEventListener( 'click', clicker );
 
 
 
-'use strict';
-
-function findDifferent() {
-
-//получаем переменные из инпутов
-	let n1 = parseInt(document.getElementById( 'n1' ).value),
-		n2 = parseInt(document.getElementById( 'n2' ).value),
-		n3 = parseInt(document.getElementById( 'n3' ).value),
-		n4 = parseInt(document.getElementById( 'n4' ).value),
-		differentNumber;
-
-//сбросим оформление инпутов, если что-то было введено раньше
-// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
-	let a = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < a.length; i++) {
-			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
-		}
-
-//определим, какое по счету число является отличным от трех остальных, 
-//присвоим переменной differentNumber порядковый номер отличного чила в массиве
-	if( n1 == n2 && n2 == n3 && n4 != n1) {
-		differentNumber = 3;
-//четвертое
-	}
-	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
-		differentNumber = 2;
-//третье
-	}
-	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
-		differentNumber = 1;
-//второе
-	}
-	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
-		differentNumber = 0;
-//первое
-	}
-	else if (n1 == n2 && n2 == n3 && n3 == n4) {
-		differentNumber = 'error';
-	}
-//три числа из четырех не равны между собой или все числа между собой равны
-	else {
-		differentNumber = 'error';
-	}
-
-//функция берет массив всех элементов input
-// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
-	function showDifferent(serialNumber) {
-			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
-	};
-//присвоим класс отличному числу, если оно есть
-	if( differentNumber !='error' ) {
-		showDifferent(differentNumber)
-	}
-	else {
-		let b = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < b.length; i++) {
-			b[i].classList.add( 'different__value--wrong' )
-			}
-		};
-	};
-
-// очистка оформления и значений инпутов
-function refreshDifferent() {
-	let a = document.getElementsByClassName( 'different__value' );
-	for (var i = 0; i < a.length; i++) {
-		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
-		a[i].value = '';
-	}
-};
 'use strict'
 //функция для получения случайного целого числа
 function randomise() {
@@ -423,6 +423,232 @@ numberToAnalize = parseInt(finalRandomNumber.join(''));
 showDescription(numberToAnalize);
 
 };
+'use strict';
+// тест
+// Таймер в секундах на один ответ
+const answerTimer = 10;
+// Массив с номерами вопросов и ответов для одного раунда
+let roundNumbers = [],
+// Массив вопросов и ответов для одного раунда
+		roundQuestionsAndAnswers = [],
+// Массив для хранения уже заданных вопросов
+		usedNumbers = [];
+// Кнопка "Новая игра"
+let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
+// Кнопка "Новый раунд"
+	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
+// Кнопка "Начать заново"
+	clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
+// Поле для отображения вопроса
+	questionPlace = document.querySelector( '.quiz__question-txt' ),
+// Поле для отображения таймера обратного отсчета
+	timerPlace = document.querySelector( '.quiz__countdown' ),
+// группа тегов для ввода ответа
+	answerPlace = document.querySelector( '.quiz__answer' ),
+// Поле ввода ответа
+	userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase(),
+// Кнопка ввода ответа
+	answerBtn = document.querySelector( '.quiz__answer-btn' ),
+// группа для отображения результатов
+	resultsPlace = document.querySelector( '.quiz__result' )
+; 
+
+//подключаем файл с вопросами
+	var xhr = new XMLHttpRequest();
+//создаем асинхронный запрос
+	xhr.open('GET', 'quiz.json', true);
+//вызываем асинхронный запрос
+	xhr.send();
+//событие "по готовности" - обрабатывает полученный файл
+	xhr.onreadystatechange = function() { 
+		if (xhr.readyState != 4) return;
+		if (xhr.status != 200) {
+				console.log('Ошибка!');
+				};
+// если файл получен без проблем, обрабатываем его 
+// это массив всех вопросов и ответов
+		var allQuestions = JSON.parse( xhr.responseText ); 
+
+// Функция дает случайное число, не входящее в массив уже использованых номеров
+function getRandomNumber(min = 0, max = 49) {
+	do {
+		var rand = parseInt(Math.random() * (max - min) + min);
+	}
+	while (usedNumbers.indexOf(rand) !== -1);
+	return rand
+};
+
+// Функция дает три случайных индекса массива вопросов и ответов
+function getRoundNumbers() {
+	for (var i = 0; i < 3; i++) {
+// получаем уникальное число
+		var number = getRandomNumber();
+// записываем это число в массив использованных чисел
+			roundNumbers.push(number);
+// записываем это число в массив чисел раунда
+			usedNumbers.push(number);
+		}
+	};
+
+//создаем класс для всей игры
+function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
+	this.rightAnswersCount = rightAnswersCount;
+	this.wrongAnswersCount = wrongAnswersCount;
+	this.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
+	this.escapeChance = escapeChance;
+};
+
+
+//новая версия алгоритма работы раунда
+
+// Счётчик заданных вопросов = 0
+// Очистим массивы номеров для раунда и вопросов и ответов раунда
+// Получим новый массив вопросов и ответов (из выборки исключаем уже заданные вопросы)
+// Цикл while счётчик заданых вопросов < 3
+//  Выводим вопрос
+//  Включаем таймер 10 секунд
+//   Если ввели ответ - 
+//     - сбросить таймер
+//     - увеличить счётчик заданных вопросов на 1
+//     - включить функцию проверки ответа
+//     - следующая итерация 
+//   Если не ввели ответ и прошло 10 секунд
+//     - включить функцию проверки ответа (считаем за неправильный ответ)
+//     - увеличить счётчик заданных вопросов на 1
+//     - следующая итерация
+// Если счётчик заданных вопросов = 2 (окончание раунда)
+//   Скрыть поле ввода ответа 
+//   Показать правильные ответы
+//   Визуализировать банку
+//   Разблокировать кнопку "Новый раунд"
+
+// Метод для создания нового раунда
+Quiz.prototype.makeRound = function() {
+// Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
+	var questionsCouner = 0;
+// Показываем блок с вводом ответа
+	answerPlace.classList.remove( 'quiz__answer--invisible' );
+// Скрываем блок для результатов
+	resultsPlace.classList.remove( 'quiz__result--visible' );
+// Функция для показа обратного отсчета на странице
+	function countDown() {
+		let m = answerTimer;
+		(function answerCountdown() {
+			if (m <= 10 && m >= 0) {
+// Отображаем начальное значение таймера - 10
+				timerPlace.innerHTML = m;
+				m--;
+// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
+				setTimeout( answerCountdown, 909 );
+			};
+		})();
+	};	
+// Проверяем, остались ли незаданными еще хотя бы 3 вопроса
+		if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
+// Если это не первый раунд в игре, то очищаем массив номеров вопросов
+			if ( roundNumbers != [] ) {
+				roundNumbers = [];
+			};
+// Если это не первый раунд в игре, то очищаем массив объектов "вопрос-ответ"
+			if (roundQuestionsAndAnswers != []) {
+				roundQuestionsAndAnswers = [];
+			};
+
+// Отключаем кнопку "новый раунд"
+			newRoundBtn.setAttribute( 'disabled', '' );
+// Добавляем модификатор --disabled кнопке "новый раунд"
+			newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
+// Получаем массив номеров вопросов для раунда (с учетом вопросов, заданных в предыдущих раундах)
+			getRoundNumbers();
+// Запускаем цикл для каждого номера из массива вопросов для данного раунда (всего три вопроса), начинаем с 0
+			for ( var i = 0; i < roundNumbers.length; i++ ) {
+// Создаем массив объектов вопрос-ответ
+				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
+			};
+// Создаем и сразу запускаем функцию 
+			(function tenSeconds(l = 0) {
+// Включаем обработчик события нажатия на кнопку "ответ"
+			answerBtn.addEventListener( 'click', getAnswer );
+// Функция для получения ответа. Возвращает true или false по результатам проверки
+			function getAnswer() {
+				defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+				answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+			 	console.log( 'Ответ пользователя: ' + answer );
+			 	console.log( 'Правильный ответ: ' + defaultAnswer );
+
+			 	if (answer === defaultAnswer) {
+			 		console.log( 'верно' );
+
+			 		console.log(  );
+			 		return true
+			 		}
+			 		else {
+			 		console.log( 'неверно' );
+			 		return false
+			 		};
+				};
+
+// Выводим на экран i-й вопрос
+				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
+// Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
+				countDown();
+// Увеличиваем счетчик заданных вопросов
+				questionsCouner ++;
+// Увеличиваем счетчик итераций
+				l++;
+				console.log( questionsCouner );
+				//console.log( tenSeconds() );
+// Если еще не задано три вопроса в этом раунде, запускаем заново
+				if ( l < 3 ) {
+					setTimeout(function() {
+						tenSeconds(l);
+// Если задано уже три вопроса:
+						if( questionsCouner == 3 ) {
+// Отсчитываем еще 10 секунд
+							setTimeout( function() {
+								console.log( 'ура' );
+// Убираем блокировку с кнопки "новый раунд"
+								newRoundBtn.removeAttribute( 'disabled', '' );
+// Убираем модификатор с кнопки "новый раунд"
+								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+// Скрываем блок с вводом ответа
+								answerPlace.classList.add( 'quiz__answer--invisible' );
+// Убираем третий вопрос из блока текущего вопроса
+								questionPlace.innerHTML = '';
+// Показываем блок для результатов
+								resultsPlace.classList.add( 'quiz__result--visible' );
+							}, 10000);
+						}
+					}, 10000);
+				};
+			})();
+		}
+// Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
+		else {
+			console.log( 'Все вопросы кончились' );
+		};
+	return};
+
+// конец новой версии алгоритма
+
+// создание новой игры
+function makeQuiz() {
+// Создаем экземпляр типа Quiz
+	var game = new Quiz(0, 0, 0, 0);
+// Блокируем возможность повторно нажать кнопку Новая игра
+	newGameBtn.setAttribute( 'disabled', '' );
+// Добавляем класс --pushed
+	newGameBtn.classList.add( 'quiz__game-btn--pushed' );
+// Создаем первый раунд
+	game.makeRound();
+// Обработчик события на кнопке "Еще раунд"
+	newRoundBtn.addEventListener( 'click', game.makeRound );
+	};
+// Обработчик события нажатия на кнопку "Новая игра"
+	newGameBtn.addEventListener( 'click', makeQuiz );
+};
+
+// Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
 'use strict';
 
 var textRedactor = function() {
@@ -506,201 +732,3 @@ showButton.addEventListener( 'click', showText );
 clearButton.addEventListener( 'click', clearText );
 }
 textRedactor();
-'use strict';
-// тест
-// Таймер в секундах на один ответ
-const answerTimer = 10;
-// Массив с номерами вопросов и ответов для одного раунда
-let roundNumbers = [],
-// Массив вопросов и ответов для одного раунда
-		roundQuestionsAndAnswers = [],
-// Массив для хранения уже заданных вопросов
-		usedNumbers = [];
-// Кнопка "Новая игра"
-let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
-// Кнопка "Новый раунд"
-	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
-// Кнопка "Начать заново"
-	clearGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[2],
-// Поле для отображения вопроса
-	questionPlace = document.querySelector( '.quiz__question-txt' ),
-// Поле для отображения таймера обратного отсчета
-	timerPlace = document.querySelector( '.quiz__countdown' ),
-// группа тегов для ввода ответа
-	answerPlace = document.querySelector( '.quiz__answer' ),
-// группа для отображения результатов
-	resultsPlace = document.querySelector( '.quiz__result' )
-; 
-
-//подключаем файл с вопросами
-	var xhr = new XMLHttpRequest();
-//создаем асинхронный запрос
-	xhr.open('GET', 'quiz.json', true);
-//вызываем асинхронный запрос
-	xhr.send();
-//событие "по готовности" - обрабатывает полученный файл
-	xhr.onreadystatechange = function() { 
-		if (xhr.readyState != 4) return;
-		if (xhr.status != 200) {
-				console.log('Ошибка!');
-				};
-// если файл получен без проблем, обрабатываем его 
-// это массив всех вопросов и ответов
-		var allQuestions = JSON.parse( xhr.responseText ); 
-
-// Функция дает случайное число, не входящее в массив уже использованых номеров
-function getRandomNumber(min = 0, max = 49) {
-	do {
-		var rand = parseInt(Math.random() * (max - min) + min);
-	}
-	while (usedNumbers.indexOf(rand) !== -1);
-	return rand
-};
-
-// Функция дает три случайных индекса массива вопросов и ответов
-function getRoundNumbers() {
-	for (var i = 0; i < 3; i++) {
-// получаем уникальное число
-		var number = getRandomNumber();
-// записываем это число в массив использованных чисел
-			roundNumbers.push(number);
-// записываем это число в массив чисел раунда
-			usedNumbers.push(number);
-		}
-	};
-
-//создаем класс для всей игры
-function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
-	this.rightAnswersCount = rightAnswersCount;
-	this.wrongAnswersCount = wrongAnswersCount;
-	this.roundsCount = roundsCount;
-	this.escapeChance = escapeChance;
-};
-
-//новая версия алгоритма 
-
-// Счётчик заданных вопросов = 0
-// Очистим массивы номеров для раунда и вопросов и ответов раунда
-// Получим новый массив вопросов и ответов (из выборки исключаем уже заданные вопросы)
-// Цикл while счётчик заданых вопросов < 3
-//  Выводим вопрос
-//  Включаем таймер 10 секунд
-//   Если ввели ответ - 
-//     - сбросить таймер
-//     - увеличить счётчик заданных вопросов на 1
-//     - включить функцию проверки ответа
-//     - следующая итерация 
-//   Если не ввели ответ и прошло 10 секунд
-//     - включить функцию проверки ответа (считаем за неправильный ответ)
-//     - увеличить счётчик заданных вопросов на 1
-//     - следующая итерация
-// Если счётчик заданных вопросов = 2 (окончание раунда)
-//   Скрыть поле ввода ответа 
-//   Показать правильные ответы
-//   Визуализировать банку
-//   Разблокировать кнопку "Новый раунд"
-
-Quiz.prototype.makeRound = function() {
-// Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
-	var questionsCouner = 0;
-// Показываем блок с вводом ответа
-	answerPlace.classList.remove( 'quiz__answer--invisible' );
-// Скрываем блок для результатов
-	resultsPlace.classList.remove( 'quiz__result--visible' );
-// Функция для показа обратного отсчета на странице
-	function countDown() {
-		let m = answerTimer;
-		(function answerCountdown() {
-			if (m <= 10 && m >= 0) {
-// Отображаем начальное значение таймера - 10
-				timerPlace.innerHTML = m;
-				m--;
-// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
-				setTimeout( answerCountdown, 909 );
-			};
-		})();
-	};	
-// Проверяем, остались ли незаданными еще хотя бы 3 вопроса
-		if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
-// Если это не первый раунд в игре, то очищаем массив номеров вопросов
-			if ( roundNumbers != [] ) {
-				roundNumbers = [];
-			};
-// Если это не первый раунд в игре, то очищаем массив объектов "вопрос-ответ"
-			if (roundQuestionsAndAnswers != []) {
-				roundQuestionsAndAnswers = [];
-			};
-// Отключаем кнопку "новый раунд"
-			newRoundBtn.setAttribute( 'disabled', '' );
-// Добавляем модификатор --disabled кнопке "новый раунд"
-			newRoundBtn.classList.add( 'quiz__game-btn--pushed' );
-// Получаем массив номеров вопросов для раунда (с учетом вопросов, заданных в предыдущих раундах)
-			getRoundNumbers();
-// Запускаем цикл для каждого номера из массива вопросов для данного раунда (всего три вопроса), начинаем с 0
-			for ( var i = 0; i < roundNumbers.length; i++ ) {
-// Создаем массив объектов вопрос-ответ
-				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
-			};
-// Создаем и сразу запускаем функцию 
-			(function tenSeconds(l = 0) {
-// Выводим на экран i-й вопрос
-				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
-// Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
-				countDown();
-// Увеличиваем счетчик заданных вопросов
-				questionsCouner ++;
-// Увеличиваем счетчик итераций
-				l++;
-				console.log( questionsCouner );
-// Если еще не задано три вопроса в этом раунде, запускаем заново
-				if ( l < 3 ) {
-					setTimeout(function() {
-						tenSeconds(l);
-// Если задано уже три вопроса:
-						if( questionsCouner == 3 ) {
-// Отсчитываем еще 10 секунд
-							setTimeout( function() {
-								console.log( 'ура' );
-// Убираем блокировку с кнопки "новый раунд"
-								newRoundBtn.removeAttribute( 'disabled', '' );
-// Убираем модификатор с кнопки "новый раунд"
-								newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
-// Скрываем блок с вводом ответа
-								answerPlace.classList.add( 'quiz__answer--invisible' );
-// Убираем третий вопрос из блока текущего вопроса
-								questionPlace.innerHTML = '';
-// Показываем блок для результатов
-								resultsPlace.classList.add( 'quiz__result--visible' );
-							}, 10000);
-						}
-					}, 10000);
-				};
-			})();
-		}
-// Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
-		else {
-			console.log( 'Все вопросы кончились' );
-		};
-	};
-
-// конец новой версии алгоритма
-
-// создание новой игры
-function makeQuiz() {
-// Создаем экземпляр типа Quiz
-	var game = new Quiz(0, 0, 0, 0);
-// Блокируем возможность повторно нажать кнопку Новая игра
-	newGameBtn.setAttribute( 'disabled', '' );
-// Добавляем класс --pushed
-	newGameBtn.classList.add( 'quiz__game-btn--pushed' );
-// Создаем первый раунд
-	game.makeRound();
-// Обработчик события на кнопке "Еще раунд"
-	newRoundBtn.addEventListener( 'click', game.makeRound );
-	};
-
-// Обработчик события нажатия на кнопку "Новая игра"
-newGameBtn.addEventListener( 'click', makeQuiz );
-};
-
-// Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 

@@ -20,6 +20,10 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 	timerPlace = document.querySelector( '.quiz__countdown' ),
 // группа тегов для ввода ответа
 	answerPlace = document.querySelector( '.quiz__answer' ),
+// Поле ввода ответа
+	userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase(),
+// Кнопка ввода ответа
+	answerBtn = document.querySelector( '.quiz__answer-btn' ),
 // группа для отображения результатов
 	resultsPlace = document.querySelector( '.quiz__result' )
 ; 
@@ -65,11 +69,12 @@ function getRoundNumbers() {
 function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 	this.rightAnswersCount = rightAnswersCount;
 	this.wrongAnswersCount = wrongAnswersCount;
-	this.roundsCount = roundsCount;
+	this.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
 	this.escapeChance = escapeChance;
 };
 
-//новая версия алгоритма 
+
+//новая версия алгоритма работы раунда
 
 // Счётчик заданных вопросов = 0
 // Очистим массивы номеров для раунда и вопросов и ответов раунда
@@ -92,6 +97,7 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 //   Визуализировать банку
 //   Разблокировать кнопку "Новый раунд"
 
+// Метод для создания нового раунда
 Quiz.prototype.makeRound = function() {
 // Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
 	var questionsCouner = 0;
@@ -122,6 +128,7 @@ Quiz.prototype.makeRound = function() {
 			if (roundQuestionsAndAnswers != []) {
 				roundQuestionsAndAnswers = [];
 			};
+
 // Отключаем кнопку "новый раунд"
 			newRoundBtn.setAttribute( 'disabled', '' );
 // Добавляем модификатор --disabled кнопке "новый раунд"
@@ -135,6 +142,27 @@ Quiz.prototype.makeRound = function() {
 			};
 // Создаем и сразу запускаем функцию 
 			(function tenSeconds(l = 0) {
+// Включаем обработчик события нажатия на кнопку "ответ"
+			answerBtn.addEventListener( 'click', getAnswer );
+// Функция для получения ответа. Возвращает true или false по результатам проверки
+			function getAnswer() {
+				defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+				answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+			 	console.log( 'Ответ пользователя: ' + answer );
+			 	console.log( 'Правильный ответ: ' + defaultAnswer );
+
+			 	if (answer === defaultAnswer) {
+			 		console.log( 'верно' );
+
+			 		console.log(  );
+			 		return true
+			 		}
+			 		else {
+			 		console.log( 'неверно' );
+			 		return false
+			 		};
+				};
+
 // Выводим на экран i-й вопрос
 				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
 // Выводим на экран и запускаем 10-секундный таймер с обратным отсчетом
@@ -144,6 +172,7 @@ Quiz.prototype.makeRound = function() {
 // Увеличиваем счетчик итераций
 				l++;
 				console.log( questionsCouner );
+				//console.log( tenSeconds() );
 // Если еще не задано три вопроса в этом раунде, запускаем заново
 				if ( l < 3 ) {
 					setTimeout(function() {
@@ -173,7 +202,7 @@ Quiz.prototype.makeRound = function() {
 		else {
 			console.log( 'Все вопросы кончились' );
 		};
-	};
+	return};
 
 // конец новой версии алгоритма
 
@@ -190,9 +219,8 @@ function makeQuiz() {
 // Обработчик события на кнопке "Еще раунд"
 	newRoundBtn.addEventListener( 'click', game.makeRound );
 	};
-
 // Обработчик события нажатия на кнопку "Новая игра"
-newGameBtn.addEventListener( 'click', makeQuiz );
+	newGameBtn.addEventListener( 'click', makeQuiz );
 };
 
 // Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
