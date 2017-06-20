@@ -153,8 +153,8 @@ Quiz.prototype.makeRound = function() {
 
 			 	if (answer === defaultAnswer) {
 			 		console.log( 'верно' );
-
-			 		console.log(  );
+			 		game.rightAnswersCount++;
+			 		console.log(game.rightAnswersCount);
 			 		return true
 			 		}
 			 		else {
