@@ -157,75 +157,6 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
-'use strict';
-
-function findDifferent() {
-
-//получаем переменные из инпутов
-	let n1 = parseInt(document.getElementById( 'n1' ).value),
-		n2 = parseInt(document.getElementById( 'n2' ).value),
-		n3 = parseInt(document.getElementById( 'n3' ).value),
-		n4 = parseInt(document.getElementById( 'n4' ).value),
-		differentNumber;
-
-//сбросим оформление инпутов, если что-то было введено раньше
-// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
-	let a = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < a.length; i++) {
-			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
-		}
-
-//определим, какое по счету число является отличным от трех остальных, 
-//присвоим переменной differentNumber порядковый номер отличного чила в массиве
-	if( n1 == n2 && n2 == n3 && n4 != n1) {
-		differentNumber = 3;
-//четвертое
-	}
-	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
-		differentNumber = 2;
-//третье
-	}
-	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
-		differentNumber = 1;
-//второе
-	}
-	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
-		differentNumber = 0;
-//первое
-	}
-	else if (n1 == n2 && n2 == n3 && n3 == n4) {
-		differentNumber = 'error';
-	}
-//три числа из четырех не равны между собой или все числа между собой равны
-	else {
-		differentNumber = 'error';
-	}
-
-//функция берет массив всех элементов input
-// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
-	function showDifferent(serialNumber) {
-			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
-	};
-//присвоим класс отличному числу, если оно есть
-	if( differentNumber !='error' ) {
-		showDifferent(differentNumber)
-	}
-	else {
-		let b = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < b.length; i++) {
-			b[i].classList.add( 'different__value--wrong' )
-			}
-		};
-	};
-
-// очистка оформления и значений инпутов
-function refreshDifferent() {
-	let a = document.getElementsByClassName( 'different__value' );
-	for (var i = 0; i < a.length; i++) {
-		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
-		a[i].value = '';
-	}
-};
 "use strict";
 //test
 
@@ -352,6 +283,75 @@ buttonAdd.addEventListener( 'click', clicker );
 
 
 
+'use strict';
+
+function findDifferent() {
+
+//получаем переменные из инпутов
+	let n1 = parseInt(document.getElementById( 'n1' ).value),
+		n2 = parseInt(document.getElementById( 'n2' ).value),
+		n3 = parseInt(document.getElementById( 'n3' ).value),
+		n4 = parseInt(document.getElementById( 'n4' ).value),
+		differentNumber;
+
+//сбросим оформление инпутов, если что-то было введено раньше
+// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
+	let a = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < a.length; i++) {
+			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
+		}
+
+//определим, какое по счету число является отличным от трех остальных, 
+//присвоим переменной differentNumber порядковый номер отличного чила в массиве
+	if( n1 == n2 && n2 == n3 && n4 != n1) {
+		differentNumber = 3;
+//четвертое
+	}
+	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
+		differentNumber = 2;
+//третье
+	}
+	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
+		differentNumber = 1;
+//второе
+	}
+	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
+		differentNumber = 0;
+//первое
+	}
+	else if (n1 == n2 && n2 == n3 && n3 == n4) {
+		differentNumber = 'error';
+	}
+//три числа из четырех не равны между собой или все числа между собой равны
+	else {
+		differentNumber = 'error';
+	}
+
+//функция берет массив всех элементов input
+// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
+	function showDifferent(serialNumber) {
+			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
+	};
+//присвоим класс отличному числу, если оно есть
+	if( differentNumber !='error' ) {
+		showDifferent(differentNumber)
+	}
+	else {
+		let b = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < b.length; i++) {
+			b[i].classList.add( 'different__value--wrong' )
+			}
+		};
+	};
+
+// очистка оформления и значений инпутов
+function refreshDifferent() {
+	let a = document.getElementsByClassName( 'different__value' );
+	for (var i = 0; i < a.length; i++) {
+		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
+		a[i].value = '';
+	}
+};
 'use strict'
 //функция для получения случайного целого числа
 function randomise() {
@@ -423,6 +423,89 @@ numberToAnalize = parseInt(finalRandomNumber.join(''));
 showDescription(numberToAnalize);
 
 };
+'use strict';
+
+var textRedactor = function() {
+// получаем кнопки Сохранить, Показать и Очистить
+	const 	saveButton = document.getElementById( 'save' ),
+			showButton = document.getElementById( 'show' ),
+			clearButton = document.getElementById( 'clear' ),
+// получаем элемент, куда будем добавлять набранный текст
+			placeToShow = document.getElementById( 'whereToShow' ),
+// элемент для вставки лимита памяти
+			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
+// начальное значение набранного текста
+	var 	textToShow = '',
+			memoryUsed = 0;
+// покажем изначальный лимит памяти
+	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
+// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
+	function saveText() {
+//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
+		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
+// добавляем 1 к счетчику строк
+		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
+//получаем текст из поля ввода
+		textFromInput = document.getElementById( 'redactorinput' ).value;
+//добавляем к переменной textToShow
+		if ( textToShow != '') {
+//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
+		textToShow = textToShow + '<br>' + textFromInput
+		}
+//если еще ничего не вводили, то просто добавляем строку
+		else {
+			textToShow += textFromInput
+		};
+// после ввода строки, очищаем поле ввода
+		document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+// очищаем сообщение об ошибке, если оно было на экране
+		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
+			placeToShow.innerHTML = '';
+			}
+		}
+//если строка ввода пустая и еще есть свободный лимит памяти
+		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
+			placeToShow.innerHTML = 'err: вы ничего не ввели! '
+		}
+		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
+			placeToShow.innerHTML = 'Слишком длинная строка! '
+		else {
+			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
+			document.getElementById( 'redactorinput' ).value = '';
+		}
+	}
+
+	function showText() {
+		if( textToShow != '' ) {
+			placeToShow.innerHTML = textToShow;
+		}
+
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+	}
+
+	function clearText() {
+		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
+			textToShow = '';
+			placeToShow.innerHTML = '';
+			memoryLimitIndicator.innerHTML = '0 of 8';
+			memoryUsed = 0;
+			document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+			document.getElementById( 'redactorinput' ).focus();
+		}
+	}
+
+// Обработчик на сохранение строки
+saveButton.addEventListener( 'click', saveText );
+// Обработчик на отображение строк
+showButton.addEventListener( 'click', showText );
+// Обработчик на очистку строк
+clearButton.addEventListener( 'click', clearText );
+}
+textRedactor();
 'use strict';
 // тест
 // Таймер в секундах на один ответ
@@ -606,86 +689,3 @@ newGameBtn.addEventListener( 'click', makeQuiz );
 };
 
 // Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
-'use strict';
-
-var textRedactor = function() {
-// получаем кнопки Сохранить, Показать и Очистить
-	const 	saveButton = document.getElementById( 'save' ),
-			showButton = document.getElementById( 'show' ),
-			clearButton = document.getElementById( 'clear' ),
-// получаем элемент, куда будем добавлять набранный текст
-			placeToShow = document.getElementById( 'whereToShow' ),
-// элемент для вставки лимита памяти
-			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
-// начальное значение набранного текста
-	var 	textToShow = '',
-			memoryUsed = 0;
-// покажем изначальный лимит памяти
-	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
-// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
-	function saveText() {
-//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
-		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
-// добавляем 1 к счетчику строк
-		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
-//получаем текст из поля ввода
-		textFromInput = document.getElementById( 'redactorinput' ).value;
-//добавляем к переменной textToShow
-		if ( textToShow != '') {
-//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
-		textToShow = textToShow + '<br>' + textFromInput
-		}
-//если еще ничего не вводили, то просто добавляем строку
-		else {
-			textToShow += textFromInput
-		};
-// после ввода строки, очищаем поле ввода
-		document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-// очищаем сообщение об ошибке, если оно было на экране
-		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
-			placeToShow.innerHTML = '';
-			}
-		}
-//если строка ввода пустая и еще есть свободный лимит памяти
-		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
-			placeToShow.innerHTML = 'err: вы ничего не ввели! '
-		}
-		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
-			placeToShow.innerHTML = 'Слишком длинная строка! '
-		else {
-			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
-			document.getElementById( 'redactorinput' ).value = '';
-		}
-	}
-
-	function showText() {
-		if( textToShow != '' ) {
-			placeToShow.innerHTML = textToShow;
-		}
-
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-	}
-
-	function clearText() {
-		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
-			textToShow = '';
-			placeToShow.innerHTML = '';
-			memoryLimitIndicator.innerHTML = '0 of 8';
-			memoryUsed = 0;
-			document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-			document.getElementById( 'redactorinput' ).focus();
-		}
-	}
-
-// Обработчик на сохранение строки
-saveButton.addEventListener( 'click', saveText );
-// Обработчик на отображение строк
-showButton.addEventListener( 'click', showText );
-// Обработчик на очистку строк
-clearButton.addEventListener( 'click', clearText );
-}
-textRedactor();
