@@ -115,19 +115,19 @@ Quiz.prototype.makeRound = function() {
 				m--;
 // не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
 				setTimeout( answerCountdown, 909 );
-			};
-		})();
-	};	
+				};
+			})();
+		};	
 // Проверяем, остались ли незаданными еще хотя бы 3 вопроса
 		if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
 // Если это не первый раунд в игре, то очищаем массив номеров вопросов
 			if ( roundNumbers != [] ) {
 				roundNumbers = [];
-			};
+				};
 // Если это не первый раунд в игре, то очищаем массив объектов "вопрос-ответ"
 			if (roundQuestionsAndAnswers != []) {
 				roundQuestionsAndAnswers = [];
-			};
+				};
 
 // Отключаем кнопку "новый раунд"
 			newRoundBtn.setAttribute( 'disabled', '' );
@@ -139,29 +139,49 @@ Quiz.prototype.makeRound = function() {
 			for ( var i = 0; i < roundNumbers.length; i++ ) {
 // Создаем массив объектов вопрос-ответ
 				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
-			};
-// Создаем и сразу запускаем функцию 
-			(function tenSeconds(l = 0) {
-// Включаем обработчик события нажатия на кнопку "ответ"
-			answerBtn.addEventListener( 'click', getAnswer );
-// Функция для получения ответа. Возвращает true или false по результатам проверки
-			function getAnswer() {
-				defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
-				answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
-			 	console.log( 'Ответ пользователя: ' + answer );
-			 	console.log( 'Правильный ответ: ' + defaultAnswer );
-
-			 	if (answer === defaultAnswer) {
-			 		console.log( 'верно' );
-			 		game.rightAnswersCount++;
-			 		console.log(game.rightAnswersCount);
-			 		return true
-			 		}
-			 		else {
-			 		console.log( 'неверно' );
-			 		return false
-			 		};
 				};
+// Создаем и сразу запускаем функцию 
+			//(function tenSeconds(l = 0) {
+			//(function tenSeconds(l = 0) {
+			var tenSeconds =  (l = 0) => {
+// // Функция для получения ответа. Возвращает true или false по результатам проверки
+// 				function getAnswer() {
+// 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+// 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+// 				 	console.log( 'Ответ пользователя: ' + answer );
+// 				 	console.log( 'Правильный ответ: ' + defaultAnswer );
+// 				 	if (answer === defaultAnswer) {
+// 				 		console.log( 'верно' );
+// 				 		//game.rightAnswersCount++;
+// 				 		//console.log(game.rightAnswersCount);
+// 				 		return true
+// 				 		}
+// 				 		else {
+// 				 		console.log( 'неверно' );
+// 				 		return false
+// 				 		};
+// 					};
+// Константа с стрелочной функцией, которая проверяет ответы
+				var getAnswer =  () => {
+					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
+					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+				 	console.log( 'Ответ пользователя: ' + answer );
+				 	console.log( 'Правильный ответ: ' + defaultAnswer );
+				 	if (answer === defaultAnswer) {
+				 		console.log( 'верно' );
+				 		//game.rightAnswersCount++;
+				 		//console.log(game.rightAnswersCount);
+				 		console.log( this.rightAnswersCount );
+				 		return true
+				 		}
+				 		else {
+				 		console.log( 'неверно' );
+				 		return false
+				 		};
+					};
+
+// Включаем обработчик события нажатия на кнопку "ответ"
+				answerBtn.addEventListener( 'click', getAnswer );
 
 // Выводим на экран i-й вопрос
 				questionPlace.innerHTML = roundQuestionsAndAnswers[l].question;
@@ -172,7 +192,8 @@ Quiz.prototype.makeRound = function() {
 // Увеличиваем счетчик итераций
 				l++;
 				console.log( questionsCouner );
-				//console.log( tenSeconds() );
+				defaultAnswer = '';
+				answer = '';
 // Если еще не задано три вопроса в этом раунде, запускаем заново
 				if ( l < 3 ) {
 					setTimeout(function() {
@@ -196,13 +217,14 @@ Quiz.prototype.makeRound = function() {
 						}
 					}, 10000);
 				};
-			})();
+			};
+			tenSeconds();
 		}
 // Если вопросы кончились, а пользователь пытается сыграть еще раунд - не создаем раунд, выводим ошибку
 		else {
 			console.log( 'Все вопросы кончились' );
 		};
-	return};
+	};
 
 // конец новой версии алгоритма
 
