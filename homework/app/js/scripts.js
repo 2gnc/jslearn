@@ -568,8 +568,6 @@ Quiz.prototype.makeRound = function() {
 			var tenSeconds =  (l = 0) => {
 // Константа с стрелочной функцией, которая проверяет ответы
 				var getAnswer =  () => {
-					defaultAnswer = '';
-					answer = '';
 					defaultAnswer = roundQuestionsAndAnswers[l-1].answer.toLowerCase();
 					answer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
 				 	if (answer === defaultAnswer) {
