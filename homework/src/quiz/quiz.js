@@ -109,22 +109,7 @@ Quiz.prototype.makeRound = function() {
 	answerPlace.classList.remove( 'quiz__answer--invisible' );
 // Скрываем блок для результатов
 	resultsPlace.classList.remove( 'quiz__result--visible' );
-// Функция для показа обратного отсчета на странице
-	function countDown() {
-		let m = answerTimer;
-		(function answerCountdown() {
-			if ( m <= 10 && m >= 0 ) {
-// Отображаем начальное значение таймера - 10
-				timerPlace.innerHTML = m;
-				m--;
-// не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
-				setTimeout( answerCountdown, 909 );
-				if( questionsCouner < 3 ) {
-					answerBtn.addEventListener( 'click', () => { m = 10; });
-					};
-				};
-			})();
-		};	
+
 // Проверяем, остались ли незаданными еще хотя бы 3 вопроса
 		if ( allQuestions.question.length - usedNumbers.length >= 3 ) {
 // Если это не первый раунд в игре, то очищаем массив номеров вопросов
@@ -170,26 +155,21 @@ Quiz.prototype.makeRound = function() {
 // Если три - запускаем обработку результата.
 
 // Еще один вариант раунда (попроще)
-	let m = 2;
-	answerBtn.addEventListener( 'click', () => { 
-		if( questionsCouner <= 3 && m >= 0 && answersCount < 3 ) {
-			answersCount ++;
-			console.log( 'Дано ответов ' + answersCount );
-			questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
-			answerCountdown();
-			}
-		if( questionsCouner == 3 ) {
-			answersCount++;
-			console.log( 'Вопросы в раунде кончились ' );
-			};
-		if( answersCount == 3 ) {
-			console.log( 'Отвечать больше нельзя ' );
-			};
-		});
+	
 
+// При клике на ответ:
+// сбросить таймер на 10 (готово)
+// плюсануть счетчик вопросов  questionsCouner
+// плюсануть счетчик ответов  answersCount
+// включить следующий вопрос, если он есть
+// если вопроса нет - скрыть поле с ответами и таймером
+// запустить проверялку ответов
+
+
+	var m = 2;
 	const answerCountdown = () => {
 		if( m <= 2 && m >= 0 ) {
-			countDown();
+			countTen();
 			if( timerPlace.innerHTML == '10' && questionsCouner <3 ) {
 				questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
 				questionsCouner++;
@@ -200,12 +180,66 @@ Quiz.prototype.makeRound = function() {
 			};
 			if( timerPlace.innerHTML == '0' && questionsCouner ==3 ) {
 				console.log( 'ура' );
+				answerPlace.classList.add( 'quiz__answer--invisible' );
+				roundReload()
 				};
 		};
-		
 	answerCountdown();
 
-	
+	answerBtn.addEventListener( 'click', () => { 
+		answerCountdown();
+		answersCount++;
+		console.log( 'Дано ответов ' + answersCount );
+		if( answersCount == 3 && questionsCouner ==3 ) {
+				console.log( 'ура2' );
+				answerPlace.classList.add( 'quiz__answer--invisible' );
+				questionPlace.innerHTML = '';
+				roundReload();
+				};
+	});
+
+// Таймер обратного отсчета 10 - 0
+	function countTen() {
+		answerBtn.addEventListener( 'click', () => { t = 10;});
+		var t = answerTimer;
+		(function ten() {
+			if (t <= 10 && t >= 0) {
+				timerPlace.innerHTML = t;
+				t--;
+				setTimeout( ten, 909 );
+				};
+			})();
+		};
+
+//! Придумать, как сбрасывать таймер обратного отсчета при третьем ответе
+function roundReload() {
+// Убираем блокировку с кнопки "новый раунд"
+	newRoundBtn.removeAttribute( 'disabled', '' );
+// Убираем модификатор с кнопки "новый раунд"
+	newRoundBtn.classList.remove( 'quiz__game-btn--pushed' );
+// Показываем блок для результатов
+	resultsPlace.classList.add( 'quiz__result--visible' );
+}
+
+
+//answerBtn.addEventListener( 'click', () => { k = 10;});
+
+
+	// answerBtn.addEventListener( 'click', () => { 
+	// if( questionsCouner <= 3 && m >= 0 && answersCount < 3 ) {
+	// 	answersCount ++;
+	// 	console.log( 'Дано ответов ' + answersCount );
+	// 	questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
+	// 	answerCountdown();
+	// 	}
+	// if( questionsCouner == 3 ) {
+	// 	answersCount++;
+	// 	console.log( 'Вопросы в раунде кончились ' );
+	// 	};
+	// if( answersCount == 3 ) {
+	// 	console.log( 'Отвечать больше нельзя ' );
+	// 	};
+	// });
 
 
 // Еще один вариант раунда (попроще) - конец
