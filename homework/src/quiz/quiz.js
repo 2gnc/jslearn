@@ -112,7 +112,6 @@ Quiz.prototype.makeRound = function() {
 // Функция для показа обратного отсчета на странице
 	function countDown() {
 		let m = answerTimer;
-		
 		(function answerCountdown() {
 			if ( m <= 10 && m >= 0 ) {
 // Отображаем начальное значение таймера - 10
@@ -120,7 +119,9 @@ Quiz.prototype.makeRound = function() {
 				m--;
 // не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
 				setTimeout( answerCountdown, 909 );
-				answerBtn.addEventListener( 'click', () => { m = 10; });
+				if( questionsCouner < 3 ) {
+					answerBtn.addEventListener( 'click', () => { m = 10; });
+					};
 				};
 			})();
 		};	
@@ -171,28 +172,35 @@ Quiz.prototype.makeRound = function() {
 // Еще один вариант раунда (попроще)
 	let m = 2;
 	answerBtn.addEventListener( 'click', () => { 
-		if( questionsCouner <3 ) {
-			console.log('клац');
+		if( questionsCouner <= 3 && m >= 0 && answersCount < 3 ) {
+			answersCount ++;
+			console.log( 'Дано ответов ' + answersCount );
 			questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
 			answerCountdown();
 			}
+		if( questionsCouner == 3 ) {
+			answersCount++;
+			console.log( 'Вопросы в раунде кончились ' );
+			};
+		if( answersCount == 3 ) {
+			console.log( 'Отвечать больше нельзя ' );
+			};
 		});
+
 	const answerCountdown = () => {
 		if( m <= 2 && m >= 0 ) {
 			countDown();
 			if( timerPlace.innerHTML == '10' && questionsCouner <3 ) {
 				questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
 				questionsCouner++;
-				console.log( roundQuestionsAndAnswers[m].question );
 				m--;
 				};
 			setTimeout( answerCountdown, 10000 );
-			console.log( questionsCouner );
+			console.log( 'Задано вопросов ' + questionsCouner );
 			};
 			if( timerPlace.innerHTML == '0' && questionsCouner ==3 ) {
 				console.log( 'ура' );
 				};
-			
 		};
 		
 	answerCountdown();
