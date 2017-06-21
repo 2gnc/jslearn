@@ -450,7 +450,9 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка ввода ответа
 	answerBtn = document.querySelector( '.quiz__answer-btn' ),
 // группа для отображения результатов
-	resultsPlace = document.querySelector( '.quiz__result' )
+	resultsPlace = document.querySelector( '.quiz__result' ),
+// счетчик ответов пользователей на вопрос
+	answersCount = 0
 ; 
 
 //подключаем файл с вопросами
@@ -524,6 +526,8 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 
 // Метод для создания нового раунда
 Quiz.prototype.makeRound = function() {
+// сбрасываем счетчик ответов на вопросы
+	answersCount = 0;
 // Создан новый раунд - устанавливаем счетчик заданных вопросов на 0 
 	var questionsCouner = 0;
 // Показываем блок с вводом ответа
@@ -533,13 +537,15 @@ Quiz.prototype.makeRound = function() {
 // Функция для показа обратного отсчета на странице
 	function countDown() {
 		let m = answerTimer;
+		
 		(function answerCountdown() {
-			if (m <= 10 && m >= 0) {
+			if ( m <= 10 && m >= 0 ) {
 // Отображаем начальное значение таймера - 10
 				timerPlace.innerHTML = m;
 				m--;
 // не 1 секунда, а 0,909 потому, что на экран надо вывести 11 цифр за 10 секунд, так для каждой цифры времени должно быть меньше
 				setTimeout( answerCountdown, 909 );
+				answerBtn.addEventListener( 'click', () => { m = 10; });
 				};
 			})();
 		};	
@@ -589,14 +595,17 @@ Quiz.prototype.makeRound = function() {
 
 // Еще один вариант раунда (попроще)
 	let m = 2;
-
+	answerBtn.addEventListener( 'click', () => { 
+		if( questionsCouner <3 ) {
+			console.log('клац');
+			questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
+			answerCountdown();
+			}
+		});
 	const answerCountdown = () => {
-		
-		answerBtn.addEventListener( 'click', () => { console.log('клац') } );
-
 		if( m <= 2 && m >= 0 ) {
 			countDown();
-			if( timerPlace.innerHTML == '10' ) {
+			if( timerPlace.innerHTML == '10' && questionsCouner <3 ) {
 				questionPlace.innerHTML = roundQuestionsAndAnswers[m].question;
 				questionsCouner++;
 				console.log( roundQuestionsAndAnswers[m].question );
