@@ -494,10 +494,12 @@ function getRoundNumbers() {
 
 //создаем класс для всей игры
 function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
-	this.rightAnswersCount = rightAnswersCount;
-	this.wrongAnswersCount = wrongAnswersCount;
-	this.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
-	this.escapeChance = escapeChance;
+	// определяем контекст
+	that = this;
+	that.rightAnswersCount = rightAnswersCount;
+	that.wrongAnswersCount = wrongAnswersCount;
+	that.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
+	that.escapeChance = escapeChance;
 	};
 
 
@@ -558,39 +560,6 @@ Quiz.prototype.makeRound = function() {
 // Создаем массив объектов вопрос-ответ
 				roundQuestionsAndAnswers.push(allQuestions.question[roundNumbers[i]]);
 				};
-// Еще один алгоритм раунда (сложный)
-
-// Сформировать базу вопросов и ответов
-// Создать новый объект RoundQuetion
-// Свойства
-//   Current number: 
-//   Question:
-//   User answer:
-//   Default answer:
-//   Lifetime: 10000
-// Методы
-//   RunCountdown
-//   AskQuestion
-//   GetAnswer (по событию запускает CheckAnswer)
-//   CheckAnswer (считает статистику и запускает Die)
-//   Die (включится само если в coundown высветится последнее число или запустится после проверки ответа, увеличивает свойство задано вопросов у объекта раунд)
-
-// Программа создания RoundQestion
-//  При создании нового раунда создать новый RoundQuestion
-//  Включаем слежение за свойством Задано вопросов
-//   При изменении свойства Задано вопросов если Задано вопросов меньше трёх, создаём новый RoundQuestion
-// Если три - запускаем обработку результата.
-
-// Еще один вариант раунда (попроще)
-	
-
-// При клике на ответ:
-// сбросить таймер на 10 (готово)
-// плюсануть счетчик вопросов  questionsCouner
-// плюсануть счетчик ответов  answersCount
-// включить следующий вопрос, если он есть
-// если вопроса нет - скрыть поле с ответами и таймером
-// запустить проверялку ответов
 
 // Таймер обратного отсчета 10 - 0, по клику на кнопку ответ начинает с 10 
 	function countTen() {
@@ -621,7 +590,8 @@ questionOne = () => {
 	countTen();
 	var q1Timeout = setTimeout( goToTwo, 10000 );
 	answerBtn.addEventListener( 'click', goToTwo );
-	console.log(this);
+	console.log(that);
+	console.log(that.rightAnswersCount);
 
 	function goToTwo() {
 		questionTwo();
@@ -660,7 +630,7 @@ questionThree = () => {
 		}
 }
 
-	questionOne();
+questionOne();
 
 	function roundReload() {
 	// Убираем блокировку с кнопки "новый раунд"
