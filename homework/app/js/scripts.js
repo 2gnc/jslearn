@@ -444,7 +444,7 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // группа тегов для ввода ответа
 	answerPlace = document.querySelector( '.quiz__answer' ),
 // Поле ввода ответа
-	userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase(),
+	//userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase(),
 // Кнопка ввода ответа
 	answerBtn = document.querySelector( '.quiz__answer-btn' ),
 // группа для отображения результатов
@@ -498,33 +498,8 @@ function Quiz(rightAnswersCount, wrongAnswersCount, roundsCount, escapeChance) {
 	that = this;
 	that.rightAnswersCount = rightAnswersCount;
 	that.wrongAnswersCount = wrongAnswersCount;
-	that.roundsCount = roundsCount; // пока не ясно, нужно это свойство или нет
 	that.escapeChance = escapeChance;
 	};
-
-
-//новая версия алгоритма работы раунда
-
-// Счётчик заданных вопросов = 0
-// Очистим массивы номеров для раунда и вопросов и ответов раунда
-// Получим новый массив вопросов и ответов (из выборки исключаем уже заданные вопросы)
-// Цикл while счётчик заданых вопросов < 3
-//  Выводим вопрос
-//  Включаем таймер 10 секунд
-//   Если ввели ответ - 
-//     - сбросить таймер
-//     - увеличить счётчик заданных вопросов на 1
-//     - включить функцию проверки ответа
-//     - следующая итерация 
-//   Если не ввели ответ и прошло 10 секунд
-//     - включить функцию проверки ответа (считаем за неправильный ответ)
-//     - увеличить счётчик заданных вопросов на 1
-//     - следующая итерация
-// Если счётчик заданных вопросов = 2 (окончание раунда)
-//   Скрыть поле ввода ответа 
-//   Показать правильные ответы
-//   Визуализировать банку
-//   Разблокировать кнопку "Новый раунд"
 
 // Метод для создания нового раунда
 Quiz.prototype.makeRound = function() {
@@ -591,12 +566,13 @@ questionOne = () => {
 	var q1Timeout = setTimeout( goToTwo, 10000 );
 	answerBtn.addEventListener( 'click', goToTwo );
 	console.log(that);
-	console.log(that.rightAnswersCount);
 
 	function goToTwo() {
 		questionTwo();
 		clearTimeout(q1Timeout);
 		answerBtn.removeEventListener( 'click', goToTwo );
+		answerNum = 0;
+		checkAnswer();
 		};
 };
 
@@ -612,6 +588,8 @@ questionTwo = () => {
 		questionThree();
 		clearTimeout(q2Timeout);
 		answerBtn.removeEventListener( 'click', goToThree );
+		answerNum = 1;
+		checkAnswer();
 		};
 };
 
@@ -626,12 +604,35 @@ questionThree = () => {
 	function goToEnd() {
 		roundReload();
 		clearTimeout(q3Timeout);
+		questionPlace.innerHTML = '';
+		answerPlace.classList.add( 'quiz__answer--invisible' );
 		answerBtn.removeEventListener( 'click', goToEnd );
+		answerNum = 2;
+		checkAnswer();
 		}
 }
 
+// Задаем первый вопрос
 questionOne();
 
+// Функция для обработки введенного результата
+function checkAnswer() {
+	rightAnswer = roundQuestionsAndAnswers[answerNum].answer.toLowerCase();
+	userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+	if (userAnswer == rightAnswer ) {
+		console.log( 'Правильно' );
+		that.rightAnswersCount++;
+		}
+		else {
+			console.log( 'Неправильно' );
+			that.wrongAnswersCount++;
+			}
+	console.log( 'Правильный ответ: ' + rightAnswer + ' ответ пользователя: ' + userAnswer );
+	console.log( 'Правильных ответов: ' + that.rightAnswersCount + ' Неправильных ответов: ' + that.wrongAnswersCount );
+
+};
+
+// Функция для перезапуска раунда
 	function roundReload() {
 	// Убираем блокировку с кнопки "новый раунд"
 		newRoundBtn.removeAttribute( 'disabled', '' );
