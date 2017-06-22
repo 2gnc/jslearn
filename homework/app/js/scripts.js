@@ -443,8 +443,6 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 	timerPlace = document.querySelector( '.quiz__countdown' ),
 // группа тегов для ввода ответа
 	answerPlace = document.querySelector( '.quiz__answer' ),
-// Поле ввода ответа
-	//userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase(),
 // Кнопка ввода ответа
 	answerBtn = document.querySelector( '.quiz__answer-btn' ),
 // группа для отображения результатов
@@ -539,7 +537,7 @@ Quiz.prototype.makeRound = function() {
 // Таймер обратного отсчета 10 - 0, по клику на кнопку ответ начинает с 10 
 	function countTen() {
 // начальное значение таймера
-		var t = 10,
+		var t = 20,
 // можно ли выполнять отсчет
 		dodo = true;
 // Обработчик нажатия на кнопку ответ - останавливает таймер и чищает его в HTML
@@ -550,7 +548,7 @@ Quiz.prototype.makeRound = function() {
 // Вывод отбратного отсчета
 		(function ten() {
 			if( dodo === false ) { return };
-			if (t <= 10 && t >= 0) {
+			if (t <= 20 && t >= 0) {
 				timerPlace.innerHTML = t;
 				t--;
 				setTimeout( ten, 909 );
@@ -563,7 +561,7 @@ questionOne = () => {
 	console.log( 'Задаю первый вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
 	countTen();
-	var q1Timeout = setTimeout( goToTwo, 10000 );
+	var q1Timeout = setTimeout( goToTwo, 20000 );
 	answerBtn.addEventListener( 'click', goToTwo );
 	console.log(that);
 
@@ -580,7 +578,7 @@ questionOne = () => {
 questionTwo = () => {
 	console.log( 'Задаю второй вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[1].question;
-	var q2Timeout = setTimeout( goToThree, 10000 );
+	var q2Timeout = setTimeout( goToThree, 20000 );
 	countTen();
 	answerBtn.addEventListener( 'click', goToThree )
 
@@ -597,7 +595,7 @@ questionTwo = () => {
 questionThree = () => {
 	console.log('Задаю третий вопрос')
 	questionPlace.innerHTML = roundQuestionsAndAnswers[2].question;
-	var q3Timeout = setTimeout( goToEnd, 10000 );
+	var q3Timeout = setTimeout( goToEnd, 20000 );
 	countTen();
 	answerBtn.addEventListener( 'click', goToEnd )
 
@@ -619,6 +617,7 @@ questionOne();
 function checkAnswer() {
 	rightAnswer = roundQuestionsAndAnswers[answerNum].answer.toLowerCase();
 	userAnswer = document.querySelector( '.quiz__answer-inp' ).value.toLowerCase();
+	document.querySelector( '.quiz__answer-inp' ).value = '';
 	if (userAnswer == rightAnswer ) {
 		console.log( 'Правильно' );
 		that.rightAnswersCount++;
