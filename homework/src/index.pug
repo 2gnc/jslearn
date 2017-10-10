@@ -3,16 +3,56 @@ html(lang="ru")
 	head
 		meta(charset="UTF-8")
 		title JS lvl.1 homeworks test
-		link(rel="stylesheet" href="css/main.min.css")
 		link(rel="stylesheet" href="css/font-awesome.min.css")
+		link(rel="stylesheet" href="css/main.min.css")
 	body
 		section.hamburger
 			div.logo
 				p.logo__name Гамбургер
 			div.task-info
 				h1.task-info__heading Расчет калорийности гамбергера
-				p.task-info__instruction  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi soluta facilis eligendi sint aspernatur, sunt tempore optio dolore voluptas laborum. 
+				p.task-info__instruction  Выберите размер гамбургера, добавьте наполнитель и приправы по вкусу. 
 				hr.task-info__line
+			div.hamburger__sizes
+				.hamburger__size.hamburger__size--active#s
+					i(class="hamburger__icon hamburger__icon--s fa fa-cutlery" aria-hidden="true") 
+					span.hamburger__size-sign small
+				.hamburger__size#m
+					i(class="hamburger__icon hamburger__icon--m fa fa-cutlery" aria-hidden="true") 
+					span.hamburger__size-sign medium
+				.hamburger__size#l
+					i(class="hamburger__icon hamburger__icon--l fa fa-cutlery" aria-hidden="true") 
+					span.hamburger__size-sign large
+			div.hamburger__toppings
+				div.hamburger__topping#cheeze
+					div.hamburger__topping-box
+						i(class="fa fa-check hidden" aria-hidden="true")
+					span.hamburger__topping-name Сыр
+				div.hamburger__topping#salad
+					div.hamburger__topping-box
+						i(class="fa fa-check hidden" aria-hidden="true")
+					span.hamburger__topping-name Салат
+				div.hamburger__topping#potato
+					div.hamburger__topping-box
+						i(class="fa fa-check hidden" aria-hidden="true")
+					span.hamburger__topping-name Картошка
+				div.hamburger__topping#spice
+					div.hamburger__topping-box
+						i(class="fa fa-check hidden" aria-hidden="true")
+					span.hamburger__topping-name Специи
+				div.hamburger__topping#mayo
+					div.hamburger__topping-box
+						i(class="fa fa-check hidden" aria-hidden="true")
+					span.hamburger__topping-name Майонез
+			div.hamburger__box
+				div.hamburger__top-bun
+				div.hamburger__salad
+				div.hamburger__cheeze
+				div.hamburger__spices
+				div.hamburger__cutlet
+				div.hamburger__mayo
+				div.hamburger__potato
+				div.hamburger__bottom-bun
 		section.quiz#quiz
 			div.logo
 				p.logo__name Вопросы и ответы

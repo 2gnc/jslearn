@@ -1,2 +1,115 @@
+.hidden
+	display: none
 .hamburger
-	@include sec-common(plum, #7fff00)
+	@include sec-common(#ffe54c, #c68400)
+	&__box
+		width: 20vw
+		height: 20vw
+		margin: 0 auto
+		display: flex
+		flex-direction: column
+		justify-content: center
+		align-items: center
+	&__sizes
+		width: 20vw
+		display: flex
+		margin: 0 auto
+		justify-content: space-between
+		padding: 1vw 0
+	&__size
+		width: 6vw
+		min-width: 77px
+		height: 6vw
+		min-height: 77px
+		display: flex
+		flex-direction: column
+		justify-content: space-around
+		&--active
+			outline: 1px solid black
+		&:hover
+			outline: 1px solid black
+			cursor: pointer
+	&__icon
+		&--s 
+			transform: scale(1)
+		&--m
+			transform: scale(1.4)
+		&--l 
+			transform: scale(1.8)
+	&__size-sign
+	&__toppings
+		margin: 1vw auto
+		width: 50vw
+		display: flex
+		justify-content: space-between
+	&__topping
+		width: 20%
+		min-width: 120px
+		height: 5vw
+		display: flex
+		align-items: center
+		&:hover
+			cursor: pointer
+	&__topping-box
+		width: 2vw
+		min-width: 25px
+		height: 2vw
+		min-height: 25px
+		box-sizing: border-box
+		border: 1px solid black
+		border-radius: 5px
+		margin-right: 1em
+	&__topping-name
+	&__top-bun
+		width: 60%
+		height: 20%
+		background-color: #deb887
+		border-top-right-radius: 50%
+		border-top-left-radius: 50%
+		border: 1px solid #333
+	&__bottom-bun
+		width: 60%
+		height: 10%
+		background-color: #deb887
+		border-bottom-right-radius: 40%
+		border-bottom-left-radius: 40%
+		border: 1px solid #333
+	&__cutlet
+		width: 62%
+		height: 5%
+		border-radius: 5px
+		background-color: #8B4513
+		border: 1px solid #333
+	&__salad
+		width: 62%
+		height: 2.5%
+		box-sizing: border-box
+		background-color: lightgreen
+		border: 3px dotted green
+		border-radius: 3px
+	&__cheeze
+		width: 62%
+		height: 2%
+		box-sizing: border-box
+		background-color: yellow
+		border: 1px solid orange
+		border-radius: 3px
+	&__potato
+		width: 65%
+		height: 3.5%
+		box-sizing: border-box
+		background-color: orange
+		border: 3px dashed DARKGOLDENROD
+		border-radius: 3px
+	&__mayo
+		width: 60%
+		height: 2%
+		box-sizing: border-box
+		background-color: whitesmoke
+		border-radius: 3px
+	&__spices
+		width: 60%
+		height: 1%
+		box-sizing: border-box
+		background-color: red
+		border-radius: 3px
