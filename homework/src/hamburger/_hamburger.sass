@@ -10,6 +10,13 @@
 		flex-direction: column
 		justify-content: center
 		align-items: center
+		transition: transform 0.5s linear
+		&--s
+			transform: scale(1.0)
+		&--m
+			transform: scale(1.2)
+		&--l
+			transform: scale(1.4)
 	&__sizes
 		width: 20vw
 		display: flex
@@ -99,7 +106,7 @@
 		height: 3.5%
 		box-sizing: border-box
 		background-color: orange
-		border: 3px dashed DARKGOLDENROD
+		border: 2px dashed DARKGOLDENROD
 		border-radius: 3px
 	&__mayo
 		width: 60%
