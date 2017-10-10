@@ -226,6 +226,7 @@ function refreshDifferent() {
 		a[i].value = '';
 	}
 };
+
 "use strict";
 //test
 
