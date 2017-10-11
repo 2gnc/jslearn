@@ -14,11 +14,49 @@
 		this.topping = topping;
 	};
 
+/**
+* @method
+* @name Hamburger#setSize
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
+// по клику: (интерфейс) если не active - снять active у остальных, поставить active у target
+// (объект) если не active очистить .size поставить в свойство .size = #id
+	Hamburger.prototype.setSize = function( event ) {
+		event.stopPropagation();
+		console.log( event.target );
+	};
 
-
-	Hamburger.prototype.setSize = function() {};
+/**
+* @method
+* @name Hamburger#addTopping
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
 	Hamburger.prototype.addTopping = function() {};
+
+/**
+* @method
+* @name Hamburger#removeTopping
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
 	Hamburger.prototype.removeTopping = function() {};
+
+/**
+* @method
+* @name Hamburger#calculate
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
 	Hamburger.prototype.calculate = function() {};
 
 /**
@@ -46,5 +84,14 @@
 		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
 		hamb = new Hamburger( s , [] );
 
-	console.log( hamb );
+
+/**
+* @todo Finish
+* @todo Describe
+* @todo Test
+*/ 
+
 })();
+
+
+
