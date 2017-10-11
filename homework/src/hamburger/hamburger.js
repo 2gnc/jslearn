@@ -16,6 +16,40 @@
 
 /**
 * @method
+* @name Hamburger#listenSize
+* @desc Adds handler fucntion for click events
+* @param {obcject} e Event click
+*/
+	Hamburger.prototype.listenSize = function( e ) {
+		var element = e.target;
+		for ( var i = 0; i < e.path.length; i++ ) {
+			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ]) {
+				element = event.path[ i - 1 ];
+			};
+		};
+		console.log( element ); // add logic here
+		return element;
+	};
+
+/**
+* @method
+* @name Hamburger#listenTopping
+* @desc Adds handler fucntion for click events
+* @param {obcject} e Event click
+*/
+	Hamburger.prototype.listenToppings = function( e ) {
+		var element = e.target;
+		for ( var i = 0; i < e.path.length; i++ ) {
+			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ]) {
+				element = event.path[ i - 1 ];
+			};
+		};
+		console.log( element ); // add logic here
+		return element;
+	};
+
+/**
+* @method
 * @name Hamburger#setSize
 * @desc 
 * @param {} 
@@ -24,20 +58,21 @@
 */
 // по клику: (интерфейс) если не active - снять active у остальных, поставить active у target
 // (объект) если не active очистить .size поставить в свойство .size = #id
-	Hamburger.prototype.setSize = function( event ) {
-		event.stopPropagation();
-		console.log( event.target );
+	Hamburger.prototype.setSize = function() {
+		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.listenSize );
 	};
 
 /**
 * @method
-* @name Hamburger#addTopping
+* @name Hamburger#setTopping
 * @desc 
 * @param {} 
 * @param {}
 * @returns {} 
 */
-	Hamburger.prototype.addTopping = function() {};
+	Hamburger.prototype.setTopping = function() {
+		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.listenToppings );
+	};
 
 /**
 * @method
@@ -84,6 +119,9 @@
 		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
 		hamb = new Hamburger( s , [] );
 
+		hamb.setSize();
+		hamb.setTopping();
+
 
 /**
 * @todo Finish
@@ -92,6 +130,7 @@
 */ 
 
 })();
+
 
 
 
