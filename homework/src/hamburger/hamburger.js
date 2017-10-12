@@ -9,9 +9,11 @@
 * @param {object} size Selected Size of Hamburger, small by default.
 * @param {array} topping Array of Toppings of Hamburger, empty by default. 
 */
-	function Hamburger(size, topping){
+	function Hamburger( size, topping ) {
+		if( Hamburger.instance ) return Hamburger.instance;
 		this.size = size;
 		this.topping = topping;
+		return Hamburger.instance = this;
 	};
 
 /**
@@ -41,8 +43,13 @@
 			element.parentNode.querySelector( '.hamburger__size--active' ).classList.toggle( 'hamburger__size--active' );
 			element.classList.toggle( 'hamburger__size--active' );
 		};
-		var targetSize = element.id
-		hamb.size = targetSize;
+		for ( var i =0; i <= sizes.length; i++ ) {
+			if( sizes[i].name === element.id ) {
+				hamb.size = sizes[i];
+				break
+			}
+		};
+
 		console.log( hamb );
 	};
 
@@ -111,9 +118,9 @@
 
 	var sizes = [],
 		toppings = [],
-		s = new BurgerParameter( 'size', 'small', 50, 20 ),
-		m = new BurgerParameter( 'size', 'medium', 75, 30 ),
-		l = new BurgerParameter( 'size', 'large', 100, 40 ),
+		s = new BurgerParameter( 'size', 's', 50, 20 ),
+		m = new BurgerParameter( 'size', 'm', 75, 30 ),
+		l = new BurgerParameter( 'size', 'l', 100, 40 ),
 		cheeze = new BurgerParameter( 'topping', 'cheeze', 10, 20 ),
 		salad = new BurgerParameter( 'topping', 'salad', 20, 5 ),
 		potato = new BurgerParameter( 'topping', 'potato', 10, 20 ),

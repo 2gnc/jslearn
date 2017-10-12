@@ -237,9 +237,11 @@ function refreshDifferent() {
 * @param {object} size Selected Size of Hamburger, small by default.
 * @param {array} topping Array of Toppings of Hamburger, empty by default. 
 */
-	function Hamburger(size, topping){
+	function Hamburger( size, topping ) {
+		if( Hamburger.instance ) return Hamburger.instance;
 		this.size = size;
 		this.topping = topping;
+		return Hamburger.instance = this;
 	};
 
 /**
@@ -269,8 +271,13 @@ function refreshDifferent() {
 			element.parentNode.querySelector( '.hamburger__size--active' ).classList.toggle( 'hamburger__size--active' );
 			element.classList.toggle( 'hamburger__size--active' );
 		};
-		var targetSize = element.id
-		hamb.size = targetSize;
+		for ( var i =0; i <= sizes.length; i++ ) {
+			if( sizes[i].name === element.id ) {
+				hamb.size = sizes[i];
+				break
+			}
+		};
+
 		console.log( hamb );
 	};
 
@@ -339,9 +346,9 @@ function refreshDifferent() {
 
 	var sizes = [],
 		toppings = [],
-		s = new BurgerParameter( 'size', 'small', 50, 20 ),
-		m = new BurgerParameter( 'size', 'medium', 75, 30 ),
-		l = new BurgerParameter( 'size', 'large', 100, 40 ),
+		s = new BurgerParameter( 'size', 's', 50, 20 ),
+		m = new BurgerParameter( 'size', 'm', 75, 30 ),
+		l = new BurgerParameter( 'size', 'l', 100, 40 ),
 		cheeze = new BurgerParameter( 'topping', 'cheeze', 10, 20 ),
 		salad = new BurgerParameter( 'topping', 'salad', 20, 5 ),
 		potato = new BurgerParameter( 'topping', 'potato', 10, 20 ),
@@ -561,89 +568,6 @@ numberToAnalize = parseInt(finalRandomNumber.join(''));
 showDescription(numberToAnalize);
 
 };
-'use strict';
-
-var textRedactor = function() {
-// получаем кнопки Сохранить, Показать и Очистить
-	const 	saveButton = document.getElementById( 'save' ),
-			showButton = document.getElementById( 'show' ),
-			clearButton = document.getElementById( 'clear' ),
-// получаем элемент, куда будем добавлять набранный текст
-			placeToShow = document.getElementById( 'whereToShow' ),
-// элемент для вставки лимита памяти
-			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
-// начальное значение набранного текста
-	var 	textToShow = '',
-			memoryUsed = 0;
-// покажем изначальный лимит памяти
-	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
-// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
-	function saveText() {
-//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
-		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
-// добавляем 1 к счетчику строк
-		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
-//получаем текст из поля ввода
-		textFromInput = document.getElementById( 'redactorinput' ).value;
-//добавляем к переменной textToShow
-		if ( textToShow != '') {
-//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
-		textToShow = textToShow + '<br>' + textFromInput
-		}
-//если еще ничего не вводили, то просто добавляем строку
-		else {
-			textToShow += textFromInput
-		};
-// после ввода строки, очищаем поле ввода
-		document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-// очищаем сообщение об ошибке, если оно было на экране
-		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
-			placeToShow.innerHTML = '';
-			}
-		}
-//если строка ввода пустая и еще есть свободный лимит памяти
-		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
-			placeToShow.innerHTML = 'err: вы ничего не ввели! '
-		}
-		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
-			placeToShow.innerHTML = 'Слишком длинная строка! '
-		else {
-			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
-			document.getElementById( 'redactorinput' ).value = '';
-		}
-	}
-
-	function showText() {
-		if( textToShow != '' ) {
-			placeToShow.innerHTML = textToShow;
-		}
-
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-	}
-
-	function clearText() {
-		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
-			textToShow = '';
-			placeToShow.innerHTML = '';
-			memoryLimitIndicator.innerHTML = '0 of 8';
-			memoryUsed = 0;
-			document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-			document.getElementById( 'redactorinput' ).focus();
-		}
-	}
-
-// Обработчик на сохранение строки
-saveButton.addEventListener( 'click', saveText );
-// Обработчик на отображение строк
-showButton.addEventListener( 'click', showText );
-// Обработчик на очистку строк
-clearButton.addEventListener( 'click', clearText );
-}
-textRedactor();
 'use strict';
 
 // Массив с номерами вопросов и ответов для одного раунда
@@ -887,3 +811,86 @@ function makeQuiz() {
 };
 
 // Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
+'use strict';
+
+var textRedactor = function() {
+// получаем кнопки Сохранить, Показать и Очистить
+	const 	saveButton = document.getElementById( 'save' ),
+			showButton = document.getElementById( 'show' ),
+			clearButton = document.getElementById( 'clear' ),
+// получаем элемент, куда будем добавлять набранный текст
+			placeToShow = document.getElementById( 'whereToShow' ),
+// элемент для вставки лимита памяти
+			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
+// начальное значение набранного текста
+	var 	textToShow = '',
+			memoryUsed = 0;
+// покажем изначальный лимит памяти
+	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
+// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
+	function saveText() {
+//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
+		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
+// добавляем 1 к счетчику строк
+		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
+//получаем текст из поля ввода
+		textFromInput = document.getElementById( 'redactorinput' ).value;
+//добавляем к переменной textToShow
+		if ( textToShow != '') {
+//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
+		textToShow = textToShow + '<br>' + textFromInput
+		}
+//если еще ничего не вводили, то просто добавляем строку
+		else {
+			textToShow += textFromInput
+		};
+// после ввода строки, очищаем поле ввода
+		document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+// очищаем сообщение об ошибке, если оно было на экране
+		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
+			placeToShow.innerHTML = '';
+			}
+		}
+//если строка ввода пустая и еще есть свободный лимит памяти
+		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
+			placeToShow.innerHTML = 'err: вы ничего не ввели! '
+		}
+		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
+			placeToShow.innerHTML = 'Слишком длинная строка! '
+		else {
+			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
+			document.getElementById( 'redactorinput' ).value = '';
+		}
+	}
+
+	function showText() {
+		if( textToShow != '' ) {
+			placeToShow.innerHTML = textToShow;
+		}
+
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+	}
+
+	function clearText() {
+		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
+			textToShow = '';
+			placeToShow.innerHTML = '';
+			memoryLimitIndicator.innerHTML = '0 of 8';
+			memoryUsed = 0;
+			document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+			document.getElementById( 'redactorinput' ).focus();
+		}
+	}
+
+// Обработчик на сохранение строки
+saveButton.addEventListener( 'click', saveText );
+// Обработчик на отображение строк
+showButton.addEventListener( 'click', showText );
+// Обработчик на очистку строк
+clearButton.addEventListener( 'click', clearText );
+}
+textRedactor();
