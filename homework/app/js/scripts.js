@@ -157,6 +157,135 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
+/**
+ * Namespace for hamburger.
+ * @Hamburger namespace
+ */
+(function(){
+/**
+* @constructor Hamburger
+* @constructs Hamburger
+* @param {object} size Selected Size of Hamburger, small by default.
+* @param {array} topping Array of Toppings of Hamburger, empty by default. 
+*/
+	function Hamburger(size, topping){
+		this.size = size;
+		this.topping = topping;
+	};
+
+/**
+* @method
+* @name Hamburger#getTarget
+* @desc A handler fucntion for click events on sizes or toppings.
+* @param {obcject} e Event click
+*/
+	Hamburger.prototype.getTarget = function( e ) {
+		var element = e.target;
+		for ( var i = 0; i < e.path.length; i++ ) {
+			if ((e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ]) || 
+				(e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ])) {
+				element = event.path[ i - 1 ];
+			};
+		};
+		console.log( element );
+		return element;
+	};
+
+/**
+* @method
+* @name Hamburger#listenAll
+* @desc Adds EventListener on blocks with sizes and toppings.
+*/
+	Hamburger.prototype.listenAll = function() {
+		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.getTarget );
+		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.getTarget )
+	};
+
+/**
+* @method
+* @name Hamburger#setSize
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
+// по клику: (интерфейс) если не active - снять active у остальных, поставить active у target
+// (объект) если не active очистить .size поставить в свойство .size = #id
+	Hamburger.prototype.setSize = function() {
+		
+	};
+
+/**
+* @method
+* @name Hamburger#setTopping
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
+	Hamburger.prototype.setTopping = function() {
+		
+	};
+
+/**
+* @method
+* @name Hamburger#removeTopping
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
+	Hamburger.prototype.removeTopping = function() {};
+
+/**
+* @method
+* @name Hamburger#calculate
+* @desc 
+* @param {} 
+* @param {}
+* @returns {} 
+*/
+	Hamburger.prototype.calculate = function() {};
+
+/**
+* @constructor BurgerParameter
+* @constructs BurgerParameter
+* @param {string} type 
+* @param {string} name 
+* @param {number} price
+* @param {number} calories
+*/
+	function BurgerParameter( type, name, price, calories ){
+		this.type = type;
+		this.name = name;
+		this.price = price;
+		this.calories = calories;
+	};
+
+	var s = new BurgerParameter( 'size', 'small', 50, 20 ),
+		m = new BurgerParameter( 'size', 'medium', 75, 30 ),
+		m = new BurgerParameter( 'size', 'large', 100, 40 ),
+		cheeze = new BurgerParameter( 'topping', 'cheeze', 10, 20 ),
+		salad = new BurgerParameter( 'topping', 'salad', 20, 5 ),
+		potato = new BurgerParameter( 'topping', 'potato', 10, 20 ),
+		spice = new BurgerParameter( 'topping', 'spice', 10, 20 ),
+		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
+		hamb = new Hamburger( s , [] );
+
+		hamb.listenAll();
+
+/**
+* @todo Finish
+* @todo Describe
+* @todo Test
+*/ 
+
+})();
+
+
+
+
+
 'use strict';
 
 function findDifferent() {
@@ -226,143 +355,6 @@ function refreshDifferent() {
 		a[i].value = '';
 	}
 };
-/**
- * Namespace for hamburger.
- * @Hamburger namespace
- */
-(function(){
-/**
-* @constructor Hamburger
-* @constructs Hamburger
-* @param {object} size Selected Size of Hamburger, small by default.
-* @param {array} topping Array of Toppings of Hamburger, empty by default. 
-*/
-	function Hamburger(size, topping){
-		this.size = size;
-		this.topping = topping;
-	};
-
-/**
-* @method
-* @name Hamburger#listenSize
-* @desc Adds handler fucntion for click events
-* @param {obcject} e Event click
-*/
-	Hamburger.prototype.listenSize = function( e ) {
-		var element = e.target;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ]) {
-				element = event.path[ i - 1 ];
-			};
-		};
-		console.log( element ); // add logic here
-		return element;
-	};
-
-/**
-* @method
-* @name Hamburger#listenTopping
-* @desc Adds handler fucntion for click events
-* @param {obcject} e Event click
-*/
-	Hamburger.prototype.listenToppings = function( e ) {
-		var element = e.target;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ]) {
-				element = event.path[ i - 1 ];
-			};
-		};
-		console.log( element ); // add logic here
-		return element;
-	};
-
-/**
-* @method
-* @name Hamburger#setSize
-* @desc 
-* @param {} 
-* @param {}
-* @returns {} 
-*/
-// по клику: (интерфейс) если не active - снять active у остальных, поставить active у target
-// (объект) если не active очистить .size поставить в свойство .size = #id
-	Hamburger.prototype.setSize = function() {
-		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.listenSize );
-	};
-
-/**
-* @method
-* @name Hamburger#setTopping
-* @desc 
-* @param {} 
-* @param {}
-* @returns {} 
-*/
-	Hamburger.prototype.setTopping = function() {
-		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.listenToppings );
-	};
-
-/**
-* @method
-* @name Hamburger#removeTopping
-* @desc 
-* @param {} 
-* @param {}
-* @returns {} 
-*/
-	Hamburger.prototype.removeTopping = function() {};
-
-/**
-* @method
-* @name Hamburger#calculate
-* @desc 
-* @param {} 
-* @param {}
-* @returns {} 
-*/
-	Hamburger.prototype.calculate = function() {};
-
-/**
-* @constructor BurgerParameter
-* @constructs BurgerParameter
-* @param {string} type 
-* @param {string} name 
-* @param {number} price
-* @param {number} calories
-*/
-	function BurgerParameter( type, name, price, calories ){
-		this.type = type;
-		this.name = name;
-		this.price = price;
-		this.calories = calories;
-	};
-
-	var s = new BurgerParameter( 'size', 'small', 50, 20 ),
-		m = new BurgerParameter( 'size', 'medium', 75, 30 ),
-		m = new BurgerParameter( 'size', 'large', 100, 40 ),
-		cheeze = new BurgerParameter( 'topping', 'cheeze', 10, 20 ),
-		salad = new BurgerParameter( 'topping', 'salad', 20, 5 ),
-		potato = new BurgerParameter( 'topping', 'potato', 10, 20 ),
-		spice = new BurgerParameter( 'topping', 'spice', 10, 20 ),
-		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
-		hamb = new Hamburger( s , [] );
-
-		hamb.setSize();
-		hamb.setTopping();
-
-
-/**
-* @todo Finish
-* @todo Describe
-* @todo Test
-*/ 
-
-})();
-
-
-
-
-
 "use strict";
 //test
 
@@ -560,6 +552,89 @@ numberToAnalize = parseInt(finalRandomNumber.join(''));
 showDescription(numberToAnalize);
 
 };
+'use strict';
+
+var textRedactor = function() {
+// получаем кнопки Сохранить, Показать и Очистить
+	const 	saveButton = document.getElementById( 'save' ),
+			showButton = document.getElementById( 'show' ),
+			clearButton = document.getElementById( 'clear' ),
+// получаем элемент, куда будем добавлять набранный текст
+			placeToShow = document.getElementById( 'whereToShow' ),
+// элемент для вставки лимита памяти
+			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
+// начальное значение набранного текста
+	var 	textToShow = '',
+			memoryUsed = 0;
+// покажем изначальный лимит памяти
+	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
+// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
+	function saveText() {
+//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
+		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
+// добавляем 1 к счетчику строк
+		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
+//получаем текст из поля ввода
+		textFromInput = document.getElementById( 'redactorinput' ).value;
+//добавляем к переменной textToShow
+		if ( textToShow != '') {
+//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
+		textToShow = textToShow + '<br>' + textFromInput
+		}
+//если еще ничего не вводили, то просто добавляем строку
+		else {
+			textToShow += textFromInput
+		};
+// после ввода строки, очищаем поле ввода
+		document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+// очищаем сообщение об ошибке, если оно было на экране
+		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
+			placeToShow.innerHTML = '';
+			}
+		}
+//если строка ввода пустая и еще есть свободный лимит памяти
+		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
+			placeToShow.innerHTML = 'err: вы ничего не ввели! '
+		}
+		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
+			placeToShow.innerHTML = 'Слишком длинная строка! '
+		else {
+			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
+			document.getElementById( 'redactorinput' ).value = '';
+		}
+	}
+
+	function showText() {
+		if( textToShow != '' ) {
+			placeToShow.innerHTML = textToShow;
+		}
+
+//возвращаем фокус полю ввода
+		document.getElementById( 'redactorinput' ).focus();
+	}
+
+	function clearText() {
+		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
+			textToShow = '';
+			placeToShow.innerHTML = '';
+			memoryLimitIndicator.innerHTML = '0 of 8';
+			memoryUsed = 0;
+			document.getElementById( 'redactorinput' ).value = '';
+//возвращаем фокус полю ввода
+			document.getElementById( 'redactorinput' ).focus();
+		}
+	}
+
+// Обработчик на сохранение строки
+saveButton.addEventListener( 'click', saveText );
+// Обработчик на отображение строк
+showButton.addEventListener( 'click', showText );
+// Обработчик на очистку строк
+clearButton.addEventListener( 'click', clearText );
+}
+textRedactor();
 'use strict';
 
 // Массив с номерами вопросов и ответов для одного раунда
@@ -803,86 +878,3 @@ function makeQuiz() {
 };
 
 // Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
-'use strict';
-
-var textRedactor = function() {
-// получаем кнопки Сохранить, Показать и Очистить
-	const 	saveButton = document.getElementById( 'save' ),
-			showButton = document.getElementById( 'show' ),
-			clearButton = document.getElementById( 'clear' ),
-// получаем элемент, куда будем добавлять набранный текст
-			placeToShow = document.getElementById( 'whereToShow' ),
-// элемент для вставки лимита памяти
-			memoryLimitIndicator = document.getElementById( 'memoryIndicator' );
-// начальное значение набранного текста
-	var 	textToShow = '',
-			memoryUsed = 0;
-// покажем изначальный лимит памяти
-	memoryLimitIndicator.innerHTML = memoryUsed + ' of 8';
-// функция добавляет и сохраняет введенный текст в переменную textToShow, если инпут не пустой
-	function saveText() {
-//если строка ввода не пустая, лимит памяти меньше 9 и длинна строки меньше 39
-		if ( document.getElementById( 'redactorinput' ).value != '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length <= 38 ) {
-// добавляем 1 к счетчику строк
-		memoryLimitIndicator.innerHTML = ++memoryUsed + ' of 8';
-//получаем текст из поля ввода
-		textFromInput = document.getElementById( 'redactorinput' ).value;
-//добавляем к переменной textToShow
-		if ( textToShow != '') {
-//если в textToShow уже что-то есть, то перед добавляемой строкой добавим перенос строки
-		textToShow = textToShow + '<br>' + textFromInput
-		}
-//если еще ничего не вводили, то просто добавляем строку
-		else {
-			textToShow += textFromInput
-		};
-// после ввода строки, очищаем поле ввода
-		document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-// очищаем сообщение об ошибке, если оно было на экране
-		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
-			placeToShow.innerHTML = '';
-			}
-		}
-//если строка ввода пустая и еще есть свободный лимит памяти
-		else if ( document.getElementById( 'redactorinput' ).value == '' && memoryUsed <= 7 ) {
-			placeToShow.innerHTML = 'err: вы ничего не ввели! '
-		}
-		else if ( document.getElementById( 'redactorinput' ).value !== '' && memoryUsed <= 7 && document.getElementById( 'redactorinput' ).value.length > 38 )
-			placeToShow.innerHTML = 'Слишком длинная строка! '
-		else {
-			placeToShow.innerHTML = 'Лимит памяти исчеран! ';
-			document.getElementById( 'redactorinput' ).value = '';
-		}
-	}
-
-	function showText() {
-		if( textToShow != '' ) {
-			placeToShow.innerHTML = textToShow;
-		}
-
-//возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
-	}
-
-	function clearText() {
-		if ( textToShow != '' || placeToShow.innerHTML != '' || document.getElementById( 'redactorinput' ).value != '' ) {
-			textToShow = '';
-			placeToShow.innerHTML = '';
-			memoryLimitIndicator.innerHTML = '0 of 8';
-			memoryUsed = 0;
-			document.getElementById( 'redactorinput' ).value = '';
-//возвращаем фокус полю ввода
-			document.getElementById( 'redactorinput' ).focus();
-		}
-	}
-
-// Обработчик на сохранение строки
-saveButton.addEventListener( 'click', saveText );
-// Обработчик на отображение строк
-showButton.addEventListener( 'click', showText );
-// Обработчик на очистку строк
-clearButton.addEventListener( 'click', clearText );
-}
-textRedactor();

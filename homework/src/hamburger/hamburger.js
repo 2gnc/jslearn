@@ -16,36 +16,30 @@
 
 /**
 * @method
-* @name Hamburger#listenSize
-* @desc Adds handler fucntion for click events
+* @name Hamburger#getTarget
+* @desc A handler fucntion for click events on sizes or toppings.
 * @param {obcject} e Event click
 */
-	Hamburger.prototype.listenSize = function( e ) {
+	Hamburger.prototype.getTarget = function( e ) {
 		var element = e.target;
 		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ]) {
+			if ((e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ]) || 
+				(e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ])) {
 				element = event.path[ i - 1 ];
 			};
 		};
-		console.log( element ); // add logic here
+		console.log( element );
 		return element;
 	};
 
 /**
 * @method
-* @name Hamburger#listenTopping
-* @desc Adds handler fucntion for click events
-* @param {obcject} e Event click
+* @name Hamburger#listenAll
+* @desc Adds EventListener on blocks with sizes and toppings.
 */
-	Hamburger.prototype.listenToppings = function( e ) {
-		var element = e.target;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ]) {
-				element = event.path[ i - 1 ];
-			};
-		};
-		console.log( element ); // add logic here
-		return element;
+	Hamburger.prototype.listenAll = function() {
+		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.getTarget );
+		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.getTarget )
 	};
 
 /**
@@ -59,7 +53,7 @@
 // по клику: (интерфейс) если не active - снять active у остальных, поставить active у target
 // (объект) если не active очистить .size поставить в свойство .size = #id
 	Hamburger.prototype.setSize = function() {
-		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.listenSize );
+		
 	};
 
 /**
@@ -71,7 +65,7 @@
 * @returns {} 
 */
 	Hamburger.prototype.setTopping = function() {
-		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.listenToppings );
+		
 	};
 
 /**
@@ -119,9 +113,7 @@
 		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
 		hamb = new Hamburger( s , [] );
 
-		hamb.setSize();
-		hamb.setTopping();
-
+		hamb.listenAll();
 
 /**
 * @todo Finish
