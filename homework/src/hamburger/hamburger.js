@@ -49,12 +49,7 @@
 				break
 			}
 		};
-
-		console.log( hamb );
 	};
-
-
-// (объект) если не active очистить .size поставить в свойство .size = #id
 
 /**
 * @method
@@ -72,6 +67,10 @@
 			};
 		};
 		console.log( element );
+
+		//fa fa-check hidden
+		//
+
 		return element;
 	};
 
@@ -135,6 +134,7 @@
 * @todo Describe
 * @todo Test
 * @todo переписать Hamburger как синглтон
+* @todo переписать верстку - убрать font awesome, для чекбокса использовать заливку,
 */
 
 })();
