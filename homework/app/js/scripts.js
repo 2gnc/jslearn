@@ -251,17 +251,19 @@ function refreshDifferent() {
 */
 	Hamburger.prototype.listenAll = function() {
 		document.querySelector( '.hamburger__sizes' ).addEventListener( 'click', hamb.setSize );
-		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.setTopping );
+		document.querySelector( '.hamburger__toppings' ).addEventListener( 'click', hamb.toggleTopping );
 	};
 
 /**
 * @method
 * @name Hamburger#setSize
-* @desc Toggle class --active on click, set property "size" of hamb.
+* @desc Toggle class --active on click, set property "size" of hamb, displays new size if changed.
 * @param {object} event
 */
 	Hamburger.prototype.setSize = function( e ) {
-		var element = e.target;
+		var element = e.target,
+			hamburger = document.querySelector( '.hamburger__box' );
+			currentSize = hamburger.classList[1];
 		for ( var i = 0; i < e.path.length; i++ ) {
 			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ] ) {
 				element = event.path[ i - 1 ];
@@ -275,31 +277,46 @@ function refreshDifferent() {
 			if( sizes[i].name === element.id ) {
 				hamb.size = sizes[i];
 				break
-			}
+			};
 		};
+		var targetSize = 'hamburger__box--' + hamb.size.name;
+		hamburger.classList.remove( currentSize );
+		hamburger.classList.add( targetSize );
+	};
+
+/**
+* @method
+* @name Hamburger#toggleTopping
+* @desc Toggle checkbox, displays topping and starts setTopping() or removeTopping() methods.
+* @param {object} event  
+*/
+	Hamburger.prototype.toggleTopping = function( e ) {
+		var element = e.target,
+			checkbox;
+		for ( var i = 0; i < e.path.length; i++ ) {
+			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ] ) {
+				element = event.path[ i - 1 ];
+				checkbox = element.querySelector( '.hamburger__topping-box' );
+			};
+		};
+		if( checkbox.classList.contains( 'hamburger__topping-box--active' ) ) {
+			hamb.removeTopping(  );
+		}
+			else {
+				hamb.setTopping(  );
+			};
+		checkbox.classList.toggle( 'hamburger__topping-box--active' );
+		document.getElementsByClassName( 'hamburger__' + element.id )[0].classList.toggle( 'hidden' );
 	};
 
 /**
 * @method
 * @name Hamburger#setTopping
-* @desc 
+* @desc  
 * @param {} 
-* @param {}
-* @returns {} 
 */
-	Hamburger.prototype.setTopping = function( e ) {
-		var element = e.target;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ] ) {
-				element = event.path[ i - 1 ];
-			};
-		};
-		console.log( element );
-
-		//fa fa-check hidden
-		//
-
-		return element;
+	Hamburger.prototype.setTopping = function(  ) {
+		//console.log( hamb );
 	};
 
 /**
@@ -310,7 +327,9 @@ function refreshDifferent() {
 * @param {}
 * @returns {} 
 */
-	Hamburger.prototype.removeTopping = function() {};
+	Hamburger.prototype.removeTopping = function(  ) {
+
+	};
 
 /**
 * @method
@@ -358,11 +377,8 @@ function refreshDifferent() {
 		hamb.listenAll();
 
 /**
-* @todo Finish
-* @todo Describe
 * @todo Test
-* @todo переписать Hamburger как синглтон
-* @todo переписать верстку - убрать font awesome, для чекбокса использовать заливку,
+* @todo Bug: при большом размере гамбургера не выбирается картошка и специи
 */
 
 })();
