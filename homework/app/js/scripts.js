@@ -375,12 +375,9 @@ function refreshDifferent() {
 		hamb = new Hamburger( s , [] );
 
 		hamb.listenAll();
-
 /**
 * @todo Test
-* @todo Bug: при большом размере гамбургера не выбирается картошка и специи
 */
-
 })();
 
 

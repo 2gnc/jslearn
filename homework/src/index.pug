@@ -10,7 +10,7 @@ html(lang="ru")
 			div.logo
 				p.logo__name Гамбургер
 			div.task-info
-				h1.task-info__heading Расчет калорийности гамбергера
+				h1.task-info__heading Расчет калорийности гамбргера
 				p.task-info__instruction  Выберите размер гамбургера, добавьте наполнитель и приправы по вкусу. 
 				hr.task-info__line
 			div.hamburger__sizes
@@ -39,15 +39,23 @@ html(lang="ru")
 				div.hamburger__topping#mayo
 					div.hamburger__topping-box
 					span.hamburger__topping-name Майонез
-			div.hamburger__box.hamburger__box--s
-				div.hamburger__top-bun
-				div.hamburger__salad.hidden
-				div.hamburger__cheeze.hidden
-				div.hamburger__spice.hidden
-				div.hamburger__cutlet
-				div.hamburger__mayo.hidden
-				div.hamburger__potato.hidden
-				div.hamburger__bottom-bun
+			div.hamburger__wrapper
+				div.hamburger__box.hamburger__box--s
+					div.hamburger__top-bun
+					div.hamburger__salad.hidden
+					div.hamburger__cheeze.hidden
+					div.hamburger__spice.hidden
+					div.hamburger__cutlet
+					div.hamburger__mayo.hidden
+					div.hamburger__potato.hidden
+					div.hamburger__bottom-bun
+				div.hamburger__calculation-box
+					div.hamburger__param
+						span.hamburger__param-text Цена:
+						span.hamburger__param-text#price
+					div.hamburger__param
+						span.hamburger__param-text Калории:
+						span.hamburger__param-text#cal
 		section.quiz#quiz
 			div.logo
 				p.logo__name Вопросы и ответы
