@@ -273,10 +273,10 @@ function refreshDifferent() {
 			element.parentNode.querySelector( '.hamburger__size--active' ).classList.toggle( 'hamburger__size--active' );
 			element.classList.toggle( 'hamburger__size--active' );
 		};
-		for ( var i =0; i <= sizes.length; i++ ) {
+		for ( var i =0; i < sizes.length; i++ ) {
 			if( sizes[i].name === element.id ) {
 				hamb.size = sizes[i];
-				break
+				//break
 			};
 		};
 		var targetSize = 'hamburger__box--' + hamb.size.name;
