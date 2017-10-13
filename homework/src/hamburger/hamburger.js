@@ -75,7 +75,7 @@
 			hamb.removeTopping(  );
 		}
 			else {
-				hamb.setTopping(  );
+				hamb.setTopping( element.id );
 			};
 		checkbox.classList.toggle( 'hamburger__topping-box--active' );
 		document.getElementsByClassName( 'hamburger__' + element.id )[0].classList.toggle( 'hidden' );
@@ -84,11 +84,20 @@
 /**
 * @method
 * @name Hamburger#setTopping
-* @desc  
-* @param {} 
+* @desc Adds targetToppingObj in hamb.topping.
+* @param {string} toppingName
 */
-	Hamburger.prototype.setTopping = function(  ) {
-		//console.log( hamb );
+	Hamburger.prototype.setTopping = function( toppingName ) {
+		var targetToppingObj;
+		for (var i = 0; i < toppings.length; i++) {
+			if( toppings[i].name === toppingName ) {
+				targetToppingObj = toppings[i];
+				break
+			};
+		};
+		if( hamb.topping.indexOf( targetToppingObj ) == -1 ) {
+			 hamb.topping.push( targetToppingObj );
+		};
 	};
 
 /**
@@ -100,6 +109,7 @@
 * @returns {} 
 */
 	Hamburger.prototype.removeTopping = function(  ) {
+		//удаляем топпинг из массива, если он там есть
 
 	};
 
