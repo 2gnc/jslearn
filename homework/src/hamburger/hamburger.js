@@ -72,7 +72,7 @@
 			};
 		};
 		if( checkbox.classList.contains( 'hamburger__topping-box--active' ) ) {
-			hamb.removeTopping(  );
+			hamb.removeTopping( element.id );
 		}
 			else {
 				hamb.setTopping( element.id );
@@ -103,14 +103,20 @@
 /**
 * @method
 * @name Hamburger#removeTopping
-* @desc 
-* @param {} 
-* @param {}
-* @returns {} 
+* @desc Removes targetToppingObj from hamb.topping
+* @param {string} toppingName
 */
-	Hamburger.prototype.removeTopping = function(  ) {
-		//удаляем топпинг из массива, если он там есть
-
+	Hamburger.prototype.removeTopping = function( toppingName ) {
+		var targetToppingObj;
+		for (var i = 0; i < toppings.length; i++) {
+			if( toppings[i].name === toppingName ) {
+				targetToppingObj = toppings[i];
+				break
+			};
+		};
+		if( hamb.topping.indexOf( targetToppingObj ) !== -1 ) {
+			hamb.topping.splice( hamb.topping.indexOf( targetToppingObj ), 1 );
+		}
 	};
 
 /**
