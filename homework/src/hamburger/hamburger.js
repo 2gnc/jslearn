@@ -34,13 +34,16 @@
 */
 	Hamburger.prototype.setSize = function( e ) {
 		var element = e.target,
+			path = [],
 			hamburger = document.querySelector( '.hamburger__box' );
 			currentSize = hamburger.classList[1];
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ] ) {
-				element = event.path[ i - 1 ];
+
+			while ( element != document.querySelector( '.hamburger__sizes' ) ) {
+				path.push( element );
+				element = element.parentNode;
 			};
-		};
+			element = path[ path.length - 1 ];
+
 		if( !element.classList.contains( 'hamburger__size--active' ) && !element.classList.contains( 'hamburger__sizes' ) ) {
 			element.parentNode.querySelector( '.hamburger__size--active' ).classList.toggle( 'hamburger__size--active' );
 			element.classList.toggle( 'hamburger__size--active' );
@@ -48,12 +51,13 @@
 		for ( var i =0; i < sizes.length; i++ ) {
 			if( sizes[i].name === element.id ) {
 				hamb.size = sizes[i];
-				//break
+				break
 			};
 		};
 		var targetSize = 'hamburger__box--' + hamb.size.name;
 		hamburger.classList.remove( currentSize );
 		hamburger.classList.add( targetSize );
+		hamb.calculate();
 	};
 
 /**
@@ -64,13 +68,16 @@
 */
 	Hamburger.prototype.toggleTopping = function( e ) {
 		var element = e.target,
+			path = [],
 			checkbox;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ] ) {
-				element = event.path[ i - 1 ];
-				checkbox = element.querySelector( '.hamburger__topping-box' );
+
+			while ( element != document.querySelector( '.hamburger__toppings' ) ) {
+				path.push( element );
+				element = element.parentNode;
 			};
-		};
+			element = path[ path.length - 1 ];
+			checkbox = element.querySelector( '.hamburger__topping-box' );
+
 		if( checkbox.classList.contains( 'hamburger__topping-box--active' ) ) {
 			hamb.removeTopping( element.id );
 		}
@@ -97,6 +104,7 @@
 		};
 		if( hamb.topping.indexOf( targetToppingObj ) == -1 ) {
 			 hamb.topping.push( targetToppingObj );
+			 hamb.calculate();
 		};
 	};
 
@@ -116,6 +124,7 @@
 		};
 		if( hamb.topping.indexOf( targetToppingObj ) !== -1 ) {
 			hamb.topping.splice( hamb.topping.indexOf( targetToppingObj ), 1 );
+			hamb.calculate();
 		}
 	};
 
@@ -127,7 +136,33 @@
 * @param {}
 * @returns {} 
 */
-	Hamburger.prototype.calculate = function() {};
+	Hamburger.prototype.calculate = function() {
+		var totalPrice,
+				totalCal,
+				toppingsPrice = 0,
+				toppingsCal = 0;
+		if( hamb.topping.length > 0 ) {
+			for ( var i = 0; i < hamb.topping.length; i++ ) {
+			toppingsPrice += hamb.topping[i].price;
+			};
+			totalPrice = toppingsPrice + hamb.size.price;
+		}
+		else {
+			totalPrice = hamb.size.price;
+		}
+		if( hamb.topping.length > 0 ) {
+			for ( var i = 0; i < hamb.topping.length; i++ ) {
+			toppingsCal += hamb.topping[i].calories;
+			};
+			totalCal = toppingsCal + hamb.size.calories;
+		}
+		else {
+			totalCal = hamb.size.calories;
+		};
+		document.getElementById( 'price' ).innerHTML = totalPrice ;
+		document.getElementById( 'cal' ).innerHTML = totalCal ;
+	};
+
 
 /**
 * @constructor BurgerParameter
@@ -163,9 +198,8 @@
 		hamb = new Hamburger( s , [] );
 
 		hamb.listenAll();
-/**
-* @todo Test
-*/
+		hamb.calculate();
+
 })();
 
 

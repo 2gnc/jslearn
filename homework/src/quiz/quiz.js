@@ -1,13 +1,13 @@
 'use strict';
 
 // Массив с номерами вопросов и ответов для одного раунда
-let roundNumbers = [],
+var roundNumbers = [],
 // Массив вопросов и ответов для одного раунда
 		roundQuestionsAndAnswers = [],
 // Массив для хранения уже заданных вопросов
 		usedNumbers = [];
 // Кнопка "Новая игра"
-let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
+var newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка "Новый раунд"
 	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // Кнопка "Начать заново"
@@ -45,9 +45,9 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 		var allQuestions = JSON.parse( xhr.responseText ); 
 
 // Функция дает случайное число, не входящее в массив уже использованых номеров
-function getRandomNumber(min = 0, max = 49) {
+function getRandomNumber(min, max){
 	do {
-		var rand = parseInt(Math.random() * (max - min) + min);
+		var rand = parseInt(Math.random() * (49 - 0) + 0);
 	}
 	while (usedNumbers.indexOf(rand) !== -1);
 	return rand
@@ -116,7 +116,7 @@ Quiz.prototype.makeRound = function() {
 // можно ли выполнять отсчет
 		dodo = true;
 // Обработчик нажатия на кнопку ответ - останавливает таймер и чищает его в HTML
-		answerBtn.addEventListener( 'click', () => { 
+		answerBtn.addEventListener( 'click', function (){ 
 			dodo = false; 
 			timerPlace.innerHTML = ''; 
 			});
@@ -132,7 +132,7 @@ Quiz.prototype.makeRound = function() {
 		};
 
 // Задаем первый вопрос
-questionOne = () => {
+questionOne = function(){
 	console.log( 'Задаю первый вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
 	countTen();
@@ -150,7 +150,7 @@ questionOne = () => {
 };
 
 // Задаем второй вопрос
-questionTwo = () => {
+questionTwo = function(){
 	console.log( 'Задаю второй вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[1].question;
 	var q2Timeout = setTimeout( goToThree, 20000 );
@@ -167,7 +167,7 @@ questionTwo = () => {
 };
 
 // Задаем третий вопрос
-questionThree = () => {
+questionThree = function(){
 	console.log('Задаю третий вопрос')
 	questionPlace.innerHTML = roundQuestionsAndAnswers[2].question;
 	var q3Timeout = setTimeout( goToEnd, 20000 );

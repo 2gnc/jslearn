@@ -3,7 +3,7 @@
 function findDifferent() {
 
 //получаем переменные из инпутов
-	let n1 = parseInt(document.getElementById( 'n1' ).value),
+	var n1 = parseInt(document.getElementById( 'n1' ).value),
 		n2 = parseInt(document.getElementById( 'n2' ).value),
 		n3 = parseInt(document.getElementById( 'n3' ).value),
 		n4 = parseInt(document.getElementById( 'n4' ).value),
@@ -11,7 +11,7 @@ function findDifferent() {
 
 //сбросим оформление инпутов, если что-то было введено раньше
 // возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
-	let a = document.getElementsByClassName( 'different__value' );
+	var a = document.getElementsByClassName( 'different__value' );
 		for (var i = 0; i < a.length; i++) {
 			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
 		}
@@ -52,7 +52,7 @@ function findDifferent() {
 		showDifferent(differentNumber)
 	}
 	else {
-		let b = document.getElementsByClassName( 'different__value' );
+		var b = document.getElementsByClassName( 'different__value' );
 		for (var i = 0; i < b.length; i++) {
 			b[i].classList.add( 'different__value--wrong' )
 			}
@@ -61,7 +61,7 @@ function findDifferent() {
 
 // очистка оформления и значений инпутов
 function refreshDifferent() {
-	let a = document.getElementsByClassName( 'different__value' );
+	var a = document.getElementsByClassName( 'different__value' );
 	for (var i = 0; i < a.length; i++) {
 		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
 		a[i].value = '';

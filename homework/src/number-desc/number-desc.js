@@ -4,7 +4,7 @@ function randomise() {
 	//let plaseForNumber = document.getElementById('first-item');
 
 //получим в массив все элементы, внутрь которых надо вставлять рандомайзер
-	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+	var elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
 //
 		finalRandomNumber = [],
 //
@@ -20,14 +20,14 @@ function randomise() {
 //функция выводит элементы с задержкой 0.2 секунды
 	function makeRandomNumber(where) {
 //получаем массив из 10 случайных чисел, которые будем анимировать
-	let numbersForScroll = [];
-	for ( let k = 0; k < 10; k++ ) {
+	var numbersForScroll = [];
+	for ( var k = 0; k < 10; k++ ) {
 		numbersForScroll.push(getRandomNumber());
 		}
 //записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
 	finalRandomNumber.push(numbersForScroll[9]);
 //выводим 10 раз элемнты массива, начиная с 0-го
-		let i = 0;
+		var i = 0;
 		( function numbersScroller() {
 			if ( i < 10 ) {
 				where.innerHTML = numbersForScroll[i];
@@ -60,7 +60,7 @@ function randomise() {
 
 //для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
 //элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
-	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
+	for (var i = 0; i < elementsToPlaseRandomizer.length; i++) {
 		makeRandomNumber(elementsToPlaseRandomizer[i]);
 	}
 

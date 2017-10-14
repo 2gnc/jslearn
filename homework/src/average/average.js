@@ -3,7 +3,7 @@ function findAverage() {
 	document.getElementById( 'check-button' ).classList.add( 'average__button--checked' );
 
 	//получаем переменные из input
-	let firstNum = +document.getElementById( 'firstNum' ).value,
+	var firstNum = +document.getElementById( 'firstNum' ).value,
 		secondNum = +document.getElementById( 'secondNum' ).value,
 		thirdNum = +document.getElementById( 'thirdNum' ).value;
 

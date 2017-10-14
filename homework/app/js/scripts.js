@@ -77,7 +77,7 @@ function findAverage() {
 	document.getElementById( 'check-button' ).classList.add( 'average__button--checked' );
 
 	//получаем переменные из input
-	let firstNum = +document.getElementById( 'firstNum' ).value,
+	var firstNum = +document.getElementById( 'firstNum' ).value,
 		secondNum = +document.getElementById( 'secondNum' ).value,
 		thirdNum = +document.getElementById( 'thirdNum' ).value;
 
@@ -162,7 +162,7 @@ function refresh(){
 function findDifferent() {
 
 //получаем переменные из инпутов
-	let n1 = parseInt(document.getElementById( 'n1' ).value),
+	var n1 = parseInt(document.getElementById( 'n1' ).value),
 		n2 = parseInt(document.getElementById( 'n2' ).value),
 		n3 = parseInt(document.getElementById( 'n3' ).value),
 		n4 = parseInt(document.getElementById( 'n4' ).value),
@@ -170,7 +170,7 @@ function findDifferent() {
 
 //сбросим оформление инпутов, если что-то было введено раньше
 // возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
-	let a = document.getElementsByClassName( 'different__value' );
+	var a = document.getElementsByClassName( 'different__value' );
 		for (var i = 0; i < a.length; i++) {
 			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
 		}
@@ -211,7 +211,7 @@ function findDifferent() {
 		showDifferent(differentNumber)
 	}
 	else {
-		let b = document.getElementsByClassName( 'different__value' );
+		var b = document.getElementsByClassName( 'different__value' );
 		for (var i = 0; i < b.length; i++) {
 			b[i].classList.add( 'different__value--wrong' )
 			}
@@ -220,7 +220,7 @@ function findDifferent() {
 
 // очистка оформления и значений инпутов
 function refreshDifferent() {
-	let a = document.getElementsByClassName( 'different__value' );
+	var a = document.getElementsByClassName( 'different__value' );
 	for (var i = 0; i < a.length; i++) {
 		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
 		a[i].value = '';
@@ -262,13 +262,16 @@ function refreshDifferent() {
 */
 	Hamburger.prototype.setSize = function( e ) {
 		var element = e.target,
+			path = [],
 			hamburger = document.querySelector( '.hamburger__box' );
 			currentSize = hamburger.classList[1];
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__sizes' ) && e.path[ i - 1 ] ) {
-				element = event.path[ i - 1 ];
+
+			while ( element != document.querySelector( '.hamburger__sizes' ) ) {
+				path.push( element );
+				element = element.parentNode;
 			};
-		};
+			element = path[ path.length - 1 ];
+
 		if( !element.classList.contains( 'hamburger__size--active' ) && !element.classList.contains( 'hamburger__sizes' ) ) {
 			element.parentNode.querySelector( '.hamburger__size--active' ).classList.toggle( 'hamburger__size--active' );
 			element.classList.toggle( 'hamburger__size--active' );
@@ -276,12 +279,13 @@ function refreshDifferent() {
 		for ( var i =0; i < sizes.length; i++ ) {
 			if( sizes[i].name === element.id ) {
 				hamb.size = sizes[i];
-				//break
+				break
 			};
 		};
 		var targetSize = 'hamburger__box--' + hamb.size.name;
 		hamburger.classList.remove( currentSize );
 		hamburger.classList.add( targetSize );
+		hamb.calculate();
 	};
 
 /**
@@ -292,13 +296,16 @@ function refreshDifferent() {
 */
 	Hamburger.prototype.toggleTopping = function( e ) {
 		var element = e.target,
+			path = [],
 			checkbox;
-		for ( var i = 0; i < e.path.length; i++ ) {
-			if ( e.path[i] ==  document.querySelector( '.hamburger__toppings' ) && e.path[ i - 1 ] ) {
-				element = event.path[ i - 1 ];
-				checkbox = element.querySelector( '.hamburger__topping-box' );
+
+			while ( element != document.querySelector( '.hamburger__toppings' ) ) {
+				path.push( element );
+				element = element.parentNode;
 			};
-		};
+			element = path[ path.length - 1 ];
+			checkbox = element.querySelector( '.hamburger__topping-box' );
+
 		if( checkbox.classList.contains( 'hamburger__topping-box--active' ) ) {
 			hamb.removeTopping( element.id );
 		}
@@ -325,6 +332,7 @@ function refreshDifferent() {
 		};
 		if( hamb.topping.indexOf( targetToppingObj ) == -1 ) {
 			 hamb.topping.push( targetToppingObj );
+			 hamb.calculate();
 		};
 	};
 
@@ -344,6 +352,7 @@ function refreshDifferent() {
 		};
 		if( hamb.topping.indexOf( targetToppingObj ) !== -1 ) {
 			hamb.topping.splice( hamb.topping.indexOf( targetToppingObj ), 1 );
+			hamb.calculate();
 		}
 	};
 
@@ -355,7 +364,33 @@ function refreshDifferent() {
 * @param {}
 * @returns {} 
 */
-	Hamburger.prototype.calculate = function() {};
+	Hamburger.prototype.calculate = function() {
+		var totalPrice,
+				totalCal,
+				toppingsPrice = 0,
+				toppingsCal = 0;
+		if( hamb.topping.length > 0 ) {
+			for ( var i = 0; i < hamb.topping.length; i++ ) {
+			toppingsPrice += hamb.topping[i].price;
+			};
+			totalPrice = toppingsPrice + hamb.size.price;
+		}
+		else {
+			totalPrice = hamb.size.price;
+		}
+		if( hamb.topping.length > 0 ) {
+			for ( var i = 0; i < hamb.topping.length; i++ ) {
+			toppingsCal += hamb.topping[i].calories;
+			};
+			totalCal = toppingsCal + hamb.size.calories;
+		}
+		else {
+			totalCal = hamb.size.calories;
+		};
+		document.getElementById( 'price' ).innerHTML = totalPrice ;
+		document.getElementById( 'cal' ).innerHTML = totalCal ;
+	};
+
 
 /**
 * @constructor BurgerParameter
@@ -391,9 +426,8 @@ function refreshDifferent() {
 		hamb = new Hamburger( s , [] );
 
 		hamb.listenAll();
-/**
-* @todo Test
-*/
+		hamb.calculate();
+
 })();
 
 
@@ -532,7 +566,7 @@ function randomise() {
 	//let plaseForNumber = document.getElementById('first-item');
 
 //получим в массив все элементы, внутрь которых надо вставлять рандомайзер
-	let elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+	var elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
 //
 		finalRandomNumber = [],
 //
@@ -548,14 +582,14 @@ function randomise() {
 //функция выводит элементы с задержкой 0.2 секунды
 	function makeRandomNumber(where) {
 //получаем массив из 10 случайных чисел, которые будем анимировать
-	let numbersForScroll = [];
-	for ( let k = 0; k < 10; k++ ) {
+	var numbersForScroll = [];
+	for ( var k = 0; k < 10; k++ ) {
 		numbersForScroll.push(getRandomNumber());
 		}
 //записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
 	finalRandomNumber.push(numbersForScroll[9]);
 //выводим 10 раз элемнты массива, начиная с 0-го
-		let i = 0;
+		var i = 0;
 		( function numbersScroller() {
 			if ( i < 10 ) {
 				where.innerHTML = numbersForScroll[i];
@@ -588,7 +622,7 @@ function randomise() {
 
 //для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
 //элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
-	for (let i = 0; i < elementsToPlaseRandomizer.length; i++) {
+	for (var i = 0; i < elementsToPlaseRandomizer.length; i++) {
 		makeRandomNumber(elementsToPlaseRandomizer[i]);
 	}
 
@@ -600,13 +634,13 @@ showDescription(numberToAnalize);
 'use strict';
 
 // Массив с номерами вопросов и ответов для одного раунда
-let roundNumbers = [],
+var roundNumbers = [],
 // Массив вопросов и ответов для одного раунда
 		roundQuestionsAndAnswers = [],
 // Массив для хранения уже заданных вопросов
 		usedNumbers = [];
 // Кнопка "Новая игра"
-let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
+var newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 // Кнопка "Новый раунд"
 	newRoundBtn = document.getElementsByClassName( 'quiz__game-btn' )[1],
 // Кнопка "Начать заново"
@@ -644,9 +678,9 @@ let newGameBtn = document.getElementsByClassName( 'quiz__game-btn' )[0],
 		var allQuestions = JSON.parse( xhr.responseText ); 
 
 // Функция дает случайное число, не входящее в массив уже использованых номеров
-function getRandomNumber(min = 0, max = 49) {
+function getRandomNumber(min, max){
 	do {
-		var rand = parseInt(Math.random() * (max - min) + min);
+		var rand = parseInt(Math.random() * (49 - 0) + 0);
 	}
 	while (usedNumbers.indexOf(rand) !== -1);
 	return rand
@@ -715,7 +749,7 @@ Quiz.prototype.makeRound = function() {
 // можно ли выполнять отсчет
 		dodo = true;
 // Обработчик нажатия на кнопку ответ - останавливает таймер и чищает его в HTML
-		answerBtn.addEventListener( 'click', () => { 
+		answerBtn.addEventListener( 'click', function (){ 
 			dodo = false; 
 			timerPlace.innerHTML = ''; 
 			});
@@ -731,7 +765,7 @@ Quiz.prototype.makeRound = function() {
 		};
 
 // Задаем первый вопрос
-questionOne = () => {
+questionOne = function(){
 	console.log( 'Задаю первый вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[0].question;
 	countTen();
@@ -749,7 +783,7 @@ questionOne = () => {
 };
 
 // Задаем второй вопрос
-questionTwo = () => {
+questionTwo = function(){
 	console.log( 'Задаю второй вопрос' );
 	questionPlace.innerHTML = roundQuestionsAndAnswers[1].question;
 	var q2Timeout = setTimeout( goToThree, 20000 );
@@ -766,7 +800,7 @@ questionTwo = () => {
 };
 
 // Задаем третий вопрос
-questionThree = () => {
+questionThree = function(){
 	console.log('Задаю третий вопрос')
 	questionPlace.innerHTML = roundQuestionsAndAnswers[2].question;
 	var q3Timeout = setTimeout( goToEnd, 20000 );
