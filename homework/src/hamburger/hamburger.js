@@ -193,7 +193,7 @@
 		cheeze = new BurgerParameter( 'topping', 'cheeze', 10, 20 ),
 		salad = new BurgerParameter( 'topping', 'salad', 20, 5 ),
 		potato = new BurgerParameter( 'topping', 'potato', 10, 20 ),
-		spice = new BurgerParameter( 'topping', 'spice', 10, 20 ),
+		spice = new BurgerParameter( 'topping', 'spice', 10, 0 ),
 		mayo = new BurgerParameter( 'topping', 'mayo', 10, 20 ),
 		hamb = new Hamburger( s , [] );
 
