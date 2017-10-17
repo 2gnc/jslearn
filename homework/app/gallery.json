@@ -1,5 +1,4 @@
-{
-"question": [
+{"links": [
 		{
 			"thumb": "/img/gallery/001.jpeg",
 			"largeLink" : "https://images.unsplash.com/photo-1501703380849-59652657bb90?dpr=1&auto=compress,format&fit=crop&w=1352&h=&q=80&cs=tinysrgb&crop=",
@@ -65,5 +64,4 @@
 			"largeLink" : "https://images.unsplash.com/photo-1464111408108-16020bcc8d4e?dpr=1&auto=compress,format&fit=crop&w=1352&h=&q=80&cs=tinysrgb&crop=",
 			"desc" : "Wall Street Art in a Public place"
 		}
-	]
-}
+	]}
