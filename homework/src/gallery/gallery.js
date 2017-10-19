@@ -22,9 +22,14 @@ window.addEventListener( 'load', getGalleryLinks );
 			var links = JSON.parse( xhr.responseText ),
 				gallery = document.querySelector( '.gallery__box' );
 				links.links.forEach( function( item, i, arr ) {
+					item.displayed = false;
+				} );
+				links.links.forEach( function( item, i, arr ) {
 					var galleryEl = document.createElement( 'div' ),
 						imgLink = document.createElement( 'a' ),
-						img = document.createElement( 'img' );
+						img = document.createElement( 'img' ),
+						caption = document.createElement( 'p' );
+					caption.classList.add( 'gallery__caption' );
 					img.setAttribute( 'src', item.thumb );
 					img.classList.add( 'gallery__img' );
 					imgLink.classList.add( 'gallery__link' );
@@ -36,7 +41,8 @@ window.addEventListener( 'load', getGalleryLinks );
 					setTimeout( function() { //display
 						img.classList.add( 'gallery__img--visible' );
 						 }, 200 );
-					
+					galleryEl.appendChild( caption );
+					caption.appendChild(document.createTextNode( item.desc ))
 				} )
 		};
 	};
