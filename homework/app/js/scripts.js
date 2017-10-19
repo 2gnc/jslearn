@@ -271,6 +271,9 @@ window.addEventListener( 'load', getGalleryLinks );
 
 
 })();
+
+// добавить загрузку по 3 штуки
+// добавить открытие большой картинки в модальном окне
 /**
  * Namespace for hamburger.
  * @Hamburger namespace
