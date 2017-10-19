@@ -235,7 +235,7 @@ window.addEventListener( 'load', getGalleryLinks );
 		xhr.onreadystatechange = function(e) {
 			if (xhr.readyState === 4) {
 				if (xhr.status === 200) {
-					galleryBuild();
+					galleryBuilder();
 			} else {
 			return
 			};
@@ -246,9 +246,26 @@ window.addEventListener( 'load', getGalleryLinks );
 		};
 		xhr.open('get', 'gallery.json', true)
 		xhr.send();
-		function galleryBuild() {
-			var links = JSON.parse( xhr.responseText );
-			console.log( links.links );
+		function galleryBuilder() {
+			var links = JSON.parse( xhr.responseText ),
+				gallery = document.querySelector( '.gallery__box' );
+				links.links.forEach( function( item, i, arr ) {
+					var galleryEl = document.createElement( 'div' ),
+						imgLink = document.createElement( 'a' ),
+						img = document.createElement( 'img' );
+					img.setAttribute( 'src', item.thumb );
+					img.classList.add( 'gallery__img' );
+					imgLink.classList.add( 'gallery__link' );
+					imgLink.setAttribute( 'href', item.largeLink );
+					galleryEl.classList.add( 'gallery__item' ); 
+					gallery.appendChild( galleryEl ); //display
+					galleryEl.appendChild( imgLink ); //display
+					imgLink.appendChild( img );       //display
+					setTimeout( function() { //display
+						img.classList.add( 'gallery__img--visible' );
+						 }, 200 );
+					
+				} )
 		};
 	};
 
@@ -938,7 +955,7 @@ var textRedactor = function() {
 // после ввода строки, очищаем поле ввода
 		document.getElementById( 'redactorinput' ).value = '';
 //возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
+		document.getElementById( 'redactorinput' );
 // очищаем сообщение об ошибке, если оно было на экране
 		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
 			placeToShow.innerHTML = '';

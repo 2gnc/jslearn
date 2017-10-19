@@ -34,7 +34,7 @@ var textRedactor = function() {
 // после ввода строки, очищаем поле ввода
 		document.getElementById( 'redactorinput' ).value = '';
 //возвращаем фокус полю ввода
-		document.getElementById( 'redactorinput' ).focus();
+		document.getElementById( 'redactorinput' );
 // очищаем сообщение об ошибке, если оно было на экране
 		if (placeToShow.innerHTML == 'err: вы ничего не ввели! ') {
 			placeToShow.innerHTML = '';
