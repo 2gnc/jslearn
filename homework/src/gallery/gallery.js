@@ -1,5 +1,5 @@
 (function(){
-
+'use starict';
 window.addEventListener( 'load', getGalleryLinks );
 
 	function getGalleryLinks() {
@@ -24,26 +24,28 @@ window.addEventListener( 'load', getGalleryLinks );
 				links.links.forEach( function( item, i, arr ) {
 					item.displayed = false;
 				} );
+// создаем элементы для всех объектов в массиве
 				links.links.forEach( function( item, i, arr ) {
 					var galleryEl = document.createElement( 'div' ),
 						imgLink = document.createElement( 'a' ),
 						img = document.createElement( 'img' ),
 						caption = document.createElement( 'p' );
-					caption.classList.add( 'gallery__caption' );
-					img.setAttribute( 'src', item.thumb );
-					img.classList.add( 'gallery__img' );
-					imgLink.classList.add( 'gallery__link' );
-					imgLink.setAttribute( 'href', item.largeLink );
-					galleryEl.classList.add( 'gallery__item' ); 
-					gallery.appendChild( galleryEl ); //display
-					galleryEl.appendChild( imgLink ); //display
-					imgLink.appendChild( img );       //display
-					setTimeout( function() { //display
-						img.classList.add( 'gallery__img--visible' );
-						 }, 200 );
-					galleryEl.appendChild( caption );
-					caption.appendChild(document.createTextNode( item.desc ))
-				} )
+				caption.classList.add( 'gallery__caption' );
+				img.setAttribute( 'src', item.thumb );
+				img.classList.add( 'gallery__img' );
+				imgLink.classList.add( 'gallery__link' );
+				imgLink.setAttribute( 'href', item.largeLink );
+				galleryEl.classList.add( 'gallery__item' );
+// выводим первые три, меняем им свойство "displayed" и выводим кнопку "далее", если в массиве есть еще не отображенные элементы
+				gallery.appendChild( galleryEl ); //display
+				galleryEl.appendChild( imgLink ); //display
+				imgLink.appendChild( img );       //display
+				setTimeout( function() { //display
+					img.classList.add( 'gallery__img--visible' );
+					 }, 200 );
+				galleryEl.appendChild( caption );  //display
+				caption.appendChild(document.createTextNode( item.desc ))  //display
+			} )
 		};
 	};
 

@@ -157,77 +157,8 @@ function refresh(){
 	document.getElementById( 'secondNum' ).removeAttribute('disabled', '');
 	document.getElementById( 'thirdNum' ).removeAttribute('disabled', '');
 }
-'use strict';
-
-function findDifferent() {
-
-//получаем переменные из инпутов
-	var n1 = parseInt(document.getElementById( 'n1' ).value),
-		n2 = parseInt(document.getElementById( 'n2' ).value),
-		n3 = parseInt(document.getElementById( 'n3' ).value),
-		n4 = parseInt(document.getElementById( 'n4' ).value),
-		differentNumber;
-
-//сбросим оформление инпутов, если что-то было введено раньше
-// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
-	var a = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < a.length; i++) {
-			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
-		}
-
-//определим, какое по счету число является отличным от трех остальных, 
-//присвоим переменной differentNumber порядковый номер отличного чила в массиве
-	if( n1 == n2 && n2 == n3 && n4 != n1) {
-		differentNumber = 3;
-//четвертое
-	}
-	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
-		differentNumber = 2;
-//третье
-	}
-	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
-		differentNumber = 1;
-//второе
-	}
-	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
-		differentNumber = 0;
-//первое
-	}
-	else if (n1 == n2 && n2 == n3 && n3 == n4) {
-		differentNumber = 'error';
-	}
-//три числа из четырех не равны между собой или все числа между собой равны
-	else {
-		differentNumber = 'error';
-	}
-
-//функция берет массив всех элементов input
-// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
-	function showDifferent(serialNumber) {
-			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
-	};
-//присвоим класс отличному числу, если оно есть
-	if( differentNumber !='error' ) {
-		showDifferent(differentNumber)
-	}
-	else {
-		var b = document.getElementsByClassName( 'different__value' );
-		for (var i = 0; i < b.length; i++) {
-			b[i].classList.add( 'different__value--wrong' )
-			}
-		};
-	};
-
-// очистка оформления и значений инпутов
-function refreshDifferent() {
-	var a = document.getElementsByClassName( 'different__value' );
-	for (var i = 0; i < a.length; i++) {
-		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
-		a[i].value = '';
-	}
-};
 (function(){
-
+'use starict';
 window.addEventListener( 'load', getGalleryLinks );
 
 	function getGalleryLinks() {
@@ -252,26 +183,28 @@ window.addEventListener( 'load', getGalleryLinks );
 				links.links.forEach( function( item, i, arr ) {
 					item.displayed = false;
 				} );
+// создаем элементы для всех объектов в массиве
 				links.links.forEach( function( item, i, arr ) {
 					var galleryEl = document.createElement( 'div' ),
 						imgLink = document.createElement( 'a' ),
 						img = document.createElement( 'img' ),
 						caption = document.createElement( 'p' );
-					caption.classList.add( 'gallery__caption' );
-					img.setAttribute( 'src', item.thumb );
-					img.classList.add( 'gallery__img' );
-					imgLink.classList.add( 'gallery__link' );
-					imgLink.setAttribute( 'href', item.largeLink );
-					galleryEl.classList.add( 'gallery__item' ); 
-					gallery.appendChild( galleryEl ); //display
-					galleryEl.appendChild( imgLink ); //display
-					imgLink.appendChild( img );       //display
-					setTimeout( function() { //display
-						img.classList.add( 'gallery__img--visible' );
-						 }, 200 );
-					galleryEl.appendChild( caption );
-					caption.appendChild(document.createTextNode( item.desc ))
-				} )
+				caption.classList.add( 'gallery__caption' );
+				img.setAttribute( 'src', item.thumb );
+				img.classList.add( 'gallery__img' );
+				imgLink.classList.add( 'gallery__link' );
+				imgLink.setAttribute( 'href', item.largeLink );
+				galleryEl.classList.add( 'gallery__item' );
+// выводим первые три, меняем им свойство "displayed" и выводим кнопку "далее", если в массиве есть еще не отображенные элементы
+				gallery.appendChild( galleryEl ); //display
+				galleryEl.appendChild( imgLink ); //display
+				imgLink.appendChild( img );       //display
+				setTimeout( function() { //display
+					img.classList.add( 'gallery__img--visible' );
+					 }, 200 );
+				galleryEl.appendChild( caption );  //display
+				caption.appendChild(document.createTextNode( item.desc ))  //display
+			} )
 		};
 	};
 
@@ -488,6 +421,75 @@ window.addEventListener( 'load', getGalleryLinks );
 
 
 
+'use strict';
+
+function findDifferent() {
+
+//получаем переменные из инпутов
+	var n1 = parseInt(document.getElementById( 'n1' ).value),
+		n2 = parseInt(document.getElementById( 'n2' ).value),
+		n3 = parseInt(document.getElementById( 'n3' ).value),
+		n4 = parseInt(document.getElementById( 'n4' ).value),
+		differentNumber;
+
+//сбросим оформление инпутов, если что-то было введено раньше
+// возьмем все элементы с классом different__value, у каждого удалим оба класса оформления
+	var a = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < a.length; i++) {
+			a[i].classList.remove( 'different__value--wrong', 'different__value--this' )
+		}
+
+//определим, какое по счету число является отличным от трех остальных, 
+//присвоим переменной differentNumber порядковый номер отличного чила в массиве
+	if( n1 == n2 && n2 == n3 && n4 != n1) {
+		differentNumber = 3;
+//четвертое
+	}
+	else if ( n1 == n2 && n2 == n4 && n3 != n1) {
+		differentNumber = 2;
+//третье
+	}
+	else if ( n1 == n3 && n3 == n4 && n2 != n1) {
+		differentNumber = 1;
+//второе
+	}
+	else if ( n2 == n3 && n3 == n4 && n1 != n2) {
+		differentNumber = 0;
+//первое
+	}
+	else if (n1 == n2 && n2 == n3 && n3 == n4) {
+		differentNumber = 'error';
+	}
+//три числа из четырех не равны между собой или все числа между собой равны
+	else {
+		differentNumber = 'error';
+	}
+
+//функция берет массив всех элементов input
+// и присваивает определенному из них (индекс массива = serialNumber) дополнительный класс
+	function showDifferent(serialNumber) {
+			document.getElementsByClassName( 'different__value' )[serialNumber].classList.add( 'different__value--this' );
+	};
+//присвоим класс отличному числу, если оно есть
+	if( differentNumber !='error' ) {
+		showDifferent(differentNumber)
+	}
+	else {
+		var b = document.getElementsByClassName( 'different__value' );
+		for (var i = 0; i < b.length; i++) {
+			b[i].classList.add( 'different__value--wrong' )
+			}
+		};
+	};
+
+// очистка оформления и значений инпутов
+function refreshDifferent() {
+	var a = document.getElementsByClassName( 'different__value' );
+	for (var i = 0; i < a.length; i++) {
+		a[i].classList.remove( 'different__value--wrong', 'different__value--this' );
+		a[i].value = '';
+	}
+};
 "use strict";
 //test
 
@@ -614,77 +616,6 @@ buttonAdd.addEventListener( 'click', clicker );
 
 
 
-'use strict'
-//функция для получения случайного целого числа
-function randomise() {
-	//let plaseForNumber = document.getElementById('first-item');
-
-//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
-	var elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
-//
-		finalRandomNumber = [],
-//
-		numberToAnalize,
-// куда выводить текстовое описание
-		placeForDescription = document.getElementById( 'result' );
-
-//функция дает случайное целое число
-	function getRandomNumber() {
-		return parseInt( Math.random()*10 )
-	}
-
-//функция выводит элементы с задержкой 0.2 секунды
-	function makeRandomNumber(where) {
-//получаем массив из 10 случайных чисел, которые будем анимировать
-	var numbersForScroll = [];
-	for ( var k = 0; k < 10; k++ ) {
-		numbersForScroll.push(getRandomNumber());
-		}
-//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
-	finalRandomNumber.push(numbersForScroll[9]);
-//выводим 10 раз элемнты массива, начиная с 0-го
-		var i = 0;
-		( function numbersScroller() {
-			if ( i < 10 ) {
-				where.innerHTML = numbersForScroll[i];
-				i++;
-				setTimeout( numbersScroller, 200 );
-			}
-//затем выводм и оставляем последнее число
-			else {
-				where.innerHTML = numbersForScroll[9];
-			}
-		}
-			)();
-			return finalRandomNumber;
-	}
-//функция с задержкой показывает на доске, какое число: четное или не четное
-	function showDescription(numberToDescript) {
-// очищаем предыдущее описание числа, если оно было
-		if ( placeForDescription.innerHTML !== '' ) {
-		placeForDescription.innerHTML = '';
-		}
-		setTimeout( function(){
-			if ( numberToAnalize%2 != 0 ) {
-				placeForDescription.innerHTML = 'Это нечетное целое число';
-			}
-			else {
-				placeForDescription.innerHTML = 'Это четное целое число';
-			}}
-		, 2500)
-	};
-
-//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
-//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
-	for (var i = 0; i < elementsToPlaseRandomizer.length; i++) {
-		makeRandomNumber(elementsToPlaseRandomizer[i]);
-	}
-
-//получили трехзначное число для последующего анализа
-numberToAnalize = parseInt(finalRandomNumber.join(''));
-showDescription(numberToAnalize);
-
-};
 'use strict';
 
 // Массив с номерами вопросов и ответов для одного раунда
@@ -928,6 +859,77 @@ function makeQuiz() {
 };
 
 // Алгоритм раунда: https://github.com/2gnc/jslearn/blob/master/homework/src/quiz/quiz-algorythm.jpg 
+'use strict'
+//функция для получения случайного целого числа
+function randomise() {
+	//let plaseForNumber = document.getElementById('first-item');
+
+//получим в массив все элементы, внутрь которых надо вставлять рандомайзер
+	var elementsToPlaseRandomizer = document.getElementsByClassName( 'number-desc__item' ),
+//
+		finalRandomNumber = [],
+//
+		numberToAnalize,
+// куда выводить текстовое описание
+		placeForDescription = document.getElementById( 'result' );
+
+//функция дает случайное целое число
+	function getRandomNumber() {
+		return parseInt( Math.random()*10 )
+	}
+
+//функция выводит элементы с задержкой 0.2 секунды
+	function makeRandomNumber(where) {
+//получаем массив из 10 случайных чисел, которые будем анимировать
+	var numbersForScroll = [];
+	for ( var k = 0; k < 10; k++ ) {
+		numbersForScroll.push(getRandomNumber());
+		}
+//записываем 3 последних числа каждого массива в новый массив, из которого потом получим трехзначное число
+	finalRandomNumber.push(numbersForScroll[9]);
+//выводим 10 раз элемнты массива, начиная с 0-го
+		var i = 0;
+		( function numbersScroller() {
+			if ( i < 10 ) {
+				where.innerHTML = numbersForScroll[i];
+				i++;
+				setTimeout( numbersScroller, 200 );
+			}
+//затем выводм и оставляем последнее число
+			else {
+				where.innerHTML = numbersForScroll[9];
+			}
+		}
+			)();
+			return finalRandomNumber;
+	}
+//функция с задержкой показывает на доске, какое число: четное или не четное
+	function showDescription(numberToDescript) {
+// очищаем предыдущее описание числа, если оно было
+		if ( placeForDescription.innerHTML !== '' ) {
+		placeForDescription.innerHTML = '';
+		}
+		setTimeout( function(){
+			if ( numberToAnalize%2 != 0 ) {
+				placeForDescription.innerHTML = 'Это нечетное целое число';
+			}
+			else {
+				placeForDescription.innerHTML = 'Это четное целое число';
+			}}
+		, 2500)
+	};
+
+//для масива с элементами для простановки случайных чисел вызываем рандомайзер: в результате в каждом
+//элементе .number-desc__item на странице выводится рандомайзер и показывается последнее число из десяти
+	for (var i = 0; i < elementsToPlaseRandomizer.length; i++) {
+		makeRandomNumber(elementsToPlaseRandomizer[i]);
+	}
+
+//получили трехзначное число для последующего анализа
+numberToAnalize = parseInt(finalRandomNumber.join(''));
+showDescription(numberToAnalize);
+
+};
 'use strict';
 
 var textRedactor = function() {
