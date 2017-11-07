@@ -42,11 +42,11 @@
 				args = arguments.length,
 				obj = {};
 		// проверить, числа ли во входе. Если нет - перобразовать, если не получилось - выйти с ошибкой. 
-		for ( var i = 0; i < args; i++ ) {
+		for ( let i = 0; i < args; i++ ) {
 			if( Number(arguments[i]) ) {
 				input.push( Number(arguments[i]) )
 			}
-		};
+		}
 		if ( input.length !== args || input.length > 4 ) {
 			console.log( 'слишком много сторон или некорректный формат' );
 			input = [];
@@ -59,30 +59,24 @@
 				}
 			}
 		}
-		switch( args ) {
-			case 0: 
-				area = 0;
-				figure = 'точка';
-				break;
-			case 1:
-				area = 0;
-				figure = 'линия';
-				break;
-			case 2: 
-				area = (a * b).toFixed(2);
-				figure = 'прямоугольник';
-				break;
-			case 3:
-				p = a/2 + b/2 + c/2;
-				area = Math.sqrt( p * ( p - a )*( p - b ) * ( p - c ) ).toFixed(2);
-				figure = 'треугольник';
-				break;
-			default :
-				p1 = a/2 + b/2 + c/2 + d/2;
-				area = Math.sqrt( ( p - a )*( p - b ) * ( p - c ) *  ( p - d ) ).toFixed(2);
-				figure = 'четырехугольник';;
-				break;
-		}
+        if (args === 0) {
+            area = 0;
+            figure = 'точка';
+        } else if (args === 1) {
+            area = 0;
+            figure = 'линия';
+        } else if (args === 2) {
+            area = (a * b).toFixed(2);
+            figure = 'прямоугольник';
+        } else if (args === 3) {
+            p = a / 2 + b / 2 + c / 2;
+            area = Math.sqrt(p * ( p - a ) * ( p - b ) * ( p - c )).toFixed(2);
+            figure = 'треугольник';
+        } else {
+            p1 = a / 2 + b / 2 + c / 2 + d / 2;
+            area = Math.sqrt(( p - a ) * ( p - b ) * ( p - c ) * ( p - d )).toFixed(2);
+            figure = 'четырехугольник';
+        }
 		return obj = {
 			name: figure,
 			area: area,
@@ -109,3 +103,43 @@
 // его параметрами из экземпляра Employee
 // Чтобы вызвать метод базового класса, необходимо внутри вызова метода displayInfo класса Employee 
 // написать: super.displayInfo(), это вызовет метод disaplyInfo класс Human и вернет строку с параметрами Human'a.
+
+(function() {
+	class Human
+		{
+			constructor( name, age, dateOfBirth )
+			{
+				this.name = name;
+				this.age = age;
+				this.dateOfBirth = dateOfBirth;
+
+			}
+			displayInfo()
+			{
+				console.log( this );
+			}
+		};
+	class Employee extends Human
+		{
+            constructor( name, age, dateOfBirth, salary, department)
+				{
+					super( name, age, dateOfBirth );
+					this.salary = salary;
+					this.department = department;
+				}
+			};
+	class Developer extends Employee
+		{
+            constructor( manager )
+			{
+				this.manager = manager;
+			}
+
+		};
+	class Manager extends Employee
+		{
+
+		};
+	
+
+})();
