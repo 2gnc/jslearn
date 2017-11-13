@@ -7,7 +7,8 @@
 (function() 
 {
 	/**
-	 * @function loop 
+	 * @function loop
+	 * @name Task01#loop
 	 * @param {Number} times By default:0 How many times should loop call callback function.
 	 * @param {foo} callback Function, that will be called.
 	 * @desc for showing how to use callback
@@ -119,6 +120,7 @@
 /**
  * @class
  * @classdesc Basic class for all other subclasses
+ * @memberof Task03
  */
 	class Human
 		{
@@ -127,6 +129,7 @@
  * @param {string} name
  * @param {number} age
  * @param {string} dateOfBirth
+ * @memberof Task03
 */
 			constructor( name, age, dateOfBirth )
 			{
@@ -147,7 +150,8 @@
 /**
  * @class
  * @classdesc Describes Employee
- * @extends Human
+ * @extends Task03.Human
+ * @memberof Task03
  */
 	class Employee extends Human
 		{
@@ -175,7 +179,8 @@
 /**
  * @class
  * @classdesc Describes Developer
- * @extends Employee
+ * @extends Task03.Employee
+ * @memberof Task03
  */
 	class Developer extends Employee {
 /**
@@ -225,10 +230,10 @@
 /**
  * @class
  * @classdesc Describes Manager
- * @extends Employee
+ * @extends Task03.Employee
+ * @memberof Task03
  */
-	class Manager extends Employee
-		{	
+	class Manager extends Employee {	
 /**
  * Makes Manager
  * @param {string} name
