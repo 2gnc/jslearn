@@ -1,14 +1,8 @@
 'use strict';
 
-// Написать функцию loop, которая будет принимать 
-// параметры: times (значение по умолчанию = 0), 
-// callback (значение по умолчанию = null) и будет в цикле (times раз), 
-// вызывать функцию callback. Если функцию не передана, то цикл не должен отрабатывать ни разу. 
-// Покажите применение этой функции
-
 /**
-* @namespace Loop
-* @desc Loop Hold all functionality for part 1 of homework
+* @namespace Task01
+* @desc Task01 Hold all functionality for part 1 of homework
 */
 (function() 
 {
@@ -16,8 +10,8 @@
 	 * @function loop 
 	 * @param {Number} times By default:0 How many times should loop call callback function.
 	 * @param {foo} callback Function, that will be called.
-	 * @desc for showing ho to use callback
-	 * @memberof Loop
+	 * @desc for showing how to use callback
+	 * @memberof Task01
 	 * @instance
 	 */
 	const loop = function( times = 0, callback = null ) {
@@ -34,7 +28,7 @@
 	 * @callback foo
 	 * @name foo
 	 * @desc just prints 'r' in console.
-	 * @memberof Loop
+	 * @memberof Task01
 	 * @instance
 	 */
 	let foo = () => {
@@ -44,18 +38,9 @@
 	loop(2, foo );
 })();
 
-// Написать функцию calculateArea, которая будет принимать параметры, 
-// для вычисления площади (можете выбрать какую то конкретную фигуру, а можете, 
-// 	основываясь на переданных параметрах, выполнять требуемый алгоритм вычисления 
-// 	площади для переданной в параметрах фигуры) и возвращать объект вида:
-// 	 { area, figure, input }, где area - вычисленная площадь, figure - 
-// 	 название фигуры, для которой вычислялась площадь, input - входные параметры, 
-// 	 по которым было произведено вычисление.
-
-
 /**
-* @namespace calculateArea
-* @desc calculateArea Hold all functionality for part 2 of homework
+* @namespace Task02
+* @desc Task02 Hold all functionality for part 2 of homework
 */
 (function() 
 {
@@ -66,8 +51,9 @@
  * @param {Number} c third side
  * @param {Number} d fourth side
  * @desc depending on the number of parameters determines figure type and calculates its area. Tries to cast the format of the argument to a number. Max number of arguments: 4.
- * @memberof calculateArea
+ * @memberof Task02
  * @instance
+ * @returns {object} obj 
  */
 	const calculateArea = function( a, b, c, d ) {
 		let figure = '',
@@ -125,23 +111,10 @@
 	calculateArea(2, 3).print();
 })();
 
-// 3. Необходимо написать иерархию классов вида:
-// Human -> Employee -> Developer
-// Human -> Employee -> Manager
-// Каждый Менеджер (Manager) должен иметь внутренний массив своих сотрудников (разработчиков), 
-// а также методы по удалению/добавлению разработчиков.
-// Каждый Разработчик (Developer) должны иметь ссылку на Менеджера и методы для изменения менеджера 
-// (имеется ввиду возможность назначить другого менеджера).
-// У класса Human должны быть следующие параметры: name (строка), age (число), dateOfBirth (строка или дата)
-// У класса Employee должны присутствовать параметры: salary (число), department (строка)
-// В классе Human должен присутствовать метод displayInfo, который возвращает строку со всеми параметрами экземпляра Human.
-// В классе Employee должен быть реализовать такой же метод (displayInfo), который вызывает базовый метод и дополняет 
-// его параметрами из экземпляра Employee
-// Чтобы вызвать метод базового класса, необходимо внутри вызова метода displayInfo класса Employee 
-// написать: super.displayInfo(), это вызовет метод disaplyInfo класс Human и вернет строку с параметрами Human'a.
-
-
-
+/**
+* @namespace Task03
+* @desc Task03 Hold all functionality for part 3 of homework
+*/
 (function() {
 /**
  * @class
@@ -165,9 +138,9 @@
 /** 
  * Shows this parameters
  */
-			displayInfo()
-			{
-				console.log( this );
+			displayInfo() {
+				let info = this.name + ', ' + this.age + ', ' + this.dateOfBirth + ', ';
+				return info
 			}
 		};
 
@@ -186,39 +159,154 @@
  * @param {number} salary
  * @param {string} department
 */
-            constructor( name, age, dateOfBirth, salary, department)
-				{
-					super( name, age, dateOfBirth );
-					this.salary = salary;
-					this.department = department;
-				}
+		constructor( name, age, dateOfBirth, salary, department) {
+			super( name, age, dateOfBirth );
+			this.salary = salary;
+			this.department = department;
 			};
+/** 
+ * Shows this parameters
+ */
+		displayInfo() {
+			let info = super.displayInfo() + this.salary + ', ' + this.department + ', ';
+			return info
+			}
+		};
 /**
  * @class
  * @classdesc Describes Developer
  * @extends Employee
  */
-	class Developer extends Employee
-		{
+	class Developer extends Employee {
 /**
  * Makes Developer
+ * @param {string} name
+ * @param {number} age
+ * @param {string} dateOfBirth
+ * @param {number} salary
+ * @param {string} department
+ * @param {object} manager 
  */
+ 	constructor ( name, age, dateOfBirth, salary, department ) {
+ 		super( name, age, dateOfBirth, salary, department );
+ 		this.manager = {};
+ 		};
 
-            constructor( manager )
-			{
-				this.manager = manager;
-			}
-
+/**
+* Sets Manager fot this Developer
+* @param {object} manager Manager instance, that will be setted to this developer. Adds this developer to Manager`s developeers array, and remve it as well.
+*/
+	setManager( newManager ) {
+		if( !(newManager instanceof Manager) || this.manager === newManager) {
+			return
 		};
+
+		// у менеджера, которого сменили (если он был ранее установлен), убираем разработчика из массива
+		if ( this.manager instanceof Manager ) {
+			this.manager.removeDeveloper( this );
+		};
+
+		// устанавливаем этому разработчику менеджера
+		this.manager = newManager;
+		newManager.addDeveloper( this );
+		console.log( 'для разработчика ' + this.name + ' установлен менеджер ' + newManager.name );
+	};
+
+/** 
+ * Shows parameters of Developer instance
+ */
+		displayInfo() {
+			let info = super.displayInfo() + ', менеджер: ' + this.manager.name ;
+			console.log( info );
+			return info
+			};
+	};
+
 /**
  * @class
  * @classdesc Describes Manager
  * @extends Employee
  */
 	class Manager extends Employee
-		{
+		{	
+/**
+ * Makes Manager
+ * @param {string} name
+ * @param {number} age
+ * @param {string} dateOfBirth
+ * @param {number} salary
+ * @param {string} department
+*/
+			constructor( name, age, dateOfBirth, salary, department) {
+				super( name, age, dateOfBirth, salary, department );
+				this.developers = [];
+			}
+/** 
+ * Adds one developer to manager
+ * @param {object} developer The Developer instance, that will be added to array "developers".
+ */
+			addDeveloper( developer ) {
+				if ( !(developer instanceof Developer) || this.developers.indexOf( developer ) !== -1 ) { 
+					return
+				};
+				this.developers.push( developer );
+				developer.setManager( this );
+				console.log( 'для менеджера ' + this.name + ' установлен разработчик ' + developer.name );
+			};
+/** 
+ * Removes one developer from manager
+ * @param {object} developer The Developer instance, that will be removed from array "developers".
+ */
+			removeDeveloper( developer ) {
+				if( !( developer instanceof Developer ) || this.developers.indexOf( developer ) === -1 ){
+					return
+				};
+				//delete this.developers[ this.developers.indexOf( developer ) ];
+				this.developers.splice( this.developers.indexOf( developer ), 1 );
+				console.log( 'для менеджера ' + this.name + ' удален разработчик ' + developer.name );
+			};
+/**
+* Gets names of Developers of this Manager
+*/
+			getDevelopers() {
+				let names = '',
+						that = this;
+				for ( let i = 0; i < this.developers.length; i++ ) {
+					names += that.developers[i].name + ' ';
+				};
+				return names
+			};
+
+/** 
+ * Shows parameters of Manager instance
+ */
+		displayInfo() {
+			let info = super.displayInfo() + ', разработчики: ' + this.getDevelopers() ;
+			console.log( info );
+			return info
+			};
 
 		};
 
+let a = new Manager( 'Вася', 33, '03-02-1983', 1000, 'IT' ),
+		b = new Manager( 'Колян', 25, '01-04-92', 1100, 'IT' ),
+		c = new Developer ( 'Иван', 40, '01-05-1970', 1500, 'IT' ),
+		d = new Developer ( 'Григорий', 39, '01-05-1969', 1500, 'IT' ),
+		e = new Developer ( 'Олег', 20, '01-01-1997', 1400, 'IT' );
+
+a.addDeveloper( c );
+a.addDeveloper( d );
+c.setManager( b );
+e.setManager( a );
+a.displayInfo();
+b.displayInfo();
+c.displayInfo();
+d.displayInfo();
+e.displayInfo();
 
 })();
+
+
+
+
+
