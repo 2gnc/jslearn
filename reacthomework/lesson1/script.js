@@ -308,8 +308,27 @@ b.displayInfo();
 c.displayInfo();
 d.displayInfo();
 e.displayInfo();
-
 })();
+
+/**
+* @namespace Task04
+* @desc Task04 Hold all functionality for part 4 of homework
+*/
+ ( /** @lends Task04 */ function(){
+
+ })();
+
+
+/**
+* @namespace Task05
+* @desc Task05 Hold all functionality for part 4 of homework
+*/
+ ( /** @lends Task05 */ function(){
+
+ })();
+
+
+
 
 
 
