@@ -954,7 +954,22 @@ var _Menu2 = _interopRequireDefault(_Menu);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom2.default.render(_react2.default.createElement(_Menu2.default, null), document.getElementById('app'));
+var items = [{
+	href: '/',
+	title: 'Главная'
+}, {
+	href: '/cat',
+	title: 'Каталог'
+}, {
+	href: '/contacts',
+	title: 'Контакты'
+}];
+
+_reactDom2.default.render(_react2.default.createElement(
+	_Menu2.default,
+	{ items: items, h1: '\u041C\u0435\u043D\u044E \u043D\u0430 \u0440\u0435\u0430\u043A\u0442' },
+	'lorem ipsum'
+), document.getElementById('app'));
 
 /***/ }),
 /* 15 */
@@ -18296,10 +18311,27 @@ var Menu = function (_React$Component) {
 	_createClass(Menu, [{
 		key: 'render',
 		value: function render() {
+			var menuItems = this.props.items.map(function (value, index) {
+				return _react2.default.createElement(_MenuItem2.default, { href: value.href, title: value.title, key: 'menuItem' + index });
+			});
 			return _react2.default.createElement(
-				'ul',
+				'div',
 				null,
-				_react2.default.createElement(_MenuItem2.default, null)
+				_react2.default.createElement(
+					'h1',
+					null,
+					this.props.h1
+				),
+				_react2.default.createElement(
+					'ul',
+					null,
+					menuItems
+				),
+				_react2.default.createElement(
+					'p',
+					null,
+					this.props.children
+				)
 			);
 		}
 	}]);
@@ -18349,7 +18381,13 @@ var MenuItem = function (_React$Component) {
 			return _react2.default.createElement(
 				'li',
 				null,
-				'\u0413\u043B\u0430\u0432\u043D\u0430\u044F'
+				_react2.default.createElement(
+					'a',
+					{ href: this.props.href },
+					' ',
+					this.props.title,
+					' '
+				)
 			);
 		}
 	}]);

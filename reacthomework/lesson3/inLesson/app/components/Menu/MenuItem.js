@@ -2,6 +2,8 @@ import React from 'react';
 
 export default class MenuItem extends React.Component {
 	render() {
-		return <li>Главная</li>;
+		return <li>
+			<a href = { this.props.href }> { this.props.title } </a>
+		</li>;
 	}
 };
